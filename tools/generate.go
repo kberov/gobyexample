@@ -17,7 +17,7 @@ import (
 	"github.com/alecthomas/chroma/v2/lexers"
 	"github.com/alecthomas/chroma/v2/styles"
 
-	"github.com/russross/blackfriday/v2"
+	bf "github.com/russross/blackfriday/v2"
 )
 
 // siteDir is the target directory into which the HTML gets generated. Its
@@ -66,7 +66,7 @@ func mustReadFile(path string) string {
 }
 
 func markdown(src string) string {
-	return string(blackfriday.Run([]byte(src)))
+	return string(bf.Run([]byte(src), bf.WithExtensions(bf.Footnotes)))
 }
 
 func readLines(path string) []string {
@@ -253,8 +253,15 @@ func parseExamples() []*Example {
 		if verbose() {
 			fmt.Printf("Processing %s [%d/%d]\n", exampleName, i+1, len(exampleNames))
 		}
+		// Changed like in butuzov's Ukrainian translation to handle
+		// examples.txt in cyrillic.
+		exampleID := exampleName
+		if strings.Contains(exampleName, "|") {
+			parts := strings.Split(exampleName, "|")
+			exampleName, exampleID = parts[0], parts[1]
+		}
 		example := Example{Name: exampleName}
-		exampleID := strings.ToLower(exampleName)
+		exampleID = strings.ToLower(exampleID)
 		exampleID = strings.Replace(exampleID, " ", "-", -1)
 		exampleID = strings.Replace(exampleID, "/", "-", -1)
 		exampleID = strings.Replace(exampleID, "'", "", -1)
