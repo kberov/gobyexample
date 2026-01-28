@@ -1,5 +1,7 @@
-// `for` is Go's only looping construct. Here are
-// some basic types of `for` loops.
+// `for` е едиствения начин в Go за извършване на
+// повтарящи се действия[^loop]. Ето няколко основни
+// видове повторения.
+// [^loop]: loop - цикъл, итерация, повторение
 
 package main
 
@@ -7,34 +9,37 @@ import "fmt"
 
 func main() {
 
-	// The most basic type, with a single condition.
+	// Най-основния вид е с едно единствено условие.
 	i := 1
 	for i <= 3 {
 		fmt.Println(i)
 		i = i + 1
 	}
 
-	// A classic initial/condition/after `for` loop.
+	// Класическо повторение с начално действие; условие; последващо
+	// действие.
 	for j := 0; j < 3; j++ {
 		fmt.Println(j)
 	}
 
-	// Another way of accomplishing the basic "do this
-	// N times" iteration is `range` over an integer.
+	// Друг начин за постигане на основното действие
+	// „прави това N пъти” е `range` (порядък, поредност)
+	// от действия чрез цяло число.
 	for i := range 3 {
 		fmt.Println("range", i)
 	}
 
-	// `for` without a condition will loop repeatedly
-	// until you `break` out of the loop or `return` from
-	// the enclosing function.
+	// `for` без условие ще повтаря безкрайно действието
+	// между фигурните скоби, докато не прекъснете
+	// действието чрез `break` или излезете от обгръщащата
+	// функция чрез `return`.
 	for {
 		fmt.Println("loop")
 		break
 	}
 
-	// You can also `continue` to the next iteration of
-	// the loop.
+	// Също можете да продължите чрез `continue` към
+	// следващото действие, без да сте завършили текущото.
 	for n := range 6 {
 		if n%2 == 0 {
 			continue

@@ -1,4 +1,5 @@
-// Go supports _methods_ defined on struct types.
+// В Go всеки вид структура може да има собствени
+// _методи_.
 
 package main
 
