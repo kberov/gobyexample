@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Command-Line Arguments</title>
+    <title>Go в примери: Податки на командния ред</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="command-line-arguments">
-      <h2><a href="./">Go by Example</a>: Command-Line Arguments</h2>
+      <h2><a href="./">Go в примери</a>: Податки на командния ред</h2>
       
       <table>
         
@@ -150,12 +150,12 @@ with flags.</p>
       
       
       <p class="next">
-        Next example: <a href="command-line-flags" rel="next">Command-Line Flags</a>.
+        Следващ пример: <a href="command-line-flags" rel="next">Флагове на командния ред</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

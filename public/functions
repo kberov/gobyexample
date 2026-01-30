@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Functions</title>
+    <title>Go в примери: Функции</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,14 @@
   </script>
   <body>
     <div class="example" id="functions">
-      <h2><a href="./">Go by Example</a>: Functions</h2>
+      <h2><a href="./">Go в примери</a>: Функции</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><em>Functions</em> are central in Go. We&rsquo;ll learn about
-functions with a few different examples.</p>
+            <p><em>Функциите</em> са в сърцето на Go. Тук ще научим какво
+са с няколко примера.</p>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +45,7 @@ functions with a few different examples.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/-o49-dQfGbK"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/gAWk4MerJAE"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -62,8 +62,8 @@ functions with a few different examples.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s a function that takes two <code>int</code>s and returns
-their sum as an <code>int</code>.</p>
+            <p>Ето една функция, която приема две цели числа от вида
+<code>int</code> и връща сбора им отново като <code>int</code>.</p>
 
           </td>
           <td class="code leading">
@@ -74,9 +74,9 @@ their sum as an <code>int</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>Go requires explicit returns, i.e. it won&rsquo;t
-automatically return the value of the last
-expression.</p>
+            <p>В Го е задължително изрично да върнем обявената за
+връщане стойност. Сиреч, последният израз във
+функцията няма да бъде върнат автоматично.</p>
 
           </td>
           <td class="code leading">
@@ -88,10 +88,20 @@ expression.</p>
         
         <tr>
           <td class="docs">
-            <p>When you have multiple consecutive parameters of
-the same type, you may omit the type name for the
-like-typed parameters up to the final parameter that
-declares the type.</p>
+            <p>Когато имате множество последователни
+податки<sup class="footnote-ref" id="fnref:parameters"><a href="#fn:parameters">1</a></sup> от един и същи вид, може да
+пропуснете името на вида и да го обявите само след
+послената податка от същия вид.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:parameters">parameters – параметри, аргументи, податки</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -114,8 +124,8 @@ declares the type.</p>
         
         <tr>
           <td class="docs">
-            <p>Call a function just as you&rsquo;d expect, with
-<code>name(args)</code>.</p>
+            <p>Извиквате функцията точно както бихте очаквали,
+като напишете <code>имеНаФункцията(ала, бала)</code>.</p>
 
           </td>
           <td class="code leading">
@@ -155,8 +165,9 @@ declares the type.</p>
         
         <tr>
           <td class="docs">
-            <p>There are several other features to Go functions. One is
-multiple return values, which we&rsquo;ll look at next.</p>
+            <p>Функциите имат още няколко свойства. Едно от тях е
+възможността за връщане на множество стойности, която ще
+разгледаме в следващия пример.</p>
 
           </td>
           <td class="code empty">
@@ -169,12 +180,12 @@ multiple return values, which we&rsquo;ll look at next.</p>
       
       
       <p class="next">
-        Next example: <a href="multiple-return-values" rel="next">Multiple Return Values</a>.
+        Следващ пример: <a href="multiple-return-values" rel="next">Връщане на повече стойности</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

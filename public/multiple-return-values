@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Multiple Return Values</title>
+    <title>Go в примери: Връщане на повече стойности</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,16 @@
   </script>
   <body>
     <div class="example" id="multiple-return-values">
-      <h2><a href="./">Go by Example</a>: Multiple Return Values</h2>
+      <h2><a href="./">Go в примери</a>: Връщане на повече стойности</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go has built-in support for <em>multiple return values</em>.
-This feature is used often in idiomatic Go, for example
-to return both result and error values from a function.</p>
+            <p>Go има вградена поддръжка за <em>връщане на множество
+стойности</em> от функция. Тази способност на езика често
+се използва в присъщия на Го стил, например за да се
+върне едновременно стойност и грешка.</p>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +47,7 @@ to return both result and error values from a function.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/vZdUvLB1WbK"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/8ddRtHjjMzl"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -63,8 +64,18 @@ to return both result and error values from a function.</p>
         
         <tr>
           <td class="docs">
-            <p>The <code>(int, int)</code> in this function signature shows that
-the function returns 2 <code>int</code>s.</p>
+            <p>Изявлението <code>(int, int)</code> в заглавието<sup class="footnote-ref" id="fnref:signature"><a href="#fn:signature">1</a></sup> на
+тази функция указва, че функцията връща две цели числа.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:signature">signature – буквално подпис; в случая – заглавие. Програминят код между фигурните скоби пък е тяло на функцията.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -87,8 +98,8 @@ the function returns 2 <code>int</code>s.</p>
         
         <tr>
           <td class="docs">
-            <p>Here we use the 2 different return values from the
-call with <em>multiple assignment</em>.</p>
+            <p>Тук ползваме двете различни върнати стойности чрез
+<em>множестено присвояване</em>.</p>
 
           </td>
           <td class="code leading">
@@ -101,8 +112,9 @@ call with <em>multiple assignment</em>.</p>
         
         <tr>
           <td class="docs">
-            <p>If you only want a subset of the returned values,
-use the blank identifier <code>_</code>.</p>
+            <p>Ако искате само някои от върнатите стойности,
+използвайте празното име <code>_</code> за тези, които не ви
+трябват.</p>
 
           </td>
           <td class="code">
@@ -132,8 +144,9 @@ use the blank identifier <code>_</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>Accepting a variable number of arguments is another nice
-feature of Go functions; we&rsquo;ll look at this next.</p>
+            <p>Приемането на променлив брой податки е друго приятно
+свойство на функциите в Го, което ще разгледаме в
+следващия пример.</p>
 
           </td>
           <td class="code empty">
@@ -146,12 +159,12 @@ feature of Go functions; we&rsquo;ll look at this next.</p>
       
       
       <p class="next">
-        Next example: <a href="variadic-functions" rel="next">Variadic Functions</a>.
+        Следващ пример: <a href="variadic-functions" rel="next">Функции с произволен брой податки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

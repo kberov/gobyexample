@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Errors</title>
+    <title>Go в примери: Грешки</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="errors">
-      <h2><a href="./">Go by Example</a>: Errors</h2>
+      <h2><a href="./">Go в примери</a>: Грешки</h2>
       
       <table>
         
@@ -255,12 +255,12 @@ errors in a chain of errors.</p>
       
       
       <p class="next">
-        Next example: <a href="custom-errors" rel="next">Custom Errors</a>.
+        Следващ пример: <a href="custom-errors" rel="next">Собственоръчни Грешки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

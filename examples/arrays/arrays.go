@@ -1,7 +1,13 @@
-// In Go, an _array_ is a numbered sequence of elements of a
-// specific length. In typical Go code, [slices](slices) are
-// much more common; arrays are useful in some special
-// scenarios.
+// В Go, _поредица_[^array] се нарича подредена
+// последователност от членове[^elements] с определена
+// дължина. Обикновено в програмен код на Go
+// [отрязъците](slices)[^slices] се срещат много по-често;
+// поредиците са полезни в няои определени случаи, когато
+// предварително (още по време на компилиране) знаем
+// дължината им.
+// [^array]: array, поредица, масив. От простонароден латински през френски – ar-redare (вижте (https://www.etymonline.com/search?q=array)) – слагам в ред, подреждам.
+// [^elements]: elements – елементи, членове
+// [^slices]: slice – отрязък (от поредица): поредица с променлива по време на изпълнение дължина
 
 package main
 
@@ -9,54 +15,61 @@ import "fmt"
 
 func main() {
 
-	// Here we create an array `a` that will hold exactly
-	// 5 `int`s. The type of elements and length are both
-	// part of the array's type. By default an array is
-	// zero-valued, which for `int`s means `0`s.
+	// Тук създаваме поредицата `a`, която съдържа точно 5
+	// цели числа. Видът и броят на членовете заедно
+	// определят вида на поредицата. По подразбиране
+	// поредицата има нулева стойност. В случая, това
+	// означава, че тази поредица съдържа пет нули.
 	var a [5]int
-	fmt.Println("emp:", a)
+	fmt.Println("празен:", a)
 
-	// We can set a value at an index using the
-	// `array[index] = value` syntax, and get a value with
-	// `array[index]`.
+	// Можем да зададем стойност на определено
+	// място[^index] като напишем `поредица[място] = стойност`,
+	// а да вземем стойността, като напишем
+	// `поредица[място]`.
+	// [^index]: index – индекс, показалец, поредно място в поредицата
 	a[4] = 100
-	fmt.Println("set:", a)
-	fmt.Println("get:", a[4])
+	fmt.Println("задаваме:", a)
+	fmt.Println("достъпваме:", a[4])
 
-	// The builtin `len` returns the length of an array.
-	fmt.Println("len:", len(a))
+	// Вградената в езика фуннкция `len` връща дължината
+	// на поредицата.
+	fmt.Println("дължина:", len(a))
 
-	// Use this syntax to declare and initialize an array
-	// in one line.
+	// Използвайте следния правопис, за да обявите и
+	// зададете стойности за членовете в поредицата на
+	// един ред.
 	b := [5]int{1, 2, 3, 4, 5}
-	fmt.Println("dcl:", b)
+	fmt.Println("обявяваме:", b)
 
-	// You can also have the compiler count the number of
-	// elements for you with `...`
+	// Също така можете да накарате компилатора да преброи
+	// членовете в поредицата, като напишете `...` между
+	// квадратните скоби.
 	b = [...]int{1, 2, 3, 4, 5}
-	fmt.Println("dcl:", b)
+	fmt.Println("обявяваме:", b)
 
-	// If you specify the index with `:`, the elements in
-	// between will be zeroed.
+	// Ако укажете поредно място с `:`, междинните неупоменати
+	// членове ще бъдат зададени с нулеви стойности.
 	b = [...]int{100, 3: 400, 500}
-	fmt.Println("idx:", b)
+	fmt.Println("места:", b)
 
-	// Array types are one-dimensional, but you can
-	// compose types to build multi-dimensional data
-	// structures.
+	// Поредиците са едномерни, но можете да създадете
+	// съставни видове поредици, за да създадете
+	// многомерни структури от данни.
 	var twoD [2][3]int
 	for i := range 2 {
 		for j := range 3 {
 			twoD[i][j] = i + j
 		}
 	}
-	fmt.Println("2d: ", twoD)
+	fmt.Println("двумерна: ", twoD)
 
-	// You can create and initialize multi-dimensional
-	// arrays at once too.
+	// Можете едновременно да обявите и
+	// наченете[^initialize] (да зададете начални стойности за членовете в) поредици.
+	// [^initialize]: initialize – инициализирам, начевам, задавам начална стойност
 	twoD = [2][3]int{
 		{1, 2, 3},
 		{1, 2, 3},
 	}
-	fmt.Println("2d: ", twoD)
+	fmt.Println("двумерна: ", twoD)
 }
