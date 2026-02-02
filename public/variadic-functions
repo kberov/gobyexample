@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Variadic Functions</title>
+    <title>Go в примери: Функции с произволен брой податки</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,17 @@
   </script>
   <body>
     <div class="example" id="variadic-functions">
-      <h2><a href="./">Go by Example</a>: Variadic Functions</h2>
+      <h2><a href="./">Go в примери</a>: Функции с произволен брой податки</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><a href="https://en.wikipedia.org/wiki/Variadic_function"><em>Variadic functions</em></a>
-can be called with any number of trailing arguments.
-For example, <code>fmt.Println</code> is a common variadic
-function.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Variadic_function"><em>Функциите с променлив брой
+податки</em></a>
+могат да бъдат извикани с нула или повече последващи
+податки. <code>fmt.Println</code> е една от често използваните
+такива функции.</p>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +48,7 @@ function.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/glNdE8aKPNq"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/wkjv0aoDqQL"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -64,8 +65,7 @@ function.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s a function that will take an arbitrary number
-of <code>int</code>s as arguments.</p>
+            <p>Ето една функция, приемаща произволен брой цели числа.</p>
 
           </td>
           <td class="code leading">
@@ -78,9 +78,10 @@ of <code>int</code>s as arguments.</p>
         
         <tr>
           <td class="docs">
-            <p>Within the function, the type of <code>nums</code> is
-equivalent to <code>[]int</code>. We can call <code>len(nums)</code>,
-iterate over it with <code>range</code>, etc.</p>
+            <p>В тялото на функцията вида на <code>nums</code> е отрязък от
+цели числа – <code>[]int</code>. Можем да извикаме
+<code>len(nums)</code>, да обходим <code>nums</code> с помощта на <code>range</code>
+и т.н.</p>
 
           </td>
           <td class="code leading">
@@ -105,8 +106,7 @@ iterate over it with <code>range</code>, etc.</p>
         
         <tr>
           <td class="docs">
-            <p>Variadic functions can be called in the usual way
-with individual arguments.</p>
+            <p>Произволните функции могат да бъдат извиквани по обичайния начин с отделни, следващи една след друга податки.</p>
 
           </td>
           <td class="code leading">
@@ -118,9 +118,9 @@ with individual arguments.</p>
         
         <tr>
           <td class="docs">
-            <p>If you already have multiple args in a slice,
-apply them to a variadic function using
-<code>func(slice...)</code> like this.</p>
+            <p>Ако вече имате набор от данни в отрязък, приложете
+ги към функцията, като напишете <code>именафунк(отр...)</code>
+ето така:</p>
 
           </td>
           <td class="code">
@@ -141,7 +141,7 @@ apply them to a variadic function using
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run variadic-functions.go 
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run variadic-functions.go
 </span></span><span class="line"><span class="cl"><span class="go">[1 2] 3
 </span></span></span><span class="line"><span class="cl"><span class="go">[1 2 3] 6
 </span></span></span><span class="line"><span class="cl"><span class="go">[1 2 3 4] 10</span></span></span></code></pre>
@@ -150,8 +150,19 @@ apply them to a variadic function using
         
         <tr>
           <td class="docs">
-            <p>Another key aspect of functions in Go is their ability
-to form closures, which we&rsquo;ll look at next.</p>
+            <p>Друго важно положение при функциите, е способността им
+да създават затваряния<sup class="footnote-ref" id="fnref:closures"><a href="#fn:closures">1</a></sup>, които ще разгледаме
+после.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:closures">closure – затваряне (на променливи в текущия обхват на видимост), затвор</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty">
@@ -164,12 +175,12 @@ to form closures, which we&rsquo;ll look at next.</p>
       
       
       <p class="next">
-        Next example: <a href="closures" rel="next">Closures</a>.
+        Следващ пример: <a href="closures" rel="next">Затваряния</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

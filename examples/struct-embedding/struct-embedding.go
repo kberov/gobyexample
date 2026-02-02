@@ -1,8 +1,12 @@
-// Go supports _embedding_ of structs and interfaces
-// to express a more seamless _composition_ of types.
-// This is not to be confused with [`//go:embed`](embed-directive) which is
-// a go directive introduced in Go version 1.16+ to embed
-// files and folders into the application binary.
+// Go поддържа _влагане_[^embedding] на структури и
+// взаимодействия, за да даде възможност за по-плавно
+// _съставяне_[^composition] на структури и
+// взаимодействия. Това влагане следва да не се бърка с
+// директивата [`//go:embed`](embed-directive), въведена в
+// издание 1.16 на Го, която се ползва за влагане на
+// файлове и папки в изпълнимия файл на приложението.
+// [^embedding]: embedding – влагане (калка от em-в и bed-легло)
+// [^composition]: composition – съставяне
 
 package main
 
@@ -13,11 +17,11 @@ type base struct {
 }
 
 func (b base) describe() string {
-	return fmt.Sprintf("base with num=%v", b.num)
+	return fmt.Sprintf(
+		"запис от основния вид с поле num=%v", b.num)
 }
 
-// A `container` _embeds_ a `base`. An embedding looks
-// like a field without a name.
+// Вида `container` _влага_ вид `base`. Влагането изглежда като поле без име. Пише се само вида.
 type container struct {
 	base
 	str string
@@ -25,38 +29,40 @@ type container struct {
 
 func main() {
 
-	// When creating structs with literals, we have to
-	// initialize the embedding explicitly; here the
-	// embedded type serves as the field name.
+	// Когато създаваме записи чрез буквални стойности на
+	// съставни (структурни) видове, трябва да наченем
+	// вложения вид изрично – да му дадем начална
+	// стойност. Тук вложения вид служи за име на полето.
 	co := container{
 		base: base{
 			num: 1,
 		},
-		str: "some name",
+		str: "някакво име",
 	}
 
-	// We can access the base's fields directly on `co`,
-	// e.g. `co.num`.
+	// Можем да достъпим непосредствено полетата на
+	// вложения вид направо от `co` така: `co.num`.
 	fmt.Printf("co={num: %v, str: %v}\n", co.num, co.str)
 
-	// Alternatively, we can spell out the full path using
-	// the embedded type name.
-	fmt.Println("also num:", co.base.num)
+	// Но можем да изпишем и целия път, като упоменем и
+	// вложения вид структура.
+	fmt.Println("същото поле num:", co.base.num)
 
-	// Since `container` embeds `base`, the methods of
-	// `base` also become methods of a `container`. Here
-	// we invoke a method that was embedded from `base`
-	// directly on `co`.
-	fmt.Println("describe:", co.describe())
+	// Понеже `container` влага в себе си `base`, методите
+	// на `base` също стават методи на записите от вида
+	// `container`. Тук извикваме метод, вложен от
+	// `base`, направо върху записа `co`.
+	fmt.Println("извикваме describe:", co.describe())
 
 	type describer interface {
 		describe() string
 	}
 
-	// Embedding structs with methods may be used to bestow
-	// interface implementations onto other structs. Here
-	// we see that a `container` now implements the
-	// `describer` interface because it embeds `base`.
+	// Чрез влагането на структури можем „автоматично“ да
+	// осъществяваме взаимодействия за влагащите съставни
+	// видове. Тук виждаме, че сега променлива от
+	// вида `container` осъществява `describer` понеже
+	// `base` е вложен в `container`.
 	var d describer = co
 	fmt.Println("describer:", d.describe())
 }

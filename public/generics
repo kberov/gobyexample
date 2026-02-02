@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Generics</title>
+    <title>Go в примери: Обобщения</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,25 @@
   </script>
   <body>
     <div class="example" id="generics">
-      <h2><a href="./">Go by Example</a>: Generics</h2>
+      <h2><a href="./">Go в примери</a>: Обобщения</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Starting with version 1.18, Go has added support for
-<em>generics</em>, also known as <em>type parameters</em>.</p>
+            <p>От издание 1.18 насам Го поддържа <em>обобщения</em><sup class="footnote-ref" id="fnref:generics"><a href="#fn:generics">1</a></sup>, познати още като <em>податки за вид</em><sup class="footnote-ref" id="fnref:type-p"><a href="#fn:type-p">2</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:generics">generics – обобщения</li>
+
+<li id="fn:type-p">type parameter – податка за очакван вид данни</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +56,7 @@
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/7v7vElzhAeO"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/WalsMLpC2WU"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -62,15 +73,25 @@
         
         <tr>
           <td class="docs">
-            <p>As an example of a generic function, <code>SlicesIndex</code> takes
-a slice of any <code>comparable</code> type and an element of that
-type and returns the index of the first occurrence of
-v in s, or -1 if not present. The <code>comparable</code> constraint
-means that we can compare values of this type with the
-<code>==</code> and <code>!=</code> operators. For a more thorough explanation
-of this type signature, see <a href="https://go.dev/blog/deconstructing-type-parameters">this blog post</a>.
-Note that this function exists in the standard library
-as <a href="https://pkg.go.dev/slices#Index">slices.Index</a>.</p>
+            <p><code>SlicesIndex</code> е пример за обобщена функция. Приема отрязък от всеки сравним (<code>comparable</code>) вид данни и един член от такъв вид, и връща показалец към първото съвпадение с <code>v</code>  в <code>s</code>, или -1, ако не го намери.
+<em>Ограничението</em><sup class="footnote-ref" id="fnref:constraint"><a href="#fn:constraint">1</a></sup> <code>comparable</code> (сравним)
+означава, че можем да сравняваме данните от такъв вид
+чрез действията<sup class="footnote-ref" id="fnref:operators"><a href="#fn:operators">2</a></sup> <code>==</code> и <code>!=</code>. Много по-задълбочено обяснение ще намерите в <a href="https://go.dev/blog/deconstructing-type-parameters">тази статия</a>.
+Обърнете внимание, че тази функция съществува в
+стандартната библиотека под името
+<a href="https://pkg.go.dev/slices#Index">slices.Index</a>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:constraint">generic constraint – обобщaващо ограничение (за определен набор от видове)</li>
+
+<li id="fn:operators">operators – действия</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -88,8 +109,19 @@ as <a href="https://pkg.go.dev/slices#Index">slices.Index</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>As an example of a generic type, <code>List</code> is a
-singly-linked list with values of any type.</p>
+            <p>Ето един примерен обобщен вид. <code>List</code> е единично
+свързан списък, който може да съдържа стойности от
+<em>всякакъв</em><sup class="footnote-ref" id="fnref:any"><a href="#fn:any">1</a></sup> вид.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:any">any – всякакъв. Това е друго име за <code>interface{}</code>, което в Го означава данна от <em>всякакъв вид</em>.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -115,9 +147,9 @@ singly-linked list with values of any type.</p>
         
         <tr>
           <td class="docs">
-            <p>We can define methods on generic types just like we
-do on regular types, but we have to keep the type
-parameters in place. The type is <code>List[T]</code>, not <code>List</code>.</p>
+            <p>Можем да създаваме методи за обобщени видове, но трябва
+да обявяваме податките за вида. Вида е <code>List[T]</code>, не
+<code>List</code>.</p>
 
           </td>
           <td class="code leading">
@@ -136,9 +168,22 @@ parameters in place. The type is <code>List[T]</code>, not <code>List</code>.</p
         
         <tr>
           <td class="docs">
-            <p>AllElements returns all the List elements as a slice.
-In the next example we&rsquo;ll see a more idiomatic way
-of iterating over all elements of custom types.</p>
+            <p><code>AllElements</code> връща всички членове на <code>List</code> като
+отрязък. В следващия пример ще видим
+по-изразителен<sup class="footnote-ref" id="fnref:idiomatic"><a href="#fn:idiomatic">1</a></sup> начин да обикаляме по
+членовете на потребителски<sup class="footnote-ref" id="fnref:custom"><a href="#fn:custom">2</a></sup> видове.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:idiomatic">idiomatic – изразителен, присъщ. Изразителен, според начина на мислене, изказване, слововобаразуване, изразяване в съответния език.</li>
+
+<li id="fn:custom">custom – потребителски. Собственоръчно направен от  програмиста – потребителя на езика.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -160,28 +205,39 @@ of iterating over all elements of custom types.</p>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">s</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;foo&#34;</span><span class="p">,</span> <span class="s">&#34;bar&#34;</span><span class="p">,</span> <span class="s">&#34;zoo&#34;</span><span class="p">}</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">s</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ала&#34;</span><span class="p">,</span> <span class="s">&#34;бала&#34;</span><span class="p">,</span> <span class="s">&#34;ница&#34;</span><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>When invoking generic functions, we can often rely
-on <em>type inference</em>. Note that we don&rsquo;t have to
-specify the types for <code>S</code> and <code>E</code> when
-calling <code>SlicesIndex</code> - the compiler infers them
-automatically.</p>
+            <p>Когато извикваме обобщени функции, често можем да
+разчитаме, че Го ще <em>отгатне</em><sup class="footnote-ref" id="fnref:tinf"><a href="#fn:tinf">1</a></sup> вида.
+Забележете, че не е нужно да указваме вида на <code>S</code> и
+<code>E</code>, когато извикваме <code>SlicesIndex</code>. Компилаторът
+отгатва вида им сам.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:tinf">type inference – отгатване на вида. To infer – правя заключение за, загатвам, подсказвам, а в случая – отгатвам.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;index of zoo:&#34;</span><span class="p">,</span> <span class="nf">SlicesIndex</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;zoo&#34;</span><span class="p">))</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;на кое място е %q:  %d\n&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nf">SlicesIndex</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;ала&#34;</span><span class="p">))</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>&hellip; though we could also specify them explicitly.</p>
+            <p>&hellip; макар че бихме могли да ги зададем и изрично.</p>
 
           </td>
           <td class="code leading">
@@ -200,7 +256,7 @@ automatically.</p>
 </span></span><span class="line"><span class="cl">    <span class="nx">lst</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">lst</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">lst</span><span class="p">.</span><span class="nf">Push</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;list:&#34;</span><span class="p">,</span> <span class="nx">lst</span><span class="p">.</span><span class="nf">AllElements</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;списък:&#34;</span><span class="p">,</span> <span class="nx">lst</span><span class="p">.</span><span class="nf">AllElements</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -215,9 +271,9 @@ automatically.</p>
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run generics.go
-</span></span><span class="line"><span class="cl"><span class="go">index of zoo: 2
-</span></span></span><span class="line"><span class="cl"><span class="go">list: [10 13 23]</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run ./generics.go
+</span></span><span class="line"><span class="cl"><span class="go">на кое място е &#34;ала&#34;:  0
+</span></span></span><span class="line"><span class="cl"><span class="go">списък: [10 13 23]</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -225,18 +281,18 @@ automatically.</p>
       
       
       <p class="next">
-        Next example: <a href="range-over-iterators" rel="next">Range over Iterators</a>.
+        Следващ пример: <a href="range-over-iterators" rel="next">Обхождане чрез повторители</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func SlicesIndex[S ~[]E, E comparable](s S, v E) int {\u000A    for i :\u003D range s {\u000A        if v \u003D\u003D s[i] {\u000A            return i\u000A        }\u000A    }\u000A    return -1\u000A}\u000A');codeLines.push('type List[T any] struct {\u000A    head, tail *element[T]\u000A}\u000A');codeLines.push('type element[T any] struct {\u000A    next *element[T]\u000A    val  T\u000A}\u000A');codeLines.push('func (lst *List[T]) Push(v T) {\u000A    if lst.tail \u003D\u003D nil {\u000A        lst.head \u003D \u0026element[T]{val: v}\u000A        lst.tail \u003D lst.head\u000A    } else {\u000A        lst.tail.next \u003D \u0026element[T]{val: v}\u000A        lst.tail \u003D lst.tail.next\u000A    }\u000A}\u000A');codeLines.push('func (lst *List[T]) AllElements() []T {\u000A    var elems []T\u000A    for e :\u003D lst.head; e !\u003D nil; e \u003D e.next {\u000A        elems \u003D append(elems, e.val)\u000A    }\u000A    return elems\u000A}\u000A');codeLines.push('func main() {\u000A    var s \u003D []string{\"foo\", \"bar\", \"zoo\"}\u000A');codeLines.push('    fmt.Println(\"index of zoo:\", SlicesIndex(s, \"zoo\"))\u000A');codeLines.push('    _ \u003D SlicesIndex[[]string, string](s, \"zoo\")\u000A');codeLines.push('    lst :\u003D List[int]{}\u000A    lst.Push(10)\u000A    lst.Push(13)\u000A    lst.Push(23)\u000A    fmt.Println(\"list:\", lst.AllElements())\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func SlicesIndex[S ~[]E, E comparable](s S, v E) int {\u000A    for i :\u003D range s {\u000A        if v \u003D\u003D s[i] {\u000A            return i\u000A        }\u000A    }\u000A    return -1\u000A}\u000A');codeLines.push('type List[T any] struct {\u000A    head, tail *element[T]\u000A}\u000A');codeLines.push('type element[T any] struct {\u000A    next *element[T]\u000A    val  T\u000A}\u000A');codeLines.push('func (lst *List[T]) Push(v T) {\u000A    if lst.tail \u003D\u003D nil {\u000A        lst.head \u003D \u0026element[T]{val: v}\u000A        lst.tail \u003D lst.head\u000A    } else {\u000A        lst.tail.next \u003D \u0026element[T]{val: v}\u000A        lst.tail \u003D lst.tail.next\u000A    }\u000A}\u000A');codeLines.push('func (lst *List[T]) AllElements() []T {\u000A    var elems []T\u000A    for e :\u003D lst.head; e !\u003D nil; e \u003D e.next {\u000A        elems \u003D append(elems, e.val)\u000A    }\u000A    return elems\u000A}\u000A');codeLines.push('func main() {\u000A    var s \u003D []string{\"ала\", \"бала\", \"ница\"}\u000A');codeLines.push('    fmt.Printf(\"на кое място е %q:  %d\\n\",\u000A        s[0], SlicesIndex(s, \"ала\"))\u000A');codeLines.push('    _ \u003D SlicesIndex[[]string, string](s, \"zoo\")\u000A');codeLines.push('    lst :\u003D List[int]{}\u000A    lst.Push(10)\u000A    lst.Push(13)\u000A    lst.Push(23)\u000A    fmt.Println(\"списък:\", lst.AllElements())\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

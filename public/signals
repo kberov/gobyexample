@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Signals</title>
+    <title>Go в примери: Сигнали</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="signals">
-      <h2><a href="./">Go by Example</a>: Signals</h2>
+      <h2><a href="./">Go в примери</a>: Сигнали</h2>
       
       <table>
         
@@ -188,12 +188,12 @@ causing the program to print <code>interrupt</code> and then exit.</p>
       
       
       <p class="next">
-        Next example: <a href="exit" rel="next">Exit</a>.
+        Следващ пример: <a href="exit" rel="next">Изход</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

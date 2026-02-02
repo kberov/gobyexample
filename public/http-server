@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: HTTP Server</title>
+    <title>Go в примери: Сървър за HTTP</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="http-server">
-      <h2><a href="./">Go by Example</a>: HTTP Server</h2>
+      <h2><a href="./">Go в примери</a>: Сървър за HTTP</h2>
       
       <table>
         
@@ -182,12 +182,12 @@ router we&rsquo;ve just set up.</p>
       
       
       <p class="next">
-        Next example: <a href="tcp-server" rel="next">TCP Server</a>.
+        Следващ пример: <a href="tcp-server" rel="next">Сървър за TCP</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

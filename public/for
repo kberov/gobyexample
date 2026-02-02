@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: For</title>
+    <title>Go в примери: За (For)</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,25 @@
   </script>
   <body>
     <div class="example" id="for">
-      <h2><a href="./">Go by Example</a>: For</h2>
+      <h2><a href="./">Go в примери</a>: За (For)</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><code>for</code> is Go&rsquo;s only looping construct. Here are
-some basic types of <code>for</code> loops.</p>
+            <p><code>for</code> е едиствения начин в Go за извършване на
+повтарящи се действия<sup class="footnote-ref" id="fnref:loop"><a href="#fn:loop">1</a></sup>. Ето няколко основни
+видове повторения.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:loop">loop - цикъл, итерация, повторение</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +56,7 @@ some basic types of <code>for</code> loops.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/_F2rYHNilKa"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/d8pcwqYT7LA"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -72,7 +83,7 @@ some basic types of <code>for</code> loops.</p>
         
         <tr>
           <td class="docs">
-            <p>The most basic type, with a single condition.</p>
+            <p>Най-основния вид е с едно единствено условие.</p>
 
           </td>
           <td class="code leading">
@@ -87,7 +98,8 @@ some basic types of <code>for</code> loops.</p>
         
         <tr>
           <td class="docs">
-            <p>A classic initial/condition/after <code>for</code> loop.</p>
+            <p>Класическо повторение с начално действие; условие; последващо
+действие.</p>
 
           </td>
           <td class="code leading">
@@ -100,8 +112,9 @@ some basic types of <code>for</code> loops.</p>
         
         <tr>
           <td class="docs">
-            <p>Another way of accomplishing the basic &ldquo;do this
-N times&rdquo; iteration is <code>range</code> over an integer.</p>
+            <p>Друг начин за постигане на основното действие
+„прави това N пъти” е <code>range</code> (порядък, поредност)
+от действия чрез цяло число.</p>
 
           </td>
           <td class="code leading">
@@ -114,9 +127,10 @@ N times&rdquo; iteration is <code>range</code> over an integer.</p>
         
         <tr>
           <td class="docs">
-            <p><code>for</code> without a condition will loop repeatedly
-until you <code>break</code> out of the loop or <code>return</code> from
-the enclosing function.</p>
+            <p><code>for</code> без условие ще повтаря безкрайно действието
+между фигурните скоби, докато не прекъснете
+действието чрез <code>break</code> или излезете от обгръщащата
+функция чрез <code>return</code>.</p>
 
           </td>
           <td class="code leading">
@@ -130,8 +144,8 @@ the enclosing function.</p>
         
         <tr>
           <td class="docs">
-            <p>You can also <code>continue</code> to the next iteration of
-the loop.</p>
+            <p>Също можете да продължите чрез <code>continue</code> към
+следващото действие, без да сте завършили текущото.</p>
 
           </td>
           <td class="code">
@@ -175,9 +189,9 @@ the loop.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll see some other <code>for</code> forms later when we look at
-<code>range</code> statements, channels, and other data
-structures.</p>
+            <p>Ще видим и други разновидности на <code>for</code> по-късно, като
+разглеждаме разлчни изявления, използващи <code>range</code> с
+канали и други структури от данни.</p>
 
           </td>
           <td class="code empty">
@@ -190,12 +204,12 @@ structures.</p>
       
       
       <p class="next">
-        Next example: <a href="if-else" rel="next">If/Else</a>.
+        Следващ пример: <a href="if-else" rel="next">Ако ли/Иначе (If/Else)</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
