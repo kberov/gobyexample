@@ -1,42 +1,46 @@
-// Go supports <em><a href="https://en.wikipedia.org/wiki/Pointer_(computer_programming)">pointers</a></em>,
-// allowing you to pass references to values and records
-// within your program.
+// Го поддържа _указатели_[^pointers]. Това ви позволява
+// да подавате препратки[^reference] към стойности и записи във вашата
+// програма.
+// [^pointers]: pointer – указател, https://bg.wikipedia.org/wiki/Указател_(програмиране) . „Указателите са просто числа, указващи мястото на дадена стойност в паметта, и това е начинът, по който Го препраща към обекти.“ – https://go.dev/blog/greenteagc .
+// [^reference]: reference – препратка; препращам към, реферирам
 
 package main
 
 import "fmt"
 
-// We'll show how pointers work in contrast to values with
-// 2 functions: `zeroval` and `zeroptr`. `zeroval` has an
-// `int` parameter, so arguments will be passed to it by
-// value. `zeroval` will get a copy of `ival` distinct
-// from the one in the calling function.
+// Ще покажем по какво се различават указателите от
+// стойностите с две функции: `zeroval` и `zeroptr`.
+// `zeroval` приема една стойност от вида `int`. `zeroval`
+// ще приеме копие на `ival`, отделна стойност от тази,
+// която е в извикващата функция.
 func zeroval(ival int) {
 	ival = 0
 }
 
-// `zeroptr` in contrast has an `*int` parameter, meaning
-// that it takes an `int` pointer. The `*iptr` code in the
-// function body then _dereferences_ the pointer from its
-// memory address to the current value at that address.
-// Assigning a value to a dereferenced pointer changes the
-// value at the referenced address.
+// `zeroptr`, напротив, приема като податка `*int`. Сиреч,
+// указател към някаква стойност от вида `int`. След това,
+// като напишем `*iptr` в тялото на функцията, _достъпваме
+// пряко_[^dereference] стойността, чието
+// местонахождение (адрес) в паметта съдържа указателят с
+// име `iptr`. Присвоявайки нова стойност на пряко
+// достъпената стойност `*iptr`, променяме направо нея, а
+// не адреса, който иначе указателят съдържа.
+// [^dereference]: dereference – достъпвам пряко, получавам пряк достъп до указваната стойност
 func zeroptr(iptr *int) {
 	*iptr = 0
 }
 
 func main() {
 	i := 1
-	fmt.Println("initial:", i)
+	fmt.Println("начална стойност на i:", i)
 
 	zeroval(i)
 	fmt.Println("zeroval:", i)
 
-	// The `&i` syntax gives the memory address of `i`,
-	// i.e. a pointer to `i`.
+	// Като напишем `&i`, получваме адреса на `i` в паметта, сиреч, указателя към `i`.
 	zeroptr(&i)
 	fmt.Println("zeroptr:", i)
 
-	// Pointers can be printed too.
-	fmt.Println("pointer:", &i)
+	// Указателите също могат да бъдат отпечатвани.
+	fmt.Println("указател към i – &i:", &i)
 }

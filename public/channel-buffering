@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Channel Buffering</title>
+    <title>Go в примери: Задържащи канали</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,18 +24,30 @@
   </script>
   <body>
     <div class="example" id="channel-buffering">
-      <h2><a href="./">Go by Example</a>: Channel Buffering</h2>
+      <h2><a href="./">Go в примери</a>: Задържащи канали</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>By default channels are <em>unbuffered</em>, meaning that they
-will only accept sends (<code>chan &lt;-</code>) if there is a
-corresponding receive (<code>&lt;- chan</code>) ready to receive the
-sent value. <em>Buffered channels</em> accept a limited
-number of  values without a corresponding receiver for
-those values.</p>
+            <p>По подразбиране каналите са <em>незадържащи</em><sup class="footnote-ref" id="fnref:buffered"><a href="#fn:buffered">1</a></sup>,
+което означава, че ще приемат изпратени данни (<code>chan
+&lt;-</code>) само ако има някой готов да ги получи (<code>&lt;- chan</code>).
+<em>Задържащите канали</em><sup class="footnote-ref" id="fnref:unbuffered"><a href="#fn:unbuffered">2</a></sup> приемат ограничено
+количество стойности без да има готов получател за тези
+стойности.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:buffered">buffered channel – канал, задържащ в себе си по повече от една стойност от вида на канала данни, буфериран</li>
+
+<li id="fn:unbuffered">unbuffered channel – незадържащ канал – такъв, през който може да минава само една стойност наведнъж, небуфериран.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -49,7 +61,7 @@ those values.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/3BRCdRnRszb"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/MFhBmtC45PZ"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -76,8 +88,8 @@ those values.</p>
         
         <tr>
           <td class="docs">
-            <p>Here we <code>make</code> a channel of strings buffering up to
-2 values.</p>
+            <p>Тук правим (<code>make</code>) канал за низове с вместимост до
+две стойности.</p>
 
           </td>
           <td class="code leading">
@@ -88,21 +100,33 @@ those values.</p>
         
         <tr>
           <td class="docs">
-            <p>Because this channel is buffered, we can send these
-values into the channel without a corresponding
-concurrent receive.</p>
+            <p>Понеже този канал е задържащ, можем да изпратим
+тези стойности по канала без съответстващо
+едновременно<sup class="footnote-ref" id="fnref:concurrent"><a href="#fn:concurrent">1</a></sup> работещо за всяко изпращане
+получаване.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:concurrent">concurrent – едновременно (изпълняваща се задача)</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">messages</span> <span class="o">&lt;-</span> <span class="s">&#34;buffered&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">messages</span> <span class="o">&lt;-</span> <span class="s">&#34;channel&#34;</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">messages</span> <span class="o">&lt;-</span> <span class="s">&#34;задържащ&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">messages</span> <span class="o">&lt;-</span> <span class="s">&#34;канал&#34;</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Later we can receive these two values as usual.</p>
+            <p>По-късно можем да получим тези две стойности както
+обикновено.</p>
 
           </td>
           <td class="code">
@@ -123,9 +147,9 @@ concurrent receive.</p>
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run channel-buffering.go 
-</span></span><span class="line"><span class="cl"><span class="go">buffered
-</span></span></span><span class="line"><span class="cl"><span class="go">channel</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run channel-buffering.go
+</span></span><span class="line"><span class="cl"><span class="go">задържащ
+</span></span></span><span class="line"><span class="cl"><span class="go">канал</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -133,18 +157,18 @@ concurrent receive.</p>
       
       
       <p class="next">
-        Next example: <a href="channel-synchronization" rel="next">Channel Synchronization</a>.
+        Следващ пример: <a href="channel-synchronization" rel="next">Съгласуване чрез канал</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A');codeLines.push('    messages :\u003D make(chan string, 2)\u000A');codeLines.push('    messages \u003C- \"buffered\"\u000A    messages \u003C- \"channel\"\u000A');codeLines.push('    fmt.Println(\u003C-messages)\u000A    fmt.Println(\u003C-messages)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A');codeLines.push('    messages :\u003D make(chan string, 2)\u000A');codeLines.push('    messages \u003C- \"задържащ\"\u000A    messages \u003C- \"канал\"\u000A');codeLines.push('    fmt.Println(\u003C-messages)\u000A    fmt.Println(\u003C-messages)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

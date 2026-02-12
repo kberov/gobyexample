@@ -1,7 +1,9 @@
-// _Timeouts_ are important for programs that connect to
-// external resources or that otherwise need to bound
-// execution time. Implementing timeouts in Go is easy and
-// elegant thanks to channels and `select`.
+// Задаването на _срокове_[^timeout] е важно за
+// програми, които се свързват с външни източници на данни
+// или по някакъв начин са обвързани с време за
+// изпълнение. Осъществяването на краен срок в Го става
+// лесно и изтънчено като съчетаем канали и `select`.
+// [^timeout]: timeout – уречен срок. Сроковете в Го биват осъществени чрез [срочници](timers), които са разгледани в по-нататъшен пример.
 
 package main
 
@@ -12,42 +14,56 @@ import (
 
 func main() {
 
-	// For our example, suppose we're executing an external
-	// call that returns its result on a channel `c1`
-	// after 2s. Note that the channel is buffered, so the
-	// send in the goroutine is nonblocking. This is a
-	// common pattern to prevent goroutine leaks in case the
-	// channel is never read.
+	// За целите на нашия пример, нека си представим, че
+	// извикваме външна програма, която връща стойност
+	// по канал с име `c1` след две секунди.
+	// Забележете, че каналът е задържащ, така че
+	// изпращането не спира изпълнението (не блокира).
+	// Това е обичаен начин за предотврятване на утечки,
+	// причинени от гозадачи, в случай че никога не
+	// прочетем данни от канала.
 	c1 := make(chan string, 1)
 	go func() {
 		time.Sleep(2 * time.Second)
-		c1 <- "result 1"
+		c1 <- "изход 1"
 	}()
 
-	// Here's the `select` implementing a timeout.
-	// `res := <-c1` awaits the result and `<-time.After`
-	// awaits a value to be sent after the timeout of
-	// 1s. Since `select` proceeds with the first
-	// receive that's ready, we'll take the timeout case
-	// if the operation takes more than the allowed 1s.
+	// Ето го нашия избор (`select`), чрез който
+	// осъществяваме краен срок. Чрез изявлението `res :=
+	// <-c1` очакваме стойността да дойде по канала и я
+	// записваме в `res`, а с израза `<-time.After`
+	// обозначаваме, че очакваме стойността да дойде до
+	// една секунда. Тази функция `After` връща текущото
+	// време по създаден в себе си канал за пренос на
+	// стойности от вида `time.Time`, след подадена
+	// продължителност (`time.Duration`).
+	//
+	// Понеже `select` обработва веднага първата получена
+	// (готова) стойност, ще попаднем в случая (`case`)
+	// `<-time.After(1 * time.Second)`, ако данните не
+	// пристигнат в уреченото време - до една секунда.
 	select {
 	case res := <-c1:
 		fmt.Println(res)
-	case <-time.After(1 * time.Second):
-		fmt.Println("timeout 1")
+	case сега := <-time.After(1 * time.Second):
+		fmt.Println("срок 1:", сега)
 	}
 
-	// If we allow a longer timeout of 3s, then the receive
-	// from `c2` will succeed and we'll print the result.
+	// Ако укажем по-дълъг срок (3 секунди), тогава ще
+	// успеем да получим данните по канала `c2` преди
+	// изтичането на срока и ще изведем данните на екрана.
 	c2 := make(chan string, 1)
 	go func() {
 		time.Sleep(2 * time.Second)
-		c2 <- "result 2"
+		c2 <- "изход 2"
 	}()
 	select {
 	case res := <-c2:
 		fmt.Println(res)
+	// Сега просто не правим нищо с полученото време по
+	// създадения в `time.After`[^timer] канал.
+	// [^timer]: `time.After` създава нов срочник, който връща канала
 	case <-time.After(3 * time.Second):
-		fmt.Println("timeout 2")
+		fmt.Println("срок 2")
 	}
 }

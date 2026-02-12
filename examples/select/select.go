@@ -1,6 +1,6 @@
-// Go's _select_ lets you wait on multiple channel
-// operations. Combining goroutines and channels with
-// select is a powerful feature of Go.
+// Ключовата дума `select` ни позволява да очакваме (и
+// приемаме) данни от много канали едновременно.
+// Съчетаването на канали и `select` ни дава много мощ.
 
 package main
 
@@ -11,30 +11,34 @@ import (
 
 func main() {
 
-	// For our example we'll select across two channels.
+	// За целите на нашия пример ще избираме от два
+	// канала.
 	c1 := make(chan string)
 	c2 := make(chan string)
 
-	// Each channel will receive a value after some amount
-	// of time, to simulate e.g. blocking RPC operations
-	// executing in concurrent goroutines.
+	// Всеки канал получава някаква стойност след известно
+	// време. Така симулираме да речем RPC[^rpc] действия,
+	// изпълняващи се в различни едновременни гозадачи.
+	//
+	// [^rpc]: RPC (Remote Procedure Calls) – Извикване на отдалечени процедури
 	go func() {
 		time.Sleep(1 * time.Second)
-		c1 <- "one"
+		c1 <- "едно"
 	}()
 	go func() {
 		time.Sleep(2 * time.Second)
-		c2 <- "two"
+		c2 <- "две"
 	}()
 
-	// We'll use `select` to await both of these values
-	// simultaneously, printing each one as it arrives.
+	// Използваме `select`, за да очакваме две стойности
+	// едновременно, като извеждаме на екрана полученото
+	// веднага щом пристигне някоя от тях.
 	for range 2 {
 		select {
-		case msg1 := <-c1:
-			fmt.Println("received", msg1)
-		case msg2 := <-c2:
-			fmt.Println("received", msg2)
+		case писмо1 := <-c1:
+			fmt.Println("получено", писмо1)
+		case писмо2 := <-c2:
+			fmt.Println("получено", писмо2)
 		}
 	}
 }

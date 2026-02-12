@@ -1,9 +1,11 @@
-// By default channels are _unbuffered_, meaning that they
-// will only accept sends (`chan <-`) if there is a
-// corresponding receive (`<- chan`) ready to receive the
-// sent value. _Buffered channels_ accept a limited
-// number of  values without a corresponding receiver for
-// those values.
+// По подразбиране каналите са _незадържащи_[^buffered],
+// което означава, че ще приемат изпратени данни (`chan
+// <-`) само ако има някой готов да ги получи (`<- chan`).
+// _Задържащите канали_[^unbuffered] приемат ограничено
+// количество стойности без да има готов получател за тези
+// стойности.
+// [^buffered]: buffered channel – канал, задържащ в себе си по повече от една стойност от вида на канала данни, буфериран
+// [^unbuffered]: unbuffered channel – незадържащ канал – такъв, през който може да минава само една стойност наведнъж, небуфериран.
 
 package main
 
@@ -11,17 +13,20 @@ import "fmt"
 
 func main() {
 
-	// Here we `make` a channel of strings buffering up to
-	// 2 values.
+	// Тук правим (`make`) канал за низове с вместимост до
+	// две стойности.
 	messages := make(chan string, 2)
 
-	// Because this channel is buffered, we can send these
-	// values into the channel without a corresponding
-	// concurrent receive.
-	messages <- "buffered"
-	messages <- "channel"
+	// Понеже този канал е задържащ, можем да изпратим
+	// тези стойности по канала без съответстващо
+	// едновременно[^concurrent] работещо за всяко изпращане
+	// получаване.
+	// [^concurrent]: concurrent – едновременно (изпълняваща се задача)
+	messages <- "задържащ"
+	messages <- "канал"
 
-	// Later we can receive these two values as usual.
+	// По-късно можем да получим тези две стойности както
+	// обикновено.
 	fmt.Println(<-messages)
 	fmt.Println(<-messages)
 }

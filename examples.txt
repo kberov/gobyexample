@@ -1,85 +1,85 @@
-Hello World
-Values
-Variables
-Constants
-For
-If/Else
-Switch
-Arrays
-Slices
-Maps
-Functions
-Multiple Return Values
-Variadic Functions
-Closures
-Recursion
-Range over Built-in Types
-Pointers
-Strings and Runes
-Structs
-Methods
-Interfaces
-Enums
-Struct Embedding
-Generics
-Range over Iterators
-Errors
-Custom Errors
-Goroutines
-Channels
-Channel Buffering
-Channel Synchronization
-Channel Directions
-Select
-Timeouts
-Non-Blocking Channel Operations
-Closing Channels
-Range over Channels
-Timers
-Tickers
-Worker Pools
-WaitGroups
+Здравей Свят|Hello World
+Стойности|Values
+Променливи|Variables
+Непроменливи|Constants
+За (For)|For
+Ако ли/Иначе (If/Else)|If/Else
+Превключване (Switch)|Switch
+Поредици|Arrays
+Отрязъци|Slices
+Карти|Maps
+Функции|Functions
+Връщане на повече стойности|Multiple Return Values
+Функции с произволен брой податки|Variadic Functions
+Затваряния|Closures
+Самоизвикване|Recursion
+Обход на последователности от вградени видове променливи с range|Range over Built-in Types
+Указатели|Pointers
+Низове и Руни|Strings and Runes
+Структури|Structs
+Методи|Methods
+Взаимодействия|Interfaces
+Броители|Enums
+Вложени структури|Struct Embedding
+Обобщения|Generics
+Обхождане чрез повторители|Range over Iterators
+Грешки|Errors
+Съставени Грешки|Custom Errors
+Нишки (goroutines)|Goroutines
+Канали (chan)|Channels
+Задържащи канали|Channel Buffering
+Съгласуване чрез канал|Channel Synchronization
+Посока на канал|Channel Directions
+Избор на канал (select)|Select
+Срокове|Timeouts
+Неблокиращи действия с канали|Non-Blocking Channel Operations
+Затваряне на канали|Closing Channels
+Обхождане на стойности в канал|Range over Channels
+Срочници|Timers
+Часовници|Tickers
+Работилници|Worker Pools
+Чакални|WaitGroups
 Rate Limiting
-Atomic Counters
-Mutexes
-Stateful Goroutines
-Sorting
-Sorting by Functions
-Panic
-Defer
-Recover
-String Functions
-String Formatting
-Text Templates
-Regular Expressions
+Неделими броячи|Atomic Counters
+Взаимно изключване|Mutexes
+Гозадачи, запазващи състояние|Stateful Goroutines
+Подреждане|Sorting
+Подреждане чрез функции|Sorting by Functions
+Паникьосване|Panic
+Отлагане|Defer
+Възстановяване|Recover
+Функции за работа с низове|String Functions
+Форматиране на низове|String Formatting
+Образци за словоплет|Text Templates
+Поредови изрази|Regular Expressions
 JSON
 XML
-Time
+Време|Time
 Epoch
-Time Formatting / Parsing
-Random Numbers
-Number Parsing
-URL Parsing
-SHA256 Hashes
-Base64 Encoding
-Reading Files
-Writing Files
+Разбор и форматиране на Време|Time Formatting / Parsing
+Случайни числа|Random Numbers
+Разбор на числа|Number Parsing
+Разбор на URL|URL Parsing
+Хешове от вида SHA256|SHA256 Hashes
+Закодиране в Base64|Base64 Encoding
+Четене от файлове|Reading Files
+Писане във файлове|Writing Files
 Line Filters
-File Paths
-Directories
-Temporary Files and Directories
+Файлови пътища|File Paths
+Папки|Directories
+Временни файлове и Папки|Temporary Files and Directories
 Embed Directive
-Testing and Benchmarking
-Command-Line Arguments
-Command-Line Flags
-Command-Line Subcommands
-Environment Variables
-Logging
-HTTP Client
-HTTP Server
-TCP Server
+Проверки за правилност и бързодействие|Testing and Benchmarking
+Податки на командния ред|Command-Line Arguments
+Флагове на командния ред|Command-Line Flags
+Подкоманди на командния ред|Command-Line Subcommands
+Променливи в средата за изпълнение|Environment Variables
+Отчитане във файл|Logging
+Клиент за HTTP|HTTP Client
+Сървър за HTTP|HTTP Server
+Сървър за TCP|TCP Server
 Context
-Spawning Processes
-Exec'ing Processes
-Signals
-Exit
+Пораждане на процеси|Spawning Processes
+Изпълнение на процеси|Exec'ing Processes
+Сигнали|Signals
+Изход|Exit

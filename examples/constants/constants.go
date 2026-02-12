@@ -1,5 +1,7 @@
-// Go supports _constants_ of character, string, boolean,
-// and numeric values.
+// Go поддържа _непроменливи_ [^constant] (стойности) от
+// вида знак, низ, булева и числова стойности.
+//
+// [^constant]: constant – непроменлива стойност, константна величина
 
 package main
 
@@ -8,28 +10,30 @@ import (
 	"math"
 )
 
-// `const` declares a constant value.
+// `const` обявява непроменлива стойност.
 const s string = "constant"
 
 func main() {
 	fmt.Println(s)
 
-	// A `const` statement can also appear inside a
-	// function body.
+	// Изявлението[^statement] `const` може да се появява
+	// също в тяло на функция.
+	// [^statement]: statement – изявление
 	const n = 500000000
 
-	// Constant expressions perform arithmetic with
-	// arbitrary precision.
+	// В изрази за създаване на непроменливи може да се
+	// извършват аритметични действия с променлива точност.
 	const d = 3e20 / n
 	fmt.Println(d)
 
-	// A numeric constant has no type until it's given
-	// one, such as by an explicit conversion.
+	// Числовата непроменлива няма тип, докато не ѝ се
+	// даде такъв. Например чрез изрично превръщане.
 	fmt.Println(int64(d))
 
-	// A number can be given a type by using it in a
-	// context that requires one, such as a variable
-	// assignment or function call. For example, here
-	// `math.Sin` expects a `float64`.
+	// На число може да му се придаде вид при използването
+	// му в определен смисъл, който изисква такъв вид
+	// стойност. Например при присвояване на стойност на
+	// променлива или извикване на функция. Тук `math.Sin`
+	// очаква число от вида `float64`.
 	fmt.Println(math.Sin(n))
 }

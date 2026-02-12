@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Timeouts</title>
+    <title>Go в примери: Срокове</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,27 @@
   </script>
   <body>
     <div class="example" id="timeouts">
-      <h2><a href="./">Go by Example</a>: Timeouts</h2>
+      <h2><a href="./">Go в примери</a>: Срокове</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><em>Timeouts</em> are important for programs that connect to
-external resources or that otherwise need to bound
-execution time. Implementing timeouts in Go is easy and
-elegant thanks to channels and <code>select</code>.</p>
+            <p>Задаването на <em>срокове</em><sup class="footnote-ref" id="fnref:timeout"><a href="#fn:timeout">1</a></sup> е важно за
+програми, които се свързват с външни източници на данни
+или по някакъв начин са обвързани с време за
+изпълнение. Осъществяването на краен срок в Го става
+лесно и изтънчено като съчетаем канали и <code>select</code>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:timeout">timeout – уречен срок. Сроковете в Го биват осъществени чрез <a href="timers">срочници</a>, които са разгледани в по-нататъшен пример.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +58,7 @@ elegant thanks to channels and <code>select</code>.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/gyr0NbVKBVf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/PYRMClV5dBQ"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -77,12 +88,14 @@ elegant thanks to channels and <code>select</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>For our example, suppose we&rsquo;re executing an external
-call that returns its result on a channel <code>c1</code>
-after 2s. Note that the channel is buffered, so the
-send in the goroutine is nonblocking. This is a
-common pattern to prevent goroutine leaks in case the
-channel is never read.</p>
+            <p>За целите на нашия пример, нека си представим, че
+извикваме външна програма, която връща стойност
+по канал с име <code>c1</code> след две секунди.
+Забележете, че каналът е задържащ, така че
+изпращането не спира изпълнението (не блокира).
+Това е обичаен начин за предотврятване на утечки,
+причинени от гозадачи, в случай че никога не
+прочетем данни от канала.</p>
 
           </td>
           <td class="code leading">
@@ -90,19 +103,27 @@ channel is never read.</p>
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">c1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">c1</span> <span class="o">&lt;-</span> <span class="s">&#34;result 1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c1</span> <span class="o">&lt;-</span> <span class="s">&#34;изход 1&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s the <code>select</code> implementing a timeout.
-<code>res := &lt;-c1</code> awaits the result and <code>&lt;-time.After</code>
-awaits a value to be sent after the timeout of
-1s. Since <code>select</code> proceeds with the first
-receive that&rsquo;s ready, we&rsquo;ll take the timeout case
-if the operation takes more than the allowed 1s.</p>
+            <p>Ето го нашия избор (<code>select</code>), чрез който
+осъществяваме краен срок. Чрез изявлението <code>res :=
+&lt;-c1</code> очакваме стойността да дойде по канала и я
+записваме в <code>res</code>, а с израза <code>&lt;-time.After</code>
+обозначаваме, че очакваме стойността да дойде до
+една секунда. Тази функция <code>After</code> връща текущото
+време по създаден в себе си канал за пренос на
+стойности от вида <code>time.Time</code>, след подадена
+продължителност (<code>time.Duration</code>).</p>
+
+<p>Понеже <code>select</code> обработва веднага първата получена
+(готова) стойност, ще попаднем в случая (<code>case</code>)
+<code>&lt;-time.After(1 * time.Second)</code>, ако данните не
+пристигнат в уреченото време - до една секунда.</p>
 
           </td>
           <td class="code leading">
@@ -110,30 +131,52 @@ if the operation takes more than the allowed 1s.</p>
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">res</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c1</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;timeout 1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">сега</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;срок 1:&#34;</span><span class="p">,</span> <span class="nx">сега</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>If we allow a longer timeout of 3s, then the receive
-from <code>c2</code> will succeed and we&rsquo;ll print the result.</p>
+            <p>Ако укажем по-дълъг срок (3 секунди), тогава ще
+успеем да получим данните по канала <code>c2</code> преди
+изтичането на срока и ще изведем данните на екрана.</p>
 
           </td>
-          <td class="code">
+          <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">c2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">c2</span> <span class="o">&lt;-</span> <span class="s">&#34;result 2&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c2</span> <span class="o">&lt;-</span> <span class="s">&#34;изход 2&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">res</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c2</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;timeout 2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Сега просто не правим нищо с полученото време по
+създадения в <code>time.After</code><sup class="footnote-ref" id="fnref:timer"><a href="#fn:timer">1</a></sup> канал.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:timer"><code>time.After</code> създава нов срочник, който връща канала</li>
+</ol>
+
+</div>
+
+          </td>
+          <td class="code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;срок 2&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
@@ -145,15 +188,15 @@ from <code>c2</code> will succeed and we&rsquo;ll print the result.</p>
         
         <tr>
           <td class="docs">
-            <p>Running this program shows the first operation timing
-out and the second succeeding.</p>
+            <p>Ако пуснем тази програма, ще видим, че при първото
+действие срокът изтича, а второто успява навреме.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run timeouts.go 
-</span></span><span class="line"><span class="cl"><span class="go">timeout 1
-</span></span></span><span class="line"><span class="cl"><span class="go">result 2</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run timeouts.go
+</span></span><span class="line"><span class="cl"><span class="go">срок 1: 2026-02-09 20:26:11.919305229 +0200 EET m=+1.000027846
+</span></span></span><span class="line"><span class="cl"><span class="go">изход 2</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -161,18 +204,18 @@ out and the second succeeding.</p>
       
       
       <p class="next">
-        Next example: <a href="non-blocking-channel-operations" rel="next">Non-Blocking Channel Operations</a>.
+        Следващ пример: <a href="non-blocking-channel-operations" rel="next">Неблокиращи действия с канали</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c1 \u003C- \"result 1\"\u000A    }()\u000A');codeLines.push('    select {\u000A    case res :\u003D \u003C-c1:\u000A        fmt.Println(res)\u000A    case \u003C-time.After(1 * time.Second):\u000A        fmt.Println(\"timeout 1\")\u000A    }\u000A');codeLines.push('    c2 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \u003C- \"result 2\"\u000A    }()\u000A    select {\u000A    case res :\u003D \u003C-c2:\u000A        fmt.Println(res)\u000A    case \u003C-time.After(3 * time.Second):\u000A        fmt.Println(\"timeout 2\")\u000A    }\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c1 \u003C- \"изход 1\"\u000A    }()\u000A');codeLines.push('    select {\u000A    case res :\u003D \u003C-c1:\u000A        fmt.Println(res)\u000A    case сега :\u003D \u003C-time.After(1 * time.Second):\u000A        fmt.Println(\"срок 1:\", сега)\u000A    }\u000A');codeLines.push('    c2 :\u003D make(chan string, 1)\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \u003C- \"изход 2\"\u000A    }()\u000A    select {\u000A    case res :\u003D \u003C-c2:\u000A        fmt.Println(res)\u000A');codeLines.push('    case \u003C-time.After(3 * time.Second):\u000A        fmt.Println(\"срок 2\")\u000A    }\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,9 +1,13 @@
-// We can use channels to synchronize execution
-// across goroutines. Here's an example of using a
-// blocking receive to wait for a goroutine to finish.
-// When waiting for multiple goroutines to finish,
-// you may prefer to use a [WaitGroup](waitgroups).
-
+// Можем да ползваме канали, за да съгласуваме[^synchro]
+// изпълнението на различни гозадачи. Тук имаме пример с
+// получаване на данни, което спира изпълнението на цялата
+// програма, изчаквайки я да приключи.[^blocking_rcv]
+// Когато изчаквате множество гозадачи да приключат, може
+// да предпочетете да използвате можествено изчакване. То
+// е осъществено чрез структурата
+// [`WaitGroup`](waitgroups) в пакета `sync`.
+// [^blocking_rcv]: blocking receive – блокиращо получаване
+// [^synchro]: synchronization – съгласуване
 package main
 
 import (
@@ -11,26 +15,26 @@ import (
 	"time"
 )
 
-// This is the function we'll run in a goroutine. The
-// `done` channel will be used to notify another
-// goroutine that this function's work is done.
-func worker(done chan bool) {
-	fmt.Print("working...")
+// Това е функцията, която ще изпълним в гозадача. Канала
+// `готово` ще използваме, за да уведомим друга
+// гозадача (програмата ни), че тази функция е приключила.
+func работник(готово chan bool) {
+	fmt.Print("работя...")
 	time.Sleep(time.Second)
-	fmt.Println("done")
+	fmt.Println("готово")
 
-	// Send a value to notify that we're done.
-	done <- true
+	// Изпращаме стойност като съобщение, че сме готови.
+	готово <- true
 }
 
 func main() {
 
-	// Start a worker goroutine, giving it the channel to
-	// notify on.
-	done := make(chan bool, 1)
-	go worker(done)
+	// Пускаме гозадачата `работник` и ѝ подаваме канала,
+	// по който да изпрати съобщението.
+	готово := make(chan bool, 1)
+	go работник(готово)
 
-	// Block until we receive a notification from the
-	// worker on the channel.
-	<-done
+	// Изпълнението спира и чака, докато получи съобщение
+	// от работника по канала.
+	<-готово
 }

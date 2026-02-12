@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Channel Synchronization</title>
+    <title>Go в примери: Съгласуване чрез канал</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,31 +24,36 @@
   </script>
   <body>
     <div class="example" id="channel-synchronization">
-      <h2><a href="./">Go by Example</a>: Channel Synchronization</h2>
+      <h2><a href="./">Go в примери</a>: Съгласуване чрез канал</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>We can use channels to synchronize execution
-across goroutines. Here&rsquo;s an example of using a
-blocking receive to wait for a goroutine to finish.
-When waiting for multiple goroutines to finish,
-you may prefer to use a <a href="waitgroups">WaitGroup</a>.</p>
+            <p>Можем да ползваме канали, за да съгласуваме<sup class="footnote-ref" id="fnref:synchro"><a href="#fn:synchro">1</a></sup>
+изпълнението на различни гозадачи. Тук имаме пример с
+получаване на данни, което спира изпълнението на цялата
+програма, изчаквайки я да приключи.<sup class="footnote-ref" id="fnref:blocking-rcv"><a href="#fn:blocking-rcv">2</a></sup>
+Когато изчаквате множество гозадачи да приключат, може
+да предпочетете да използвате можествено изчакване. То
+е осъществено чрез структурата
+<a href="waitgroups"><code>WaitGroup</code></a> в пакета <code>sync</code>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:synchro">synchronization – съгласуване</li>
+
+<li id="fn:blocking-rcv">blocking receive – блокиращо получаване</li>
+</ol>
+
+</div>
 
           </td>
-          <td class="code empty leading">
-            
-          
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            
-          </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/Nw-1DzIGk5f"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/blNoxHh3dGK"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -68,28 +73,28 @@ you may prefer to use a <a href="waitgroups">WaitGroup</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>This is the function we&rsquo;ll run in a goroutine. The
-<code>done</code> channel will be used to notify another
-goroutine that this function&rsquo;s work is done.</p>
+            <p>Това е функцията, която ще изпълним в гозадача. Канала
+<code>готово</code> ще използваме, за да уведомим друга
+гозадача (програмата ни), че тази функция е приключила.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">worker</span><span class="p">(</span><span class="nx">done</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;working...&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nx">работник</span><span class="p">(</span><span class="nx">готово</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;работя...&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;done&#34;</span><span class="p">)</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;готово&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Send a value to notify that we&rsquo;re done.</p>
+            <p>Изпращаме стойност като съобщение, че сме готови.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">done</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">готово</span> <span class="o">&lt;-</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -106,26 +111,26 @@ goroutine that this function&rsquo;s work is done.</p>
         
         <tr>
           <td class="docs">
-            <p>Start a worker goroutine, giving it the channel to
-notify on.</p>
+            <p>Пускаме гозадачата <code>работник</code> и ѝ подаваме канала,
+по който да изпрати съобщението.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="nf">worker</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">готово</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="nx">работник</span><span class="p">(</span><span class="nx">готово</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Block until we receive a notification from the
-worker on the channel.</p>
+            <p>Изпълнението спира и чака, докато получи съобщение
+от работника по канала.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="o">&lt;-</span><span class="nx">done</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="o">&lt;-</span><span class="nx">готово</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -140,16 +145,16 @@ worker on the channel.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run channel-synchronization.go      
-</span></span><span class="line"><span class="cl"><span class="go">working...done                  </span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run channel-synchronization.go
+</span></span><span class="line"><span class="cl"><span class="go">работя...готово</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>If you removed the <code>&lt;- done</code> line from this program,
-the program could exit before the <code>worker</code> finished
-its work, or in some cases even before it started.</p>
+            <p>Ако премахнете реда с <code>&lt;- готово</code>, програмата
+най-вероятно ще приключи преди <code>работник</code>а да свърши
+работа и може би преди да е започнал.</p>
 
           </td>
           <td class="code empty">
@@ -162,18 +167,18 @@ its work, or in some cases even before it started.</p>
       
       
       <p class="next">
-        Next example: <a href="channel-directions" rel="next">Channel Directions</a>.
+        Следващ пример: <a href="channel-directions" rel="next">Посока на канал</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func worker(done chan bool) {\u000A    fmt.Print(\"working...\")\u000A    time.Sleep(time.Second)\u000A    fmt.Println(\"done\")\u000A');codeLines.push('    done \u003C- true\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    done :\u003D make(chan bool, 1)\u000A    go worker(done)\u000A');codeLines.push('    \u003C-done\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func работник(готово chan bool) {\u000A    fmt.Print(\"работя...\")\u000A    time.Sleep(time.Second)\u000A    fmt.Println(\"готово\")\u000A');codeLines.push('    готово \u003C- true\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    готово :\u003D make(chan bool, 1)\u000A    go работник(готово)\u000A');codeLines.push('    \u003C-готово\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

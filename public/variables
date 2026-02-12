@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Variables</title>
+    <title>Go в примери: Променливи</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,15 @@
   </script>
   <body>
     <div class="example" id="variables">
-      <h2><a href="./">Go by Example</a>: Variables</h2>
+      <h2><a href="./">Go в примери</a>: Променливи</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>In Go, <em>variables</em> are explicitly declared and used by
-the compiler to e.g. check type-correctness of function
-calls.</p>
+            <p>В Go, <em>променливите</em> (стойности) се обявяват изрично и
+се ползват от компилатора, за да провери правилността
+на вида им при извикване на функиции и т.н.</p>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +46,7 @@ calls.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/N5rWndIliJW"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/WV7ce185al6"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -73,7 +73,7 @@ calls.</p>
         
         <tr>
           <td class="docs">
-            <p><code>var</code> declares 1 or more variables.</p>
+            <p><code>var</code> обявява една или повече променливи.</p>
 
           </td>
           <td class="code leading">
@@ -85,7 +85,7 @@ calls.</p>
         
         <tr>
           <td class="docs">
-            <p>You can declare multiple variables at once.</p>
+            <p>Можете да обявите няколко променливи наведнъж.</p>
 
           </td>
           <td class="code leading">
@@ -97,7 +97,8 @@ calls.</p>
         
         <tr>
           <td class="docs">
-            <p>Go will infer the type of initialized variables.</p>
+            <p>Go отгатва типа на наченатите (инициализирани)
+променливи.</p>
 
           </td>
           <td class="code leading">
@@ -109,9 +110,10 @@ calls.</p>
         
         <tr>
           <td class="docs">
-            <p>Variables declared without a corresponding
-initialization are <em>zero-valued</em>. For example, the
-zero value for an <code>int</code> is <code>0</code>.</p>
+            <p>Промнеливите, които са само обявени, без да са
+наченати (да им е присвоена начална стойност),
+получават съответна за вида <em>нулева стойност</em>.
+Например нулевата стойност за цяло число <code>int</code> е 0.</p>
 
           </td>
           <td class="code leading">
@@ -123,10 +125,20 @@ zero value for an <code>int</code> is <code>0</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>The <code>:=</code> syntax is shorthand for declaring and
-initializing a variable, e.g. for
-<code>var f string = &quot;apple&quot;</code> in this case.
-This syntax is only available inside functions.</p>
+            <p>В този случай например, правописът<sup class="footnote-ref" id="fnref:syntax"><a href="#fn:syntax">1</a></sup> <code>:=</code> е
+кратък начин за обявяване и начеване вместо
+<code>var f string = &quot;apple&quot;</code>. Този кратък правопис може
+да се използва само във функции.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:syntax">syntax – правило за писане – правопис</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code">
@@ -160,12 +172,12 @@ This syntax is only available inside functions.</p>
       
       
       <p class="next">
-        Next example: <a href="constants" rel="next">Constants</a>.
+        Следващ пример: <a href="constants" rel="next">Непроменливи</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

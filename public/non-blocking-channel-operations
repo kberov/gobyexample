@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Non-Blocking Channel Operations</title>
+    <title>Go в примери: Неблокиращи действия с канали</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,30 @@
   </script>
   <body>
     <div class="example" id="non-blocking-channel-operations">
-      <h2><a href="./">Go by Example</a>: Non-Blocking Channel Operations</h2>
+      <h2><a href="./">Go в примери</a>: Неблокиращи действия с канали</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Basic sends and receives on channels are blocking.
-However, we can use <code>select</code> with a <code>default</code> clause to
-implement <em>non-blocking</em> sends, receives, and even
-non-blocking multi-way <code>select</code>s.</p>
+            <p>Изпращането по канал и получаването по канал по
+подразбиране спира (блокира) главната нишка на
+изпълнението. Въпреки това можем да използваме <code>select</code>
+с допълнителна клауза – <code>default</code><sup class="footnote-ref" id="fnref:default"><a href="#fn:default">1</a></sup>, за да
+осъществим <em>невъзпиращи (неблокиращи)</em> изпращания,
+получавания и дори неблокиращи <em>множествени избори</em><sup class="footnote-ref" id="fnref:multiway"><a href="#fn:multiway">2</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:default">default – стойност (в случая – избор) по подразбиране</li>
+
+<li id="fn:multiway">multi-way select - множествен избор за действие с канал – избор от повече канали, но не задължително с разлчни посоки на действията – получаване и изпращане.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +61,7 @@ non-blocking multi-way <code>select</code>s.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/TFv6-7OVNVq"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/FJrK5tj8Ts_R"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -69,67 +83,65 @@ non-blocking multi-way <code>select</code>s.</p>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">messages</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">signals</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">    <span class="nx">писма</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">сигнали</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s a non-blocking receive. If a value is
-available on <code>messages</code> then <code>select</code> will take
-the <code>&lt;-messages</code> <code>case</code> with that value. If not
-it will immediately take the <code>default</code> case.</p>
+            <p>Ето едно неблокиращо получаване. Ако в канала <code>писма</code> вече има стойност, тогава <code>select</code> ще влезе в случая <code>&lt;-писма</code> и ще вземе тази стойност. Иначе ще влезе в подразбирания случай <code>default</code>.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">messages</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;received message&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">писмо</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">писма</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;получено писмо:&#34;</span><span class="p">,</span> <span class="nx">писмо</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no message received&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;няма нови писма&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>A non-blocking send works similarly. Here <code>msg</code>
-cannot be sent to the <code>messages</code> channel, because
-the channel has no buffer and there is no receiver.
-Therefore the <code>default</code> case is selected.</p>
+            <p>Неблокиращото изпращане работи по подобен начин.
+Тук <code>писмо</code> не може да бъде изпратено по канала
+<code>писма</code>, защото каналът няма зададена вместимост
+(значи не задържа) и няма получател. Затова бива
+избран случаят <code>default</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">msg</span> <span class="o">:=</span> <span class="s">&#34;hi&#34;</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">писмо</span> <span class="o">:=</span> <span class="s">&#34;hi&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">messages</span> <span class="o">&lt;-</span> <span class="nx">msg</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sent message&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">писма</span> <span class="o">&lt;-</span> <span class="nx">писмо</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;изпратено писмо&#34;</span><span class="p">,</span> <span class="nx">писмо</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no message sent&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;не е изпратено писмо&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We can use multiple <code>case</code>s above the <code>default</code>
-clause to implement a multi-way non-blocking
-select. Here we attempt non-blocking receives
-on both <code>messages</code> and <code>signals</code>.</p>
+            <p>Можем да имаме повече случаи над случая по
+подразбиране <code>default</code> и така да осъществим
+множествен неблокиращ избор. Тук осъществяваме
+неблокиращ избор от каналите <code>писма</code> и <code>сигнали</code>.</p>
 
           </td>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">messages</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;received message&#34;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">sig</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">signals</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;received signal&#34;</span><span class="p">,</span> <span class="nx">sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">писмо</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">писма</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;получено писмо&#34;</span><span class="p">,</span> <span class="nx">писмо</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">sig</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">сигнали</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;получен сигнал&#34;</span><span class="p">,</span> <span class="nx">sig</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no activity&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;бездействие&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
@@ -145,10 +157,10 @@ on both <code>messages</code> and <code>signals</code>.</p>
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run non-blocking-channel-operations.go 
-</span></span><span class="line"><span class="cl"><span class="go">no message received
-</span></span></span><span class="line"><span class="cl"><span class="go">no message sent
-</span></span></span><span class="line"><span class="cl"><span class="go">no activity</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run non-blocking-channel-operations.go
+</span></span><span class="line"><span class="cl"><span class="go">няма нови писма
+</span></span></span><span class="line"><span class="cl"><span class="go">не е изпратено писмо
+</span></span></span><span class="line"><span class="cl"><span class="go">бездействие</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -156,18 +168,18 @@ on both <code>messages</code> and <code>signals</code>.</p>
       
       
       <p class="next">
-        Next example: <a href="closing-channels" rel="next">Closing Channels</a>.
+        Следващ пример: <a href="closing-channels" rel="next">Затваряне на канали</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A    messages :\u003D make(chan string)\u000A    signals :\u003D make(chan bool)\u000A');codeLines.push('    select {\u000A    case msg :\u003D \u003C-messages:\u000A        fmt.Println(\"received message\", msg)\u000A    default:\u000A        fmt.Println(\"no message received\")\u000A    }\u000A');codeLines.push('    msg :\u003D \"hi\"\u000A    select {\u000A    case messages \u003C- msg:\u000A        fmt.Println(\"sent message\", msg)\u000A    default:\u000A        fmt.Println(\"no message sent\")\u000A    }\u000A');codeLines.push('    select {\u000A    case msg :\u003D \u003C-messages:\u000A        fmt.Println(\"received message\", msg)\u000A    case sig :\u003D \u003C-signals:\u000A        fmt.Println(\"received signal\", sig)\u000A    default:\u000A        fmt.Println(\"no activity\")\u000A    }\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func main() {\u000A    писма :\u003D make(chan string)\u000A    сигнали :\u003D make(chan bool)\u000A');codeLines.push('    select {\u000A    case писмо :\u003D \u003C-писма:\u000A        fmt.Println(\"получено писмо:\", писмо)\u000A    default:\u000A        fmt.Println(\"няма нови писма\")\u000A    }\u000A');codeLines.push('    писмо :\u003D \"hi\"\u000A    select {\u000A    case писма \u003C- писмо:\u000A        fmt.Println(\"изпратено писмо\", писмо)\u000A    default:\u000A        fmt.Println(\"не е изпратено писмо\")\u000A    }\u000A');codeLines.push('    select {\u000A    case писмо :\u003D \u003C-писма:\u000A        fmt.Println(\"получено писмо\", писмо)\u000A    case sig :\u003D \u003C-сигнали:\u000A        fmt.Println(\"получен сигнал\", sig)\u000A    default:\u000A        fmt.Println(\"бездействие\")\u000A    }\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

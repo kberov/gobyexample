@@ -1,5 +1,6 @@
-// In this example we'll look at how to implement
-// a _worker pool_ using goroutines and channels.
+// В този пример ще видим как се осъществява _работилница_
+// с помощта на гозадачи и канали.
+// [^wpool]: worker pool – (за целите на превода) работилница – място, където работят множество работници
 
 package main
 
@@ -8,47 +9,60 @@ import (
 	"time"
 )
 
-// Here's the worker, of which we'll run several
-// concurrent instances. These workers will receive
-// work on the `jobs` channel and send the corresponding
-// results on `results`. We'll sleep a second per job to
-// simulate an expensive task.
-func worker(id int, jobs <-chan int, results chan<- int) {
-	for j := range jobs {
-		fmt.Println("worker", id, "started  job", j)
+// Ето я заготовката за работник, от която ще създадем
+// няколко съработни[^concurrent] единици[^instance].
+// Тези работници ще получават работа, по канала `работа`
+// и ще изпращат произведенията си по канала
+// `произведено`. Ще накараме всяка гозадача да заспи за
+// секунда, за да наподобим времеемка, сиреч скъпоструваща
+// задача.
+// [^concurrent]: concurrent – съработен, едновременно работещ (буквално: съ-бягащ, от con (съ) + фр. courrir), съревновател, състезател
+// [^instance]: instance – единица, инстанция
+func работник(id int,
+	работа <-chan int, произведено chan<- int) {
+	for j := range работа {
+		fmt.Println("работник", id, "започна задача", j)
 		time.Sleep(time.Second)
-		fmt.Println("worker", id, "finished job", j)
-		results <- j * 2
+		fmt.Println("работник", id, "завърши задача", j)
+		произведено <- j * 2
 	}
 }
 
 func main() {
 
-	// In order to use our pool of workers we need to send
-	// them work and collect their results. We make 2
-	// channels for this.
-	const numJobs = 5
-	jobs := make(chan int, numJobs)
-	results := make(chan int, numJobs)
+	// За да ползваме нашата работилница с работници,
+	// трябва да им изпратим задачи и да съберем
+	// произведенето от всеки работник. За целта правим
+	// (`make`) два канала.
+	const бройЗадачи = 5
+	задачи := make(chan int, бройЗадачи)
+	произведено := make(chan int, бройЗадачи)
 
-	// This starts up 3 workers, initially blocked
-	// because there are no jobs yet.
+	// Тук създаваме три работника, които в началото не
+	// работят, защото все още нямат задачи.
 	for w := 1; w <= 3; w++ {
-		go worker(w, jobs, results)
+		go работник(w, задачи, произведено)
 	}
 
-	// Here we send 5 `jobs` and then `close` that
-	// channel to indicate that's all the work we have.
-	for j := 1; j <= numJobs; j++ {
-		jobs <- j
+	// Тук изпращаме пет `задачи` и после затваряме с
+	// помощта на `close` канала, за да кажем, че това е
+	// всичко, което искаме да се изработи.
+	for j := 1; j <= бройЗадачи; j++ {
+		задачи <- j
 	}
-	close(jobs)
+	close(задачи)
 
-	// Finally we collect all the results of the work.
-	// This also ensures that the worker goroutines have
-	// finished. An alternative way to wait for multiple
-	// goroutines is to use a [WaitGroup](waitgroups).
-	for a := 1; a <= numJobs; a++ {
-		<-results
+	// Накрая събираме всичко произведено. Това изявление
+	// също така обезпечава приключването на всички
+	// гозадачи-работници. Иначе програмата би завършила
+	// без да чака работниците. Друг начин да чакаме
+	// множество гозадачи е като си създадем
+	// чакалня[^wgroup] с помощта на
+	// [WaitGroup](waitgroups). [^wgroup]: wait-group –
+	// (за целите на превода) чакалня, иначе – изчакване
+	// на множество гозадачи.
+	for a := 1; a <= бройЗадачи; a++ {
+		произведение := <-произведено
+		fmt.Println("Произведено:", произведение)
 	}
 }

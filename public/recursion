@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Recursion</title>
+    <title>Go в примери: Самоизвикване</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,24 @@
   </script>
   <body>
     <div class="example" id="recursion">
-      <h2><a href="./">Go by Example</a>: Recursion</h2>
+      <h2><a href="./">Go в примери</a>: Самоизвикване</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go supports
-<a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>recursive functions</em></a>.
-Here&rsquo;s a classic example.</p>
+            <p>Go поддържа самоизвикващи се функции<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">1</a></sup>.
+Тук имаме класически пример.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:-">recusrsion – самоизвикване, рекурсия – https://ru.wikipedia.org/wiki/Рекурсивная_функция</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +55,7 @@ Here&rsquo;s a classic example.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/k4IRATLn9cE"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/_eORiilTC32"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -63,8 +72,8 @@ Here&rsquo;s a classic example.</p>
         
         <tr>
           <td class="docs">
-            <p>This <code>fact</code> function calls itself until it reaches the
-base case of <code>fact(0)</code>.</p>
+            <p>Тази функция <code>fact</code> извиква себе си докато достигне
+първичния си случай <code>fact(0)</code>.</p>
 
           </td>
           <td class="code leading">
@@ -91,9 +100,11 @@ base case of <code>fact(0)</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>Anonymous functions can also be recursive, but this requires
-explicitly declaring a variable with <code>var</code> to store
-the function before it&rsquo;s defined.</p>
+            <p>Безименните функции също могат да се самоизвикват,
+но е нужно преди това да обявим променлива с
+помощта на <code>var</code>, за да съхраним препратка към вида
+на функцията преди да ѝ дадем определение. Така
+всъщност я именуваме.</p>
 
           </td>
           <td class="code leading">
@@ -117,8 +128,9 @@ the function before it&rsquo;s defined.</p>
         
         <tr>
           <td class="docs">
-            <p>Since <code>fib</code> was previously declared in <code>main</code>, Go
-knows which function to call with <code>fib</code> here.</p>
+            <p>Понеже <code>fib</code> е обявена предварително в <code>main</code>,
+Go знае коя функция, с име <code>fib</code>, да извика
+тука.</p>
 
           </td>
           <td class="code leading">
@@ -159,12 +171,12 @@ knows which function to call with <code>fib</code> here.</p>
       
       
       <p class="next">
-        Next example: <a href="range-over-built-in-types" rel="next">Range over Built-in Types</a>.
+        Следващ пример: <a href="range-over-built-in-types" rel="next">Обход на последователности от вградени видове променливи с range</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

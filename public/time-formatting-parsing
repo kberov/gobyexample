@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Time Formatting / Parsing</title>
+    <title>Go в примери: Разбор и форматиране на Време</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="time-formatting-parsing">
-      <h2><a href="./">Go by Example</a>: Time Formatting / Parsing</h2>
+      <h2><a href="./">Go в примери</a>: Разбор и форматиране на Време</h2>
       
       <table>
         
@@ -180,12 +180,12 @@ explaining the parsing problem.</p>
       
       
       <p class="next">
-        Next example: <a href="random-numbers" rel="next">Random Numbers</a>.
+        Следващ пример: <a href="random-numbers" rel="next">Случайни числа</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

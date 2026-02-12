@@ -1,4 +1,4 @@
-$ go run non-blocking-channel-operations.go 
-no message received
-no message sent
-no activity
+$ go run non-blocking-channel-operations.go
+няма нови писма
+не е изпратено писмо
+бездействие

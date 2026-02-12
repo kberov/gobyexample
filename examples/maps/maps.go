@@ -1,5 +1,7 @@
-// _Maps_ are Go's built-in [associative data type](https://en.wikipedia.org/wiki/Associative_array)
-// (sometimes called _hashes_ or _dicts_ in other languages).
+// _Картите_ са вградения в Go вид за съединени
+// съответствия[^maps], понякога наричани _хешове_ или
+// _речници_ в други езици.
+// [^maps]: maps – съединени двойки, асоциативни масиви https://bg.wikipedia.org/wiki/Асоциативен_масив
 
 package main
 
@@ -10,61 +12,64 @@ import (
 
 func main() {
 
-	// To create an empty map, use the builtin `make`:
-	// `make(map[key-type]val-type)`.
+	// За да създадете празна карта, използвайте
+	// вградената функция `make`: `make(map[видключ]видстойност)`.
 	m := make(map[string]int)
 
-	// Set key/value pairs using typical `name[key] = val`
-	// syntax.
+	// Задайте двойки ключ/стойност като напишете
+	// `име[ключ] = стойност`
 	m["k1"] = 7
 	m["k2"] = 13
 
-	// Printing a map with e.g. `fmt.Println` will show all of
-	// its key/value pairs.
-	fmt.Println("map:", m)
+	// `fmt.Println` ще ни покаже всички двойки ключ/стойност от картата.
+	fmt.Println("карта:", m)
 
-	// Get a value for a key with `name[key]`.
+	// Вземете стойност, като напишете `име[ключ]`.
 	v1 := m["k1"]
 	fmt.Println("v1:", v1)
 
-	// If the key doesn't exist, the
-	// [zero value](https://go.dev/ref/spec#The_zero_value) of the
-	// value type is returned.
+	// Ако ключът не съществува, ще получим нулевата
+	// стойност за вида данни на съответната стойност[^zero].
+	// [^zero]: https://go.dev/ref/spec#The_zero_value
 	v3 := m["k3"]
 	fmt.Println("v3:", v3)
 
-	// The builtin `len` returns the number of key/value
-	// pairs when called on a map.
+	// Когато бъде извикана върху карта, вградената
+	// функция `len` връща броя на двойките ключ/стойност.
 	fmt.Println("len:", len(m))
 
-	// The builtin `delete` removes key/value pairs from
-	// a map.
+	// Вградената функция `delete` премахва двойки от
+	// картата, като укажем ключа.
 	delete(m, "k2")
-	fmt.Println("map:", m)
+	fmt.Println("карта:", m)
 
-	// To remove *all* key/value pairs from a map, use
-	// the `clear` builtin.
+	// За да премахнете всички двойки, използвайте
+	// вградената функция `clear`.
 	clear(m)
-	fmt.Println("map:", m)
+	fmt.Println("карта:", m)
 
-	// The optional second return value when getting a
-	// value from a map indicates if the key was present
-	// in the map. This can be used to disambiguate
-	// between missing keys and keys with zero values
-	// like `0` or `""`. Here we didn't need the value
-	// itself, so we ignored it with the _blank identifier_
-	// `_`.
-	_, prs := m["k2"]
-	fmt.Println("prs:", prs)
+	// Незадължителната втора връщана стойност, когато
+	// вземаме стойност чрез указване на ключ от карта,
+	// показва дали ключът съществува в картата. Това може
+	// да се използва, когато искаме да знаем, дали
+	// стойността е наистина с нулева стойност, като `0`,
+	// `false` или `""`, или просто не съществува.
+	//
+	// Тук не ни е нужна самата стойност и затова я
+	// пренебрегваме като ползваме _празното име за
+	// променлива_ `_`[^blank].
+	// [^blank]: blank identifier – празно наименование
+	_, същ := m["k2"]
+	fmt.Println("съществува:", същ)
 
-	// You can also declare and initialize a new map in
-	// the same line with this syntax.
-	n := map[string]int{"foo": 1, "bar": 2}
-	fmt.Println("map:", n)
+	// Също така можете да обявите и наченете карта
+	// едновременно, като напишете следното.
+	n := map[string]int{"ала": 1, "бала": 2}
+	fmt.Println("карта:", n)
 
-	// The `maps` package contains a number of useful
-	// utility functions for maps.
-	n2 := map[string]int{"foo": 1, "bar": 2}
+	// Пакетът `maps` съдържа набор от полезни функции за
+	// работа с карти.
+	n2 := map[string]int{"ала": 1, "бала": 2}
 	if maps.Equal(n, n2) {
 		fmt.Println("n == n2")
 	}

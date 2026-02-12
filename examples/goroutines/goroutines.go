@@ -1,4 +1,7 @@
-// A _goroutine_ is a lightweight thread of execution.
+// _goroutine_[^goroutine] е лека нишка[^thread] на
+// изпълнение.
+// [^goroutine]: goroutine – измислена за езика Го дума, за да обозначи и разграничи вида нишки в този език от другите програмни езици – подзадача, изпълняваща се едновременно с главната.
+// [^thread]: thread – нишка (за изпълнение на поредица от указания)
 
 package main
 
@@ -15,25 +18,26 @@ func f(from string) {
 
 func main() {
 
-	// Suppose we have a function call `f(s)`. Here's how
-	// we'd call that in the usual way, running it
-	// synchronously.
-	f("direct")
+	// Да предположим, че извикваме функция `f(s)` по
+	// обичайния начин - в потока на програмата ни.
+	f("пряко извикване")
 
-	// To invoke this function in a goroutine, use
-	// `go f(s)`. This new goroutine will execute
-	// concurrently with the calling one.
-	go f("goroutine")
+	// За да извикаме тази функция като отделна нишка в
+	// Го, пишем `go f(s)`. Тази нова „гозадача“ ще се
+	// изпълни едновременно с извикващата я (главната
+	// нишка).
+	go f("извикване в отделна go-нишка")
 
-	// You can also start a goroutine for an anonymous
-	// function call.
+	// Можете да пуснете нова гозадача с безименна
+	// функция.
 	go func(msg string) {
 		fmt.Println(msg)
-	}("going")
+	}("върви")
 
-	// Our two function calls are running asynchronously in
-	// separate goroutines now. Wait for them to finish
-	// (for a more robust approach, use a [WaitGroup](waitgroups)).
+	// Двете ни извикани функции сега работят независимо
+	// една от друга в отделни нишки (потоци) на
+	// изпълнение. Изчакваме ги да завършат. По-мощен
+	// подход е да ползваме [WaitGroup](waitgroups).
 	time.Sleep(time.Second)
-	fmt.Println("done")
+	fmt.Println("готово")
 }

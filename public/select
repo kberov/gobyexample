@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Select</title>
+    <title>Go в примери: Избор на канал (select)</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,15 @@
   </script>
   <body>
     <div class="example" id="select">
-      <h2><a href="./">Go by Example</a>: Select</h2>
+      <h2><a href="./">Go в примери</a>: Избор на канал (select)</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go&rsquo;s <em>select</em> lets you wait on multiple channel
-operations. Combining goroutines and channels with
-select is a powerful feature of Go.</p>
+            <p>Ключовата дума <code>select</code> ни позволява да очакваме (и
+приемаме) данни от много канали едновременно.
+Съчетаването на канали и <code>select</code> ни дава много мощ.</p>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +46,7 @@ select is a powerful feature of Go.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/dOrjUfgGwB2"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/W3NjcCGFSDl"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -76,7 +76,8 @@ select is a powerful feature of Go.</p>
         
         <tr>
           <td class="docs">
-            <p>For our example we&rsquo;ll select across two channels.</p>
+            <p>За целите на нашия пример ще избираме от два
+канала.</p>
 
           </td>
           <td class="code leading">
@@ -88,38 +89,49 @@ select is a powerful feature of Go.</p>
         
         <tr>
           <td class="docs">
-            <p>Each channel will receive a value after some amount
-of time, to simulate e.g. blocking RPC operations
-executing in concurrent goroutines.</p>
+            <p>Всеки канал получава някаква стойност след известно
+време. Така симулираме да речем RPC<sup class="footnote-ref" id="fnref:rpc"><a href="#fn:rpc">1</a></sup> действия,
+изпълняващи се в различни едновременни гозадачи.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:rpc">RPC (Remote Procedure Calls) – Извикване на отдалечени процедури</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">c1</span> <span class="o">&lt;-</span> <span class="s">&#34;one&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c1</span> <span class="o">&lt;-</span> <span class="s">&#34;едно&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">c2</span> <span class="o">&lt;-</span> <span class="s">&#34;two&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c2</span> <span class="o">&lt;-</span> <span class="s">&#34;две&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll use <code>select</code> to await both of these values
-simultaneously, printing each one as it arrives.</p>
+            <p>Използваме <code>select</code>, за да очакваме две стойности
+едновременно, като извеждаме на екрана полученото
+веднага щом пристигне някоя от тях.</p>
 
           </td>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">for</span> <span class="k">range</span> <span class="mi">2</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">msg1</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c1</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;received&#34;</span><span class="p">,</span> <span class="nx">msg1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">msg2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c2</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;received&#34;</span><span class="p">,</span> <span class="nx">msg2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">писмо1</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;получено&#34;</span><span class="p">,</span> <span class="nx">писмо1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">писмо2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">c2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;получено&#34;</span><span class="p">,</span> <span class="nx">писмо2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
@@ -132,23 +144,22 @@ simultaneously, printing each one as it arrives.</p>
         
         <tr>
           <td class="docs">
-            <p>We receive the values <code>&quot;one&quot;</code> and then <code>&quot;two&quot;</code> as
-expected.</p>
+            <p>Получаваме стойностите <code>&quot;едно&quot;</code> и после `&ldquo;две&rdquo;, както очакваме.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> time go run select.go 
-</span></span><span class="line"><span class="cl"><span class="go">received one
-</span></span></span><span class="line"><span class="cl"><span class="go">received two</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> time go run select.go
+</span></span><span class="line"><span class="cl"><span class="go">получено едно
+</span></span></span><span class="line"><span class="cl"><span class="go">получено две</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Note that the total execution time is only ~2 seconds
-since both the 1 and 2 second <code>Sleeps</code> execute
-concurrently.</p>
+            <p>Забележете, че общото време за изпълнение е само около
+две секунди, а не три, тъй като заспиването за една и
+две секунди се изпълняват едновременно.</p>
 
           </td>
           <td class="code">
@@ -161,18 +172,18 @@ concurrently.</p>
       
       
       <p class="next">
-        Next example: <a href="timeouts" rel="next">Timeouts</a>.
+        Следващ пример: <a href="timeouts" rel="next">Срокове</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\u003D make(chan string)\u000A    c2 :\u003D make(chan string)\u000A');codeLines.push('    go func() {\u000A        time.Sleep(1 * time.Second)\u000A        c1 \u003C- \"one\"\u000A    }()\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \u003C- \"two\"\u000A    }()\u000A');codeLines.push('    for range 2 {\u000A        select {\u000A        case msg1 :\u003D \u003C-c1:\u000A            fmt.Println(\"received\", msg1)\u000A        case msg2 :\u003D \u003C-c2:\u000A            fmt.Println(\"received\", msg2)\u000A        }\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    c1 :\u003D make(chan string)\u000A    c2 :\u003D make(chan string)\u000A');codeLines.push('    go func() {\u000A        time.Sleep(1 * time.Second)\u000A        c1 \u003C- \"едно\"\u000A    }()\u000A    go func() {\u000A        time.Sleep(2 * time.Second)\u000A        c2 \u003C- \"две\"\u000A    }()\u000A');codeLines.push('    for range 2 {\u000A        select {\u000A        case писмо1 :\u003D \u003C-c1:\u000A            fmt.Println(\"получено\", писмо1)\u000A        case писмо2 :\u003D \u003C-c2:\u000A            fmt.Println(\"получено\", писмо2)\u000A        }\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

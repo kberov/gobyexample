@@ -1,15 +1,21 @@
-// In Go it's idiomatic to communicate errors via an
-// explicit, separate return value. This contrasts with
-// the exceptions used in languages like Java, Python and
-// Ruby and the overloaded single result / error value
-// sometimes used in C. Go's approach makes it easy to
-// see which functions return errors and to handle them
-// using the same language constructs employed for other,
-// non-error tasks.
+// Обичайно[^idiomatic] в Го грешките се съобщават изрично
+// чрез връщане на отделна сойност. Това е съвсем различен
+// подход в сравнение с езици като Java, Python и
+// Ruby и презареденият[^overload] единичен изход[^result]
+//  / грешка, ползван понякога в C.
 //
-// See the documentation of the [errors package](https://pkg.go.dev/errors)
-// and [this blog post](https://go.dev/blog/go1.13-errors) for additional
-// details.
+// С този подход Го прави по-лесно да се видят функциите,
+// които връщат грешки и да се обработват грешките по
+// същия начин както и другите стойности, ползвани за
+// други задачи.
+//
+// Вижте документацията на [пакета
+// `errors`](https://pkg.go.dev/errors) и [тази
+// статия](https://go.dev/blog/go1.13-errors) за повече
+// подробности.
+// [^idiomatic]: idiomatic – обичайно, като начин на изразяване и мислене в някакъв език
+// [^overload]: overload – презареждам
+// [^result]: result – изход (от действие)
 
 package main
 
@@ -18,37 +24,47 @@ import (
 	"fmt"
 )
 
-// By convention, errors are the last return value and
-// have type `error`, a built-in interface.
+// Обичайно[^byconv] грешките са последната върната
+// стойност и са от вида `error`, който е описано и
+// осъществено в пакета взаимодействие.
+// [^byconv]: by convention – обичайно, по взаимно съгласие в някаква общност
 func f(arg int) (int, error) {
 	if arg == 42 {
-		// `errors.New` constructs a basic `error` value
-		// with the given error message.
-		return -1, errors.New("can't work with 42")
+		//
+		// `errors.New` съставя обикновена стойност от
+		// вида `error` с дадено съобщение за грешка.
+		return -1, errors.New("не мога да работя с 42")
 	}
 
-	// A `nil` value in the error position indicates that
-	// there was no error.
+	// Стойност `nil` на мястото на грешката означава, че
+	// няма грешка.
 	return arg + 3, nil
 }
 
-// A sentinel error is a predeclared variable that is used to
-// signify a specific error condition.
-var ErrOutOfTea = errors.New("no more tea available")
-var ErrPower = errors.New("can't boil water")
+// Предпазната грешка[^senterr] представлява предварително
+// обявена променлива, която се използва, за да обозначи
+// грешка, случила се при определени условия.
+// [^senterr]: sentinel error – предпазна грешка (като предпазен клапан)
+var ErrOutOfTea = errors.New("няма повече чай")
+var ErrPower = errors.New("не мога да сваря вода")
 
 func makeTea(arg int) error {
 	if arg == 2 {
 		return ErrOutOfTea
 	} else if arg == 4 {
 
-		// We can wrap errors with higher-level errors to add
-		// context. The simplest way to do this is with the
-		// `%w` verb in `fmt.Errorf`. Wrapped errors
-		// create a logical chain (A wraps B, which wraps C, etc.)
-		// that can be queried with functions like `errors.Is`
-		// and `errors.As`.
-		return fmt.Errorf("making tea: %w", ErrPower)
+		// Можем да обгърнем[^wrap] грешките в други
+		// грешки от по-високо равнище, за да добавим
+		// смисъл[^context]. Най-простият начин да го
+		// направим е с помощта на глагола `%w` в
+		// `fmt.Errorf`. Обгърнатите грешки създават
+		// смислова логическа верига (А обгръща Б, която
+		// обгръща В, и т.н.), която може да бъде
+		// проследявана с функции като `errors.Is` и
+		// `errors.As`.
+		// [^wrap]: wrap – обгръщам, увивам като пакет, загръщам.
+		// [^context]: context – смисъл.
+		return fmt.Errorf("правя чай: %w", ErrPower)
 	}
 	return nil
 }
@@ -56,32 +72,29 @@ func makeTea(arg int) error {
 func main() {
 	for _, i := range []int{7, 42} {
 
-		// It's idiomatic to use an inline error check in the `if`
-		// line.
+		// В Го обичайно се прави проверка направо в
+		// реда с условието – след `if`
 		if r, e := f(i); e != nil {
-			fmt.Println("f failed:", e)
+			fmt.Println("f не проработи:", e)
 		} else {
-			fmt.Println("f worked:", r)
+			fmt.Println("f проработи:", r)
 		}
 	}
 
 	for i := range 5 {
 		if err := makeTea(i); err != nil {
 
-			// `errors.Is` checks that a given error (or any error in its chain)
-			// matches a specific error value. This is especially useful with wrapped or
-			// nested errors, allowing you to identify specific error types or sentinel
-			// errors in a chain of errors.
+			// `errors.Is` проверява дали дадена грешка (или всяка грешка по веригата ѝ) съвпада с опредлена стойсност. Това е особено полезно при обгърнати или вгнездени една в друга грешки и ви позволява да разпознаете определени видове грешки или предпазни грешки по веригата.
 			if errors.Is(err, ErrOutOfTea) {
-				fmt.Println("We should buy new tea!")
+				fmt.Println("Трябва да си купим чай!")
 			} else if errors.Is(err, ErrPower) {
-				fmt.Println("Now it is dark.")
+				fmt.Println("Сега е тъмно.")
 			} else {
-				fmt.Printf("unknown error: %s\n", err)
+				fmt.Printf("непозната грешка: %s\n", err)
 			}
 			continue
 		}
 
-		fmt.Println("Tea is ready!")
+		fmt.Println("Чаят е готов!")
 	}
 }

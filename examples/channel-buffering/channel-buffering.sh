@@ -1,3 +1,3 @@
-$ go run channel-buffering.go 
-buffered
-channel
+$ go run channel-buffering.go
+задържащ
+канал

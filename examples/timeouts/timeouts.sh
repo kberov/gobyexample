@@ -1,5 +1,5 @@
-# Running this program shows the first operation timing
-# out and the second succeeding.
-$ go run timeouts.go 
-timeout 1
-result 2
+# Ако пуснем тази програма, ще видим, че при първото
+# действие срокът изтича, а второто успява навреме.
+$ go run timeouts.go
+срок 1: 2026-02-09 20:26:11.919305229 +0200 EET m=+1.000027846
+изход 2

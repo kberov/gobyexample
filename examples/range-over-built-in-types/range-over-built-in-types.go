@@ -1,7 +1,7 @@
-// _range_ iterates over elements in a variety of
-// built-in data structures. Let's see how to
-// use `range` with some of the data structures
-// we've already learned.
+// _range_ извършва последователно повтарящо се действие
+// върху всеки член от подадения му набор от вградени
+// видове структури от данни. Да видим как да ползваме
+// `range` с някои от видовете данни, които вече знаем.
 
 package main
 
@@ -9,8 +9,9 @@ import "fmt"
 
 func main() {
 
-	// Here we use `range` to sum the numbers in a slice.
-	// Arrays work like this too.
+	// Тук ползваме действието `range` (обхождане), за да
+	// съберем последователно числата от даден отрязък.
+	// С поредиците работим по същия начин.
 	nums := []int{2, 3, 4}
 	sum := 0
 	for _, num := range nums {
@@ -18,34 +19,38 @@ func main() {
 	}
 	fmt.Println("sum:", sum)
 
-	// `range` on arrays and slices provides both the
-	// index and value for each entry. Above we didn't
-	// need the index, so we ignored it with the
-	// blank identifier `_`. Sometimes we actually want
-	// the indexes though.
+	// При обхождането на поредици и отрязъци `range` връща едновременно показалец и стойност за всеки следващ член. По-горе не ни беше нужен показалеца и го пренебрегнахме, като присвоихме стойността му на празното наименование `_`. В други случаи показалецът ни е нужен.
 	for i, num := range nums {
 		if num == 3 {
 			fmt.Println("index:", i)
 		}
 	}
 
-	// `range` on map iterates over key/value pairs.
-	kvs := map[string]string{"a": "apple", "b": "banana"}
+	// При обход с `range` на карти на всяка стъпка
+	// получaваме двойка ключ/стойност.
+	kvs := map[string]string{"я": "ябълка", "б": "банан"}
 	for k, v := range kvs {
 		fmt.Printf("%s -> %s\n", k, v)
 	}
 
-	// `range` can also iterate over just the keys of a map.
+	// С `range` също така можем да обходим само ключовете
+	// в дадена карта.
 	for k := range kvs {
-		fmt.Println("key:", k)
+		fmt.Println("ключ:", k)
 	}
 
-	// `range` on strings iterates over Unicode code
-	// points. The first value is the starting byte index
-	// of the `rune` and the second the `rune` itself.
-	// See [Strings and Runes](strings-and-runes) for more
-	// details.
-	for i, c := range "go" {
-		fmt.Println(i, c)
+	// Когато обхождаме низове с `range`, на всяка стъпка
+	// получаваме мястото на следващия знак в таблицата
+	// Уникод[^unicode]. Първата стойност е показалец за
+	// мястото в низа на началният байт от следващия знак
+	// (`rune` – руна), а втората е самият знак – `rune`.
+	// Вижте [Низове и Руни](strings-and-runes), за повече
+	// подробности. Тук обхождаме стойността, която връща
+	// ключа `я` от картата `kvs`.
+	// [^unicode]: Уникод – https://bg.wikipedia.org/wiki/Уникод
+	for i, c := range kvs["я"] {
+		// За да видим самата буква, трябва да я ползваме
+		// като низ – `string`.
+		fmt.Println(i, c, string(c))
 	}
 }

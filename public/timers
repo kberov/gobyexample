@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Timers</title>
+    <title>Go в примери: Срочници</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,17 +24,30 @@
   </script>
   <body>
     <div class="example" id="timers">
-      <h2><a href="./">Go by Example</a>: Timers</h2>
+      <h2><a href="./">Go в примери</a>: Срочници</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>We often want to execute Go code at some point in the
-future, or repeatedly at some interval. Go&rsquo;s built-in
-<em>timer</em> and <em>ticker</em> features make both of these tasks
-easy. We&rsquo;ll look first at timers and then
-at <a href="tickers">tickers</a>.</p>
+            <p>Често искаме да изпълним код на Го някъде в бъдещето
+или да го изпълняваме повторно през определено време.
+Вградените възможности в Го за осъществяване на
+срочници<sup class="footnote-ref" id="fnref:timer"><a href="#fn:timer">1</a></sup> и часовници<sup class="footnote-ref" id="fnref:ticker"><a href="#fn:ticker">2</a></sup> правят и двете
+задачи лесни. Първо ще разгледаме срочниците, а после
+часовниците.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:timer">timer – срочник (брояч за оставащо време – срок), хронометър, таймер. Чрез срочника задаваме <a href="timeouts">краен срок</a> за сбъдване на събитие.</li>
+
+<li id="fn:ticker">ticker – (в разговорната реч) часовник, махало, времемер</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -48,7 +61,7 @@ at <a href="tickers">tickers</a>.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/gF7VLRz3URM"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/hnbjp_d3GTX"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -78,58 +91,62 @@ at <a href="tickers">tickers</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>Timers represent a single event in the future. You
-tell the timer how long you want to wait, and it
-provides a channel that will be notified at that
-time. This timer will wait 2 seconds.</p>
+            <p>Срочниците отчитат оставащото време до единично
+събитие в бъдещето – задават срок. Казвате на
+срочника колко време искате да чакате и той ви дава
+канал, по който ще се изпрати съобщение, като му
+дойде времето. Този срочник ще чака две секунди.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">timer1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">срочник1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>The <code>&lt;-timer1.C</code> blocks on the timer&rsquo;s channel <code>C</code>
-until it sends a value indicating that the timer
-fired.</p>
+            <p>Изразът <code>&lt;-timer1.C</code> възпира програмата чрез своя
+канал <code>C</code> докато изпрати стойност, означаваща
+настъпването на срока.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="o">&lt;-</span><span class="nx">timer1</span><span class="p">.</span><span class="nx">C</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Timer 1 fired&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="o">&lt;-</span><span class="nx">срочник1</span><span class="p">.</span><span class="nx">C</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;`срочник1` звънна.&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>If you just wanted to wait, you could have used
-<code>time.Sleep</code>. One reason a timer may be useful is
-that you can cancel the timer before it fires.
-Here&rsquo;s an example of that.</p>
+            <p>Ако просто искахте да изчакате определено време,
+можехте да използвате <code>time.Sleep</code>. Онователна
+причина да използвате срочник, е че можете да
+отмените настъпването на събитието (изтичането на зададения срок),
+преди да се случи. Ето един такъв пример.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">timer2</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">срочник2</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;-</span><span class="nx">timer2</span><span class="p">.</span><span class="nx">C</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Timer 2 fired&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;-</span><span class="nx">срочник2</span><span class="p">.</span><span class="nx">C</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Пуснахме срочник2.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">stop2</span> <span class="o">:=</span> <span class="nx">timer2</span><span class="p">.</span><span class="nf">Stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stop2</span> <span class="o">:=</span> <span class="nx">срочник2</span><span class="p">.</span><span class="nf">Stop</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">stop2</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Timer 2 stopped&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Спряхме срочник2.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Give the <code>timer2</code> enough time to fire, if it ever
-was going to, to show it is in fact stopped.</p>
+            <p>Даваме на <code>срочник2</code> достатъчно време, да отброи
+времето до събитието, ако изобщо е щял да го
+направи. Така показваме, че всъщност е бил
+прекъснат (спрян).</p>
 
           </td>
           <td class="code">
@@ -145,16 +162,16 @@ was going to, to show it is in fact stopped.</p>
         
         <tr>
           <td class="docs">
-            <p>The first timer will fire ~2s after we start the
-program, but the second should be stopped before it has
-a chance to fire.</p>
+            <p>Първият срочник ще звънне две секунди след като пуснем
+програмата, а вторият бива спрян преди да му дойде
+времето да звънне.</p>
 
           </td>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run timers.go
-</span></span><span class="line"><span class="cl"><span class="go">Timer 1 fired
-</span></span></span><span class="line"><span class="cl"><span class="go">Timer 2 stopped</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">`срочник1` звънна.
+</span></span></span><span class="line"><span class="cl"><span class="go">Спряхме срочник2.</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -162,18 +179,18 @@ a chance to fire.</p>
       
       
       <p class="next">
-        Next example: <a href="tickers" rel="next">Tickers</a>.
+        Следващ пример: <a href="tickers" rel="next">Часовници</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    timer1 :\u003D time.NewTimer(2 * time.Second)\u000A');codeLines.push('    \u003C-timer1.C\u000A    fmt.Println(\"Timer 1 fired\")\u000A');codeLines.push('    timer2 :\u003D time.NewTimer(time.Second)\u000A    go func() {\u000A        \u003C-timer2.C\u000A        fmt.Println(\"Timer 2 fired\")\u000A    }()\u000A    stop2 :\u003D timer2.Stop()\u000A    if stop2 {\u000A        fmt.Println(\"Timer 2 stopped\")\u000A    }\u000A');codeLines.push('    time.Sleep(2 * time.Second)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    срочник1 :\u003D time.NewTimer(2 * time.Second)\u000A');codeLines.push('    \u003C-срочник1.C\u000A    fmt.Println(\"`срочник1` звънна.\")\u000A');codeLines.push('    срочник2 :\u003D time.NewTimer(time.Second)\u000A    go func() {\u000A        \u003C-срочник2.C\u000A        fmt.Println(\"Пуснахме срочник2.\")\u000A    }()\u000A    stop2 :\u003D срочник2.Stop()\u000A    if stop2 {\u000A        fmt.Println(\"Спряхме срочник2.\")\u000A    }\u000A');codeLines.push('    time.Sleep(2 * time.Second)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

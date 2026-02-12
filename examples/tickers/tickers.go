@@ -1,8 +1,10 @@
-// [Timers](timers) are for when you want to do
-// something once in the future - _tickers_ are for when
-// you want to do something repeatedly at regular
-// intervals. Here's an example of a ticker that ticks
-// periodically until we stop it.
+// Ползваме [срочници](timers), когато искаме да извършим
+// еднократно действие в бъдещето. _Часовниците_ ги
+// ползваме, за да извършваме многратно повтарящи се през
+// определено време действия. Иначе казано, срочниците
+// цъкват веднъж, а часовниците цъкат многократно. Ето
+// пример за часовник, който цъка своевременно, докато го
+// спрем.
 
 package main
 
@@ -13,29 +15,33 @@ import (
 
 func main() {
 
-	// Tickers use a similar mechanism to timers: a
-	// channel that is sent values. Here we'll use the
-	// `select` builtin on the channel to await the
-	// values as they arrive every 500ms.
-	ticker := time.NewTicker(500 * time.Millisecond)
-	done := make(chan bool)
+	// Часовниците работят подобно на срочниците – чрез
+	// канал, по който изпращат стойности. Сега ще
+	// използваме вграденото изявление `select`, за да
+	// очакваме стойности, които пристигат веднъж на всеки
+	// 500 милисекунди.
+	часовник := time.NewTicker(500 * time.Millisecond)
+	край := make(chan bool)
 
 	go func() {
 		for {
 			select {
-			case <-done:
+			case <-край:
 				return
-			case t := <-ticker.C:
-				fmt.Println("Tick at", t)
+			case t := <-часовник.C:
+				fmt.Println(
+					"Цък в", t.Format(`15:04:05.000`))
 			}
 		}
 	}()
 
-	// Tickers can be stopped like timers. Once a ticker
-	// is stopped it won't receive any more values on its
-	// channel. We'll stop ours after 1600ms.
+	// Часовниците могат да бъдат спирани също както
+	// срочниците. След като веднъж е спрян часовника, той
+	// няма повече да получава стойности по канала си.
+	// Нашия ще го спрем след 1600 милисекунди.
 	time.Sleep(1600 * time.Millisecond)
-	ticker.Stop()
-	done <- true
-	fmt.Println("Ticker stopped")
+	часовник.Stop()
+	край <- true
+	fmt.Println("Спряхме часовника в",
+		time.Now().Format(`15:04:05.000`))
 }

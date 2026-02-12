@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Constants</title>
+    <title>Go в примери: Непроменливи</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,14 @@
   </script>
   <body>
     <div class="example" id="constants">
-      <h2><a href="./">Go by Example</a>: Constants</h2>
+      <h2><a href="./">Go в примери</a>: Непроменливи</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go supports <em>constants</em> of character, string, boolean,
-and numeric values.</p>
+            <p>Go поддържа <em>непроменливи</em> <a href="стойности"></a> от
+вида знак, низ, булева и числова стойности.</p>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +45,7 @@ and numeric values.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/LfvIxHlpomp"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/MgzT8D9SIbv"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -65,7 +65,7 @@ and numeric values.</p>
         
         <tr>
           <td class="docs">
-            <p><code>const</code> declares a constant value.</p>
+            <p><code>const</code> обявява непроменлива стойност.</p>
 
           </td>
           <td class="code leading">
@@ -87,8 +87,18 @@ and numeric values.</p>
         
         <tr>
           <td class="docs">
-            <p>A <code>const</code> statement can also appear inside a
-function body.</p>
+            <p>Изявлението<sup class="footnote-ref" id="fnref:statement"><a href="#fn:statement">1</a></sup> <code>const</code> може да се появява
+също в тяло на функция.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:statement">statement – изявление</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -99,8 +109,8 @@ function body.</p>
         
         <tr>
           <td class="docs">
-            <p>Constant expressions perform arithmetic with
-arbitrary precision.</p>
+            <p>В изрази за създаване на непроменливи може да се
+извършват аритметични действия с променлива точност.</p>
 
           </td>
           <td class="code leading">
@@ -112,8 +122,8 @@ arbitrary precision.</p>
         
         <tr>
           <td class="docs">
-            <p>A numeric constant has no type until it&rsquo;s given
-one, such as by an explicit conversion.</p>
+            <p>Числовата непроменлива няма тип, докато не ѝ се
+даде такъв. Например чрез изрично превръщане.</p>
 
           </td>
           <td class="code leading">
@@ -124,10 +134,11 @@ one, such as by an explicit conversion.</p>
         
         <tr>
           <td class="docs">
-            <p>A number can be given a type by using it in a
-context that requires one, such as a variable
-assignment or function call. For example, here
-<code>math.Sin</code> expects a <code>float64</code>.</p>
+            <p>На число може да му се придаде вид при използването
+му в определен смисъл, който изисква такъв вид
+стойност. Например при присвояване на стойност на
+променлива или извикване на функция. Тук <code>math.Sin</code>
+очаква число от вида <code>float64</code>.</p>
 
           </td>
           <td class="code">
@@ -159,12 +170,12 @@ assignment or function call. For example, here
       
       
       <p class="next">
-        Next example: <a href="for" rel="next">For</a>.
+        Следващ пример: <a href="for" rel="next">За (For)</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

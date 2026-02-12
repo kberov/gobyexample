@@ -1,14 +1,14 @@
 $ go run waitgroups.go
-Worker 5 starting
-Worker 3 starting
-Worker 4 starting
-Worker 1 starting
-Worker 2 starting
-Worker 4 done
-Worker 1 done
-Worker 2 done
-Worker 5 done
-Worker 3 done
+Работник 5 започва работа.
+Работник 3 започва работа.
+Работник 4 започва работа.
+Работник 2 започва работа.
+Работник 1 започва работа.
+Работник 4 е готов.
+Работник 3 е готов.
+Работник 5 е готов.
+Работник 2 е готов.
+Работник 1 е готов.
 
-# The order of workers starting up and finishing
-# is likely to be different for each invocation.
+# Редът на тръгващи и спиращи работници може да е различен
+# при всяко пускане.

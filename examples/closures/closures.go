@@ -1,16 +1,21 @@
-// Go supports [_anonymous functions_](https://en.wikipedia.org/wiki/Anonymous_function),
-// which can form <a href="https://en.wikipedia.org/wiki/Closure_(computer_science)"><em>closures</em></a>.
-// Anonymous functions are useful when you want to define
-// a function inline without having to name it.
+// Go поддържа _безименни функции_[^безименни], които
+// могат да създават затваряния[^затваряне].
+//
+// Безименните функции са полезни, когато искате да
+// създадете функция „посред“[^inline] написаното, без да
+// е нужно да я именувате.
+// [^безименни]: annonimous function – безименна функция. https://bg.wikipedia.org/wiki/Анонимна_функция
+// [^затваряне]: closure – затваряне. https://bg.wikipedia.org/wiki/Затваряне_(информатика)
+// [^inline]: inline – насред, посред, в реда на...
 
 package main
 
 import "fmt"
 
-// This function `intSeq` returns another function, which
-// we define anonymously in the body of `intSeq`. The
-// returned function _closes over_ the variable `i` to
-// form a closure.
+// Функцията `intSeq` връща друга функция, която създаваме
+// без име в тялото на `intSeq`. Върната функция _затваря
+// в себе си_ променливата `i` и така създава _затвор_ за
+// `i`.
 func intSeq() func() int {
 	i := 0
 	return func() int {
@@ -21,20 +26,22 @@ func intSeq() func() int {
 
 func main() {
 
-	// We call `intSeq`, assigning the result (a function)
-	// to `nextInt`. This function value captures its
-	// own `i` value, which will be updated each time
-	// we call `nextInt`.
+	// Извикваме `intSeq`, като присвояваме изхода ѝ
+	// (функция) на променливата `nextInt`. Тази
+	// стойност-функция прихваща _своя собствена_ стойност
+	// на `i`, която стойност се променя при всяко
+	// извикване на `nextInt`.
 	nextInt := intSeq()
 
-	// See the effect of the closure by calling `nextInt`
-	// a few times.
+	// Вижте действието на затварянето от извикването на
+	// `nextInt` няколко пъти.
 	fmt.Println(nextInt())
 	fmt.Println(nextInt())
 	fmt.Println(nextInt())
 
-	// To confirm that the state is unique to that
-	// particular function, create and test a new one.
+	// За да потвърдим, че състоянието на `i` е
+	// собственост на новопроизведената функция, създайте
+	// и извикайте нова.
 	newInts := intSeq()
 	fmt.Println(newInts())
 }

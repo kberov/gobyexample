@@ -1,23 +1,29 @@
-// Go's _structs_ are typed collections of fields.
-// They're useful for grouping data together to form
-// records.
+// Структурите в Go представляват съвкупност от полета от
+// различни видове данни. Те са полезни за съчетаване на
+// данни заедно и по този начин да се съставят записи.
 
 package main
 
 import "fmt"
 
-// This `person` struct type has `name` and `age` fields.
+// Този вид структура, наречен `person`, има полета с
+// имена `name` и `age`.
 type person struct {
 	name string
 	age  int
 }
 
-// `newPerson` constructs a new person struct with the given name.
+// Тази функция `newPerson` съставя нов запис от вида
+// `person` с подадено име.
 func newPerson(name string) *person {
-	// Go is a garbage collected language; you can safely
-	// return a pointer to a local variable - it will only
-	// be cleaned up by the garbage collector when there
-	// are no active references to it.
+	// Go е език, в който заеманата от програмата памет се
+	// освобождава автоматично. Безопасно е да върнете
+	// указател към създадена във функцията променлива.
+	// Паметта, заемана от данните, към които сочи той, ще
+	// бъде освободена от _събирача на
+	// отпадъци_[^garbage_c], когато вече няма действащи
+	// препратки към данните.
+	// [^garbage_c]: garbage collector – събирач на боклука – автоматично управление на паметта
 	p := person{name: name}
 	p.age = 42
 	return &p
@@ -25,44 +31,52 @@ func newPerson(name string) *person {
 
 func main() {
 
-	// This syntax creates a new struct.
-	fmt.Println(person{"Bob", 20})
+	// Така съдаваме нов запис от структурния вид
+	// `person`.
+	fmt.Println(person{"Пешо", 20})
 
-	// You can name the fields when initializing a struct.
-	fmt.Println(person{name: "Alice", age: 30})
+	// Можете да ползвате имената на полетата, когато
+	// създавате нов структурен запис (нова структура).
+	fmt.Println(person{name: "Лиляна", age: 30})
 
-	// Omitted fields will be zero-valued.
-	fmt.Println(person{name: "Fred"})
+	// Пропуснатите полета се създават с нулеви стойности.
+	fmt.Println(person{name: "Тодор"})
 
-	// An `&` prefix yields a pointer to the struct.
-	fmt.Println(&person{name: "Ann", age: 40})
+	// Ако предпоставим `&`, получаваме указател към
+	// структурата.
+	fmt.Println(&person{name: "Ани", age: 40})
 
-	// It's idiomatic to encapsulate new struct creation in constructor functions
-	fmt.Println(newPerson("Jon"))
+	// Прието е да затваряме създаването на нова структура
+	// във функции, наречени конструктори.
+	fmt.Println(newPerson("Иван"))
 
-	// Access struct fields with a dot.
-	s := person{name: "Sean", age: 50}
+	// Полетата се достъпват, като напишем точка,
+	// последвана от името на полето.
+	s := person{name: "Явор", age: 50}
 	fmt.Println(s.name)
 
-	// You can also use dots with struct pointers - the
-	// pointers are automatically dereferenced.
+	// Можете да ползвате точка и с указатели към
+	// структури. Прекият достъп до данните е автоматичен.
 	sp := &s
 	fmt.Println(sp.age)
 
-	// Structs are mutable.
+	// Структурите са меними[^mutable].
+	// [^mutable]: mutable – меними, не само за четене, както са низовете.
 	sp.age = 51
 	fmt.Println(sp.age)
 
-	// If a struct type is only used for a single value, we don't
-	// have to give it a name. The value can have an anonymous
-	// struct type. This technique is commonly used for
-	// [table-driven tests](testing-and-benchmarking).
-	dog := struct {
-		name   string
-		isGood bool
+	// Ако използваме някакъв вид структура само за
+	// някаква единична стойност, не е нужно да даваме име
+	// на вида структура. Стойността може да бъде от
+	// безименен вид структура. Този начин на създаване на
+	// на структурни записи се ползва често за [таблици от
+	// тестове](testing-and-benchmarking).
+	куче := struct {
+		име      string
+		доброЛиЕ bool
 	}{
-		"Rex",
+		"Рекс",
 		true,
 	}
-	fmt.Println(dog)
+	fmt.Println(куче)
 }

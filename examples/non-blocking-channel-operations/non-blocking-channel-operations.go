@@ -1,49 +1,51 @@
-// Basic sends and receives on channels are blocking.
-// However, we can use `select` with a `default` clause to
-// implement _non-blocking_ sends, receives, and even
-// non-blocking multi-way `select`s.
+// Изпращането по канал и получаването по канал по
+// подразбиране спира (блокира) главната нишка на
+// изпълнението. Въпреки това можем да използваме `select`
+// с допълнителна клауза – `default`[^default], за да
+// осъществим _невъзпиращи (неблокиращи)_ изпращания,
+// получавания и дори неблокиращи _множествени избори_[^multiway].
+// [^default]: default – стойност (в случая – избор) по подразбиране
+// [^multiway]: multi-way select - множествен избор за действие с канал – избор от повече канали, но не задължително с разлчни посоки на действията – получаване и изпращане.
 
 package main
 
 import "fmt"
 
 func main() {
-	messages := make(chan string)
-	signals := make(chan bool)
+	писма := make(chan string)
+	сигнали := make(chan bool)
 
-	// Here's a non-blocking receive. If a value is
-	// available on `messages` then `select` will take
-	// the `<-messages` `case` with that value. If not
-	// it will immediately take the `default` case.
+	// Ето едно неблокиращо получаване. Ако в канала `писма` вече има стойност, тогава `select` ще влезе в случая `<-писма` и ще вземе тази стойност. Иначе ще влезе в подразбирания случай `default`.
 	select {
-	case msg := <-messages:
-		fmt.Println("received message", msg)
+	case писмо := <-писма:
+		fmt.Println("получено писмо:", писмо)
 	default:
-		fmt.Println("no message received")
+		fmt.Println("няма нови писма")
 	}
 
-	// A non-blocking send works similarly. Here `msg`
-	// cannot be sent to the `messages` channel, because
-	// the channel has no buffer and there is no receiver.
-	// Therefore the `default` case is selected.
-	msg := "hi"
+	// Неблокиращото изпращане работи по подобен начин.
+	// Тук `писмо` не може да бъде изпратено по канала
+	// `писма`, защото каналът няма зададена вместимост
+	// (значи не задържа) и няма получател. Затова бива
+	// избран случаят `default`.
+	писмо := "hi"
 	select {
-	case messages <- msg:
-		fmt.Println("sent message", msg)
+	case писма <- писмо:
+		fmt.Println("изпратено писмо", писмо)
 	default:
-		fmt.Println("no message sent")
+		fmt.Println("не е изпратено писмо")
 	}
 
-	// We can use multiple `case`s above the `default`
-	// clause to implement a multi-way non-blocking
-	// select. Here we attempt non-blocking receives
-	// on both `messages` and `signals`.
+	// Можем да имаме повече случаи над случая по
+	// подразбиране `default` и така да осъществим
+	// множествен неблокиращ избор. Тук осъществяваме
+	// неблокиращ избор от каналите `писма` и `сигнали`.
 	select {
-	case msg := <-messages:
-		fmt.Println("received message", msg)
-	case sig := <-signals:
-		fmt.Println("received signal", sig)
+	case писмо := <-писма:
+		fmt.Println("получено писмо", писмо)
+	case sig := <-сигнали:
+		fmt.Println("получен сигнал", sig)
 	default:
-		fmt.Println("no activity")
+		fmt.Println("бездействие")
 	}
 }
