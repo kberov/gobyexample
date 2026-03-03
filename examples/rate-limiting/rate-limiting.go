@@ -1,8 +1,9 @@
-// [_Rate limiting_](https://en.wikipedia.org/wiki/Rate_limiting)
-// is an important mechanism for controlling resource
-// utilization and maintaining quality of service. Go
-// elegantly supports rate limiting with goroutines,
-// channels, and [tickers](tickers).
+// [_Ограничаването на скоростта на обработка на входящите данни_](https://en.wikipedia.org/wiki/Rate_limiting)[^rate_limiting]
+// е важно за управлението на използваните ресурси и
+// поддръжка на качеството на доставяните услуги. Го
+// подхожда изкусно чрез съвместна употреба на канали,
+// гозадачи и [часовници](tickers).
+// [^rate_limiting]: rate limiting – ограничаване на размера, броя или скоростта за единица време, задаване на ставка.
 
 package main
 
@@ -13,59 +14,67 @@ import (
 
 func main() {
 
-	// First we'll look at basic rate limiting. Suppose
-	// we want to limit our handling of incoming requests.
-	// We'll serve these requests off a channel of the
-	// same name.
-	requests := make(chan int, 5)
+	// Първо ще разгледаме най-простия начин за
+	// ограничаване на скоростта. Да предположим, че
+	// искаме да ограничим обработката на входящите
+	// заявки. Ще обслужваме тези заявки по канал със
+	// същото име.
+	заявки := make(chan int, 5)
 	for i := 1; i <= 5; i++ {
-		requests <- i
+		заявки <- i
 	}
-	close(requests)
+	close(заявки)
 
-	// This `limiter` channel will receive a value
-	// every 200 milliseconds. This is the regulator in
-	// our rate limiting scheme.
-	limiter := time.Tick(200 * time.Millisecond)
+	// Каналът `ограничител` ще произвежда по една
+	// стойност на всеки 200 милисекунди. Това е
+	// регулаторът в нашето устройство за ограничаване на
+	// скоростта.
+	ограничител := time.Tick(200 * time.Millisecond)
 
-	// By blocking on a receive from the `limiter` channel
-	// before serving each request, we limit ourselves to
-	// 1 request every 200 milliseconds.
-	for req := range requests {
-		<-limiter
-		fmt.Println("request", req, time.Now())
+	// Програмата спира хода си, защото чака стойност от
+	// канала часовник `ограничител`. Така ограничаваме
+	// програмата да обработва най-много една заявка от
+	// канала `заявки` на всеки 200 милисекунди.
+	for req := range заявки {
+		време := <-ограничител
+		fmt.Println("заявка",
+			req, време.Format(`15:04.000`))
 	}
 
-	// We may want to allow short bursts of requests in
-	// our rate limiting scheme while preserving the
-	// overall rate limit. We can accomplish this by
-	// buffering our limiter channel. This `burstyLimiter`
-	// channel will allow bursts of up to 3 events.
-	burstyLimiter := make(chan time.Time, 3)
+	// Може да искаме да разрешим кратки резки покачвания
+	// на броя на заявките, като същевременно поддържаме
+	// цялостното ограничение. Можем да постигнем това,
+	// като задържаме данни в канала `ограничител`.
+	// Каналът `разрешаващСкок` ще позволява скокове
+	// до три събития.
+	разрешаващСкок := make(chan time.Time, 3)
 
-	// Fill up the channel to represent allowed bursting.
+	// Да напълним канала за скок на заявките.
 	for range 3 {
-		burstyLimiter <- time.Now()
+		разрешаващСкок <- time.Now()
 	}
 
-	// Every 200 milliseconds we'll try to add a new
-	// value to `burstyLimiter`, up to its limit of 3.
+	// На всеки 200 милисекунди ще добавяме нова стойност
+	// в `разрешаващСкок`, докато достигнем ограничението
+	// 3.
 	go func() {
 		for t := range time.Tick(200 * time.Millisecond) {
-			burstyLimiter <- t
+			разрешаващСкок <- t
 		}
 	}()
 
-	// Now simulate 5 more incoming requests. The first
-	// 3 of these will benefit from the burst capability
-	// of `burstyLimiter`.
-	burstyRequests := make(chan int, 5)
+	// Сега наподобяваме още 5 новопристигащи заявки. Три
+	// от тях ще се възползват от възможността за скок в
+	// обработката на заявките, разрешен от
+	// `ограничителНаСкока`.
+	скочилиЗаявки := make(chan int, 5)
 	for i := 1; i <= 5; i++ {
-		burstyRequests <- i
+		скочилиЗаявки <- i
 	}
-	close(burstyRequests)
-	for req := range burstyRequests {
-		<-burstyLimiter
-		fmt.Println("request", req, time.Now())
+	close(скочилиЗаявки)
+	for req := range скочилиЗаявки {
+		t := <-разрешаващСкок
+		fmt.Println("заявки",
+			req, t.Format(`15:04.000`))
 	}
 }

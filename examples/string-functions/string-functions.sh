@@ -1,13 +1,13 @@
 $ go run string-functions.go
-Contains:   true
-Count:      2
-HasPrefix:  true
-HasSuffix:  true
-Index:      1
-Join:       a-b
-Repeat:     aaaaa
-Replace:    f00
-Replace:    f0o
-Split:      [a b c d e]
-ToLower:    test
-ToUpper:    TEST
+Съдържа:        true
+Брой:           1
+ИмаПредставка:  true
+ИмаНаставка:    true
+Място:          8
+Свържи:         а-б
+Повтори:        ггггг
+Замести:        0л0
+Замести:        0ла
+Разцепи:        [а б в г д е]
+ВМалки:         проба
+ВГлавни:        ПРОБА

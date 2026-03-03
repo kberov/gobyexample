@@ -1,7 +1,10 @@
-// In the previous example we saw how to manage simple
-// counter state using [atomic operations](atomic-counters).
-// For more complex state we can use a [_mutex_](https://en.wikipedia.org/wiki/Mutual_exclusion)
-// to safely access data across multiple goroutines.
+// В предния пример разгледахме управлението на
+// състоянието на прости броячи с помощтта на [неделими
+// (единични) действия](atomic-counters). За по-сложни
+// случаи можем да ползваме
+// [превключвач](https://en.wikipedia.org/wiki/Mutual_exclusion)[^mutex],
+// за безопасен достъп до данни от множество гозадачи.
+// [^mutex]: mutex – превключвач. Съкращение от mutual exclusion – взаимно изключване.
 
 package main
 
@@ -10,21 +13,26 @@ import (
 	"sync"
 )
 
-// Container holds a map of counters; since we want to
-// update it concurrently from multiple goroutines, we
-// add a `Mutex` to synchronize access.
-// Note that mutexes must not be copied, so if this
-// `struct` is passed around, it should be done by
-// pointer.
+// Видът `Container` (съсъд) съдържа карта с броячи, `counters`.
+// Понеже искаме да можем да го обновяваме едновременно от
+// множество гозадачи, добавяме превключвач от вида
+// `Mutex`, за да съгласуваме достъпа до `counters`.
+// Отбележете си, че превключвачите не трябва да бъдат
+// копирани, така че ако тази структура бива подавана
+// насам-натам, то трябва да бъде подавана само като
+// указател.
 type Container struct {
 	mu       sync.Mutex
 	counters map[string]int
 }
 
 func (c *Container) inc(name string) {
-	// Lock the mutex before accessing `counters`; unlock
-	// it at the end of the function using a [defer](defer)
-	// statement.
+
+	// Заключваме достъпа до `counters` с помощта на
+	// превключвача, преди да достъпим `counters`;
+	// отключваме достъпа в края на функцията като
+	// ползваме [defer](defer).
+	// [^defer]: defer – отлагам, отсрочвам (действие)
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.counters[name]++
@@ -32,37 +40,41 @@ func (c *Container) inc(name string) {
 
 func main() {
 	c := Container{
-		// Note that the zero value of a mutex is usable as-is, so no
-		// initialization is required here.
+
+		// Забележете, че нулевата стойност на
+		// превключвача е използваема още при самото му
+		// обявяване, сиреч, няма нужда от задаване на
+		// начална стойност.
 		counters: map[string]int{"a": 0, "b": 0},
 	}
 
 	var wg sync.WaitGroup
 
-	// This function increments a named counter
-	// in a loop.
-	doIncrement := func(name string, n int) {
+	// Тази функция увеличава стойността в именован брояч
+	// чрез повторение.
+	увеличи := func(name string, n int) {
 		for range n {
 			c.inc(name)
 		}
 	}
 
-	// Run several goroutines concurrently; note
-	// that they all access the same `Container`,
-	// and two of them access the same counter.
+	// Пускаме няколко гозадачи в съревнование[^concurrently].
+	// Забележете, че всички те достъпват същия
+	// `Container` и две от тях достъпват същия брояч.
+	// [^concurrently]: concurrently – в съревнование, едновременно
 	wg.Go(func() {
-		doIncrement("a", 10000)
+		увеличи("a", 10000)
 	})
 
 	wg.Go(func() {
-		doIncrement("a", 10000)
+		увеличи("a", 10000)
 	})
 
 	wg.Go(func() {
-		doIncrement("b", 10000)
+		увеличи("b", 10000)
 	})
 
-	// Wait for the goroutines to finish
+	// Чакаме гозадачите да приключат.
 	wg.Wait()
 	fmt.Println(c.counters)
 }

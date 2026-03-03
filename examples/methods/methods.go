@@ -1,4 +1,6 @@
-// Go supports _methods_ defined on struct types.
+// В Go всеки вид структура може да има собствени
+// _методи_[^method].
+// [^method]: method – способ, собствен начин за извършване на определено действие, метод
 
 package main
 
@@ -8,13 +10,13 @@ type rect struct {
 	width, height int
 }
 
-// This `area` method has a _receiver type_ of `*rect`.
+// Този метод `area` има _получател от вида_ `*rect`.
 func (r *rect) area() int {
 	return r.width * r.height
 }
 
-// Methods can be defined for either pointer or value
-// receiver types. Here's an example of a value receiver.
+// Методите могат да бъдат дефинирани както за получатели
+// стойности, така и за получатели, които са указатели.
 func (r rect) perim() int {
 	return 2*r.width + 2*r.height
 }
@@ -22,15 +24,16 @@ func (r rect) perim() int {
 func main() {
 	r := rect{width: 10, height: 5}
 
-	// Here we call the 2 methods defined for our struct.
-	fmt.Println("area: ", r.area())
-	fmt.Println("perim:", r.perim())
+	// Тук извикваме двата метода на нашата структура.
+	fmt.Println("площ: ", r.area())
+	fmt.Println("обиколка:", r.perim())
 
-	// Go automatically handles conversion between values
-	// and pointers for method calls. You may want to use
-	// a pointer receiver type to avoid copying on method
-	// calls or to allow the method to mutate the
-	// receiving struct.
+	// Го управлява автоматично превръщането между
+	// стойност и указател при извикване на методи. Може
+	// да искате да използвате получател указател, за да
+	// избегнете копирането на данни при извикване на
+	// методи или, за да позволите на метод да променя
+	// получаващата структура.
 	rp := &r
 	fmt.Println("area: ", rp.area())
 	fmt.Println("perim:", rp.perim())

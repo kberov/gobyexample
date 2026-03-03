@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: JSON</title>
+    <title>Go в примери: JSON</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,25 @@
   </script>
   <body>
     <div class="example" id="json">
-      <h2><a href="./">Go by Example</a>: JSON</h2>
+      <h2><a href="./">Go в примери</a>: JSON</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go offers built-in support for JSON encoding and
-decoding, including to and from built-in and custom
-data types.</p>
+            <p>Го предлага вградена поддръжка за превръщане към и от
+JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> както за вградени така и за потребителски
+видове данни.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:json">JSON – JavaScript Object Notation – описване на данни като обекти в JavaScript</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +56,7 @@ data types.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/zwf9dZ4pUPW"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/imA_Hk9JEiL"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -68,30 +78,31 @@ data types.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll use these two structs to demonstrate encoding and
-decoding of custom types below.</p>
+            <p>Ще използваме тези две структури по-долу, за да покажем
+превръщане към и от потребителски видове.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">response1</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Page</span>   <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Страница</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span>   <span class="p">[]</span><span class="kt">string</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Only exported fields will be encoded/decoded in JSON.
-Fields must start with capital letters to be exported.</p>
+            <p>Само изнесените полета ще бъдат превърнати от и в JSON.
+За да са <em>изнесени</em>, полетата трябва да започват с
+главна буква.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">response2</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Page</span>   <span class="kt">int</span>      <span class="s">`json:&#34;page&#34;`</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span> <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;fruits&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Страница</span> <span class="kt">int</span>      <span class="s">`json:&#34;страница&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Fruits</span>   <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;fruits&#34;`</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -108,9 +119,9 @@ Fields must start with capital letters to be exported.</p>
         
         <tr>
           <td class="docs">
-            <p>First we&rsquo;ll look at encoding basic data types to
-JSON strings. Here are some examples for atomic
-values.</p>
+            <p>Първо ще видим как се превръщат първични видове
+данни в JSON низове. Ето някои примери с
+неразложими стойности.</p>
 
           </td>
           <td class="code leading">
@@ -155,13 +166,14 @@ values.</p>
         
         <tr>
           <td class="docs">
-            <p>And here are some for slices and maps, which encode
-to JSON arrays and objects as you&rsquo;d expect.</p>
+            <p>А ето и такива с отрязъци и карти, които биват
+превърнати в поредици и обекти в JSON, както се
+предполага.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slcD</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slcD</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">,</span> <span class="s">&#34;праскова&#34;</span><span class="p">,</span> <span class="s">&#34;круша&#34;</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">slcB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">slcD</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">slcB</span><span class="p">))</span></span></span></code></pre>
           </td>
@@ -173,7 +185,7 @@ to JSON arrays and objects as you&rsquo;d expect.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">mapD</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;lettuce&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">mapD</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#34;маруля&#34;</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">mapB</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">mapD</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">mapB</span><span class="p">))</span></span></span></code></pre>
           </td>
@@ -181,17 +193,17 @@ to JSON arrays and objects as you&rsquo;d expect.</p>
         
         <tr>
           <td class="docs">
-            <p>The JSON package can automatically encode your
-custom data types. It will only include exported
-fields in the encoded output and will by default
-use those names as the JSON keys.</p>
+            <p>Пакетът JSON може да превръща автоматично
+потребителски видове данни. Само изнесените полета
+ще бъдат включени в изхода и имената им ще бъдат
+ключове в JSON.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">res1D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response1</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Страница</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span>   <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">,</span> <span class="s">&#34;праскова&#34;</span><span class="p">,</span> <span class="s">&#34;круша&#34;</span><span class="p">}}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">res1B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res1D</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res1B</span><span class="p">))</span></span></span></code></pre>
           </td>
@@ -199,17 +211,18 @@ use those names as the JSON keys.</p>
         
         <tr>
           <td class="docs">
-            <p>You can use tags on struct field declarations
-to customize the encoded JSON key names. Check the
-definition of <code>response2</code> above to see an example
-of such tags.</p>
+            <p>Можете да отбелязвате с какво име да бъдат
+превръщани полетата, като използвате бележки,
+познати като тагове (tags). Вижте обявлението на
+структурата <code>response2</code> горе. Там са използвани
+тагове.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">res2D</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">response2</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Page</span><span class="p">:</span>   <span class="mi">1</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Страница</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Fruits</span><span class="p">:</span>   <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;pear&#34;</span><span class="p">}}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">res2B</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res2D</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res2B</span><span class="p">))</span></span></span></code></pre>
           </td>
@@ -217,9 +230,8 @@ of such tags.</p>
         
         <tr>
           <td class="docs">
-            <p>Now let&rsquo;s look at decoding JSON data into Go
-values. Here&rsquo;s an example for a generic data
-structure.</p>
+            <p>Сега да видим как се превръщат данни от JSON в Го.
+Ето пример с призволна структура в JSON.</p>
 
           </td>
           <td class="code leading">
@@ -230,10 +242,10 @@ structure.</p>
         
         <tr>
           <td class="docs">
-            <p>We need to provide a variable where the JSON
-package can put the decoded data. This
-<code>map[string]interface{}</code> will hold a map of strings
-to arbitrary data types.</p>
+            <p>Трябва да предоставим променлива, в която да
+запишем разбраните данни. Тази
+<code>map[string]interface{}</code> ще бъде карта с ключове
+низове и стойности в произволен вид.</p>
 
           </td>
           <td class="code leading">
@@ -244,8 +256,8 @@ to arbitrary data types.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s the actual decoding, and a check for
-associated errors.</p>
+            <p>Ето превръщането в действие. При превръщането
+проверяваме за грешки.</p>
 
           </td>
           <td class="code leading">
@@ -259,10 +271,20 @@ associated errors.</p>
         
         <tr>
           <td class="docs">
-            <p>In order to use the values in the decoded map,
-we&rsquo;ll need to convert them to their appropriate type.
-For example here we convert the value in <code>num</code> to
-the expected <code>float64</code> type.</p>
+            <p>За да използваме данните, трябва да ги превръщаме
+(всяко поотделно) в подходящ вид. Например тук
+превръщаме стойността, прикрепена към <code>num</code> в
+очаквания вид <code>float64</code><sup class="footnote-ref" id="fnref:assertion"><a href="#fn:assertion">1</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:assertion">Забележете, че използвахме потвърждение за вида данни, без да проверяваме възможно ли е това. TODO: Да се добави отделен пример за type assertion!!!</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -274,8 +296,8 @@ the expected <code>float64</code> type.</p>
         
         <tr>
           <td class="docs">
-            <p>Accessing nested data requires a series of
-conversions.</p>
+            <p>За да достъпим вгнездени данни, трябва да правим
+ново потвърждение на всяко ниво.</p>
 
           </td>
           <td class="code leading">
@@ -288,30 +310,40 @@ conversions.</p>
         
         <tr>
           <td class="docs">
-            <p>We can also decode JSON into custom data types.
-This has the advantages of adding additional
-type-safety to our programs and eliminating the
-need for type assertions when accessing the decoded
-data.</p>
+            <p>Можем също да превръщаме JSON в потребителски
+видове данни. Така добавяме сигурност за вида
+данни, който очакваме и няма нужда да потвърждаваме
+вида им при достъп до тях.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">:=</span> <span class="s">`{&#34;page&#34;: 1, &#34;fruits&#34;: [&#34;apple&#34;, &#34;peach&#34;]}`</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">:=</span> <span class="s">`{&#34;страница&#34;: 1, &#34;fruits&#34;: [&#34;ябълка&#34;, &#34;peach&#34;]}`</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">res</span> <span class="o">:=</span> <span class="nx">response2</span><span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%+v\n&#34;</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>In the examples above we always used bytes and
-strings as intermediates between the data and
-JSON representation on standard out. We can also
-stream JSON encodings directly to <code>os.Writer</code>s like
-<code>os.Stdout</code> or even HTTP response bodies.</p>
+            <p>В примерите горе винаги използвахме байтове и
+низове, като посредници за данните между
+JSON и стандартния изход. Можем също да точим
+данните в двете посоки към и от всеки обект
+осъществяващ <code>os.Writer</code>, например <code>os.Stdout</code>, и
+дори тялото на отговора в HTTP<sup class="footnote-ref" id="fnref:HTTP"><a href="#fn:HTTP">1</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:HTTP">HTTP (Hypertext Transfer Protocol) – Протокол за пренос на хипертекст</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -324,8 +356,9 @@ stream JSON encodings directly to <code>os.Writer</code>s like
         
         <tr>
           <td class="docs">
-            <p>Streaming reads from <code>os.Reader</code>s like <code>os.Stdin</code>
-or HTTP request bodies is done with <code>json.Decoder</code>.</p>
+            <p>Четене на поток от данни чрез взаимодействия
+<code>os.Reader</code> като <code>os.Stdin</code> или от тялото на
+отговори в HTTP, се прави с <code>json.Decoder</code>.</p>
 
           </td>
           <td class="code">
@@ -353,26 +386,27 @@ or HTTP request bodies is done with <code>json.Decoder</code>.</p>
 </span></span></span><span class="line"><span class="cl"><span class="go">1
 </span></span></span><span class="line"><span class="cl"><span class="go">2.34
 </span></span></span><span class="line"><span class="cl"><span class="go">&#34;gopher&#34;
-</span></span></span><span class="line"><span class="cl"><span class="go">[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]
-</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}
-</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;Page&#34;:1,&#34;Fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
-</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;page&#34;:1,&#34;fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
+</span></span></span><span class="line"><span class="cl"><span class="go">[&#34;ябълка&#34;,&#34;праскова&#34;,&#34;круша&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;маруля&#34;:7,&#34;ябълка&#34;:5}
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;Страница&#34;:1,&#34;Fruits&#34;:[&#34;ябълка&#34;,&#34;праскова&#34;,&#34;круша&#34;]}
+</span></span></span><span class="line"><span class="cl"><span class="go">{&#34;страница&#34;:1,&#34;fruits&#34;:[&#34;apple&#34;,&#34;peach&#34;,&#34;pear&#34;]}
 </span></span></span><span class="line"><span class="cl"><span class="go">map[num:6.13 strs:[a b]]
 </span></span></span><span class="line"><span class="cl"><span class="go">6.13
 </span></span></span><span class="line"><span class="cl"><span class="go">a
-</span></span></span><span class="line"><span class="cl"><span class="go">{1 [apple peach]}
-</span></span></span><span class="line"><span class="cl"><span class="go">apple
+</span></span></span><span class="line"><span class="cl"><span class="go">{Страница:1 Fruits:[ябълка peach]}
+</span></span></span><span class="line"><span class="cl"><span class="go">ябълка
 </span></span></span><span class="line"><span class="cl"><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}
-</span></span></span><span class="line"><span class="cl"><span class="go">{1 [apple peach]}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">{1 [ябълка peach]}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ve covered the basic of JSON in Go here, but check
-out the <a href="https://go.dev/blog/json">JSON and Go</a>
-blog post and <a href="https://pkg.go.dev/encoding/json">JSON package docs</a>
-for more.</p>
+            <p>Тук разгледахме само основните положения при работа с
+JSON в Го, но прочетете статията <a href="https://go.dev/blog/json">JSON and
+Go</a> и докумнетацията на пакета
+<a href="https://pkg.go.dev/encoding/json">JSON</a>, за да узнаете
+повече.</p>
 
           </td>
           <td class="code empty">
@@ -385,18 +419,18 @@ for more.</p>
       
       
       <p class="next">
-        Next example: <a href="xml" rel="next">XML</a>.
+        Следващ пример: <a href="xml" rel="next">XML</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"encoding/json\"\u000A    \"fmt\"\u000A    \"os\"\u000A    \"strings\"\u000A)\u000A');codeLines.push('type response1 struct {\u000A    Page   int\u000A    Fruits []string\u000A}\u000A');codeLines.push('type response2 struct {\u000A    Page   int      `json:\"page\"`\u000A    Fruits []string `json:\"fruits\"`\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    bolB, _ :\u003D json.Marshal(true)\u000A    fmt.Println(string(bolB))\u000A');codeLines.push('    intB, _ :\u003D json.Marshal(1)\u000A    fmt.Println(string(intB))\u000A');codeLines.push('    fltB, _ :\u003D json.Marshal(2.34)\u000A    fmt.Println(string(fltB))\u000A');codeLines.push('    strB, _ :\u003D json.Marshal(\"gopher\")\u000A    fmt.Println(string(strB))\u000A');codeLines.push('    slcD :\u003D []string{\"apple\", \"peach\", \"pear\"}\u000A    slcB, _ :\u003D json.Marshal(slcD)\u000A    fmt.Println(string(slcB))\u000A');codeLines.push('    mapD :\u003D map[string]int{\"apple\": 5, \"lettuce\": 7}\u000A    mapB, _ :\u003D json.Marshal(mapD)\u000A    fmt.Println(string(mapB))\u000A');codeLines.push('    res1D :\u003D \u0026response1{\u000A        Page:   1,\u000A        Fruits: []string{\"apple\", \"peach\", \"pear\"}}\u000A    res1B, _ :\u003D json.Marshal(res1D)\u000A    fmt.Println(string(res1B))\u000A');codeLines.push('    res2D :\u003D \u0026response2{\u000A        Page:   1,\u000A        Fruits: []string{\"apple\", \"peach\", \"pear\"}}\u000A    res2B, _ :\u003D json.Marshal(res2D)\u000A    fmt.Println(string(res2B))\u000A');codeLines.push('    byt :\u003D []byte(`{\"num\":6.13,\"strs\":[\"a\",\"b\"]}`)\u000A');codeLines.push('    var dat map[string]interface{}\u000A');codeLines.push('    if err :\u003D json.Unmarshal(byt, \u0026dat); err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(dat)\u000A');codeLines.push('    num :\u003D dat[\"num\"].(float64)\u000A    fmt.Println(num)\u000A');codeLines.push('    strs :\u003D dat[\"strs\"].([]interface{})\u000A    str1 :\u003D strs[0].(string)\u000A    fmt.Println(str1)\u000A');codeLines.push('    str :\u003D `{\"page\": 1, \"fruits\": [\"apple\", \"peach\"]}`\u000A    res :\u003D response2{}\u000A    json.Unmarshal([]byte(str), \u0026res)\u000A    fmt.Println(res)\u000A    fmt.Println(res.Fruits[0])\u000A');codeLines.push('    enc :\u003D json.NewEncoder(os.Stdout)\u000A    d :\u003D map[string]int{\"apple\": 5, \"lettuce\": 7}\u000A    enc.Encode(d)\u000A');codeLines.push('    dec :\u003D json.NewDecoder(strings.NewReader(str))\u000A    res1 :\u003D response2{}\u000A    dec.Decode(\u0026res1)\u000A    fmt.Println(res1)\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"encoding/json\"\u000A    \"fmt\"\u000A    \"os\"\u000A    \"strings\"\u000A)\u000A');codeLines.push('type response1 struct {\u000A    Страница int\u000A    Fruits   []string\u000A}\u000A');codeLines.push('type response2 struct {\u000A    Страница int      `json:\"страница\"`\u000A    Fruits   []string `json:\"fruits\"`\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    bolB, _ :\u003D json.Marshal(true)\u000A    fmt.Println(string(bolB))\u000A');codeLines.push('    intB, _ :\u003D json.Marshal(1)\u000A    fmt.Println(string(intB))\u000A');codeLines.push('    fltB, _ :\u003D json.Marshal(2.34)\u000A    fmt.Println(string(fltB))\u000A');codeLines.push('    strB, _ :\u003D json.Marshal(\"gopher\")\u000A    fmt.Println(string(strB))\u000A');codeLines.push('    slcD :\u003D []string{\"ябълка\", \"праскова\", \"круша\"}\u000A    slcB, _ :\u003D json.Marshal(slcD)\u000A    fmt.Println(string(slcB))\u000A');codeLines.push('    mapD :\u003D map[string]int{\"ябълка\": 5, \"маруля\": 7}\u000A    mapB, _ :\u003D json.Marshal(mapD)\u000A    fmt.Println(string(mapB))\u000A');codeLines.push('    res1D :\u003D \u0026response1{\u000A        Страница: 1,\u000A        Fruits:   []string{\"ябълка\", \"праскова\", \"круша\"}}\u000A    res1B, _ :\u003D json.Marshal(res1D)\u000A    fmt.Println(string(res1B))\u000A');codeLines.push('    res2D :\u003D \u0026response2{\u000A        Страница: 1,\u000A        Fruits:   []string{\"apple\", \"peach\", \"pear\"}}\u000A    res2B, _ :\u003D json.Marshal(res2D)\u000A    fmt.Println(string(res2B))\u000A');codeLines.push('    byt :\u003D []byte(`{\"num\":6.13,\"strs\":[\"a\",\"b\"]}`)\u000A');codeLines.push('    var dat map[string]interface{}\u000A');codeLines.push('    if err :\u003D json.Unmarshal(byt, \u0026dat); err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(dat)\u000A');codeLines.push('    num :\u003D dat[\"num\"].(float64)\u000A    fmt.Println(num)\u000A');codeLines.push('    strs :\u003D dat[\"strs\"].([]interface{})\u000A    str1 :\u003D strs[0].(string)\u000A    fmt.Println(str1)\u000A');codeLines.push('    str :\u003D `{\"страница\": 1, \"fruits\": [\"ябълка\", \"peach\"]}`\u000A    res :\u003D response2{}\u000A    json.Unmarshal([]byte(str), \u0026res)\u000A    fmt.Printf(\"%+v\\n\", res)\u000A    fmt.Println(res.Fruits[0])\u000A');codeLines.push('    enc :\u003D json.NewEncoder(os.Stdout)\u000A    d :\u003D map[string]int{\"apple\": 5, \"lettuce\": 7}\u000A    enc.Encode(d)\u000A');codeLines.push('    dec :\u003D json.NewDecoder(strings.NewReader(str))\u000A    res1 :\u003D response2{}\u000A    dec.Decode(\u0026res1)\u000A    fmt.Println(res1)\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

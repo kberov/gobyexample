@@ -1,8 +1,9 @@
-// Sometimes we'll want to sort a collection by something
-// other than its natural order. For example, suppose we
-// wanted to sort strings by their length instead of
-// alphabetically. Here's an example of custom sorts
-// in Go.
+// Понякога може да искаме да подредим някакъв набор от
+// неща по някакъв друг признак, а не по естесвения им
+// ред. Например нека си представим, че искаме да подредим
+// набор от низове според тяхната дължина вместо по
+// азбучен ред. Ето един пример с определено от
+// потребителя на Го подреждане.
 
 package main
 
@@ -13,41 +14,45 @@ import (
 )
 
 func main() {
-	fruits := []string{"peach", "banana", "kiwi"}
+	плодове := []string{"праскова", "банан", "киви"}
 
-	// We implement a comparison function for string
-	// lengths. `cmp.Compare` is helpful for this.
+	// Осъществяваме функция, която сравнява дължините на
+	// два низа. `cmp.Compare` ни върши работа в тоя
+	// случай.
 	lenCmp := func(a, b string) int {
 		return cmp.Compare(len(a), len(b))
 	}
 
-	// Now we can call `slices.SortFunc` with this custom
-	// comparison function to sort `fruits` by name length.
-	slices.SortFunc(fruits, lenCmp)
-	fmt.Println(fruits)
+	// Сега можем да извикаме `slices.SortFunc` с нашата
+	// потребителска функция за сравнение, за да подредим
+	// отрязъка `плодове` по дължина на името.
+	slices.SortFunc(плодове, lenCmp)
+	fmt.Println(плодове)
 
-	// We can use the same technique to sort a slice of
-	// values that aren't built-in types.
-	type Person struct {
-		name string
-		age  int
+	// Можем да ползваме същия подход и за невградени
+	// в езика видове данни.
+	type Личност struct {
+		име     string
+		възраст int
 	}
 
-	people := []Person{
-		Person{name: "Jax", age: 37},
-		Person{name: "TJ", age: 25},
-		Person{name: "Alex", age: 72},
+	народ := []Личност{
+		Личност{име: "Пешо", възраст: 37},
+		Личност{име: "Иван", възраст: 25},
+		Личност{име: "Краси", възраст: 72},
 	}
 
-	// Sort `people` by age using `slices.SortFunc`.
+	// Подреждаме `народ` по възраст с помощта на
+	// `slices.SortFunc`.
 	//
-	// Note: if the `Person` struct is large,
-	// you may want the slice to contain `*Person` instead
-	// and adjust the sorting function accordingly. If in
-	// doubt, [benchmark](testing-and-benchmarking)!
-	slices.SortFunc(people,
-		func(a, b Person) int {
-			return cmp.Compare(a.age, b.age)
+	// Забележка: ако структурата `Личност` е голяма може
+	// би ще предпочетете отрязъка да съдържа `*Личност`и
+	// и да преправите подреждащата си функция. Ако се
+	// колебаете, прочетете
+	// [benchmark](testing-and-benchmarking)!
+	slices.SortFunc(народ,
+		func(a, b Личност) int {
+			return cmp.Compare(a.възраст, b.възраст)
 		})
-	fmt.Println(people)
+	fmt.Println(народ)
 }

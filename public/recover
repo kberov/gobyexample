@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Recover</title>
+    <title>Go в примери: Възстановяване</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,17 @@
   </script>
   <body>
     <div class="example" id="recover">
-      <h2><a href="./">Go by Example</a>: Recover</h2>
+      <h2><a href="./">Go в примери</a>: Възстановяване</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go makes it possible to <em>recover</em> from a panic, by
-using the <code>recover</code> built-in function. A <code>recover</code> can
-stop a <code>panic</code> from aborting the program and let it
-continue with execution instead.</p>
+            <p>В Го имаме възможност да <em>възстановим</em> програмата след
+като е изпаднала в ужас като ползваме вградената
+функция <code>recover</code> (възстановявам (се)). Извикването на
+<code>recover</code> може да спре действието на <code>panic</code> – спиране
+на програмата и така да продължим изпълнението ѝ.</p>
 
           </td>
           <td class="code empty leading">
@@ -44,12 +45,12 @@ continue with execution instead.</p>
         
         <tr>
           <td class="docs">
-            <p>An example of where this can be useful: a server
-wouldn&rsquo;t want to crash if one of the client connections
-exhibits a critical error. Instead, the server would
-want to close that connection and continue serving
-other clients. In fact, this is what Go&rsquo;s <code>net/http</code>
-does by default for HTTP servers.</p>
+            <p>Ето пример как това може да ни бъде от полза: един
+сървър не би спрял ако някоя от връзките с клиенти
+прекъсне с критична грешка. Вместо това сървърът ще
+затвори връзката и ще продължи да обслужва други
+клиентски програми. Всъщност това и прави пакетът
+<code>net/http</code>, предназна`ен за създаване на уеб сървъри.</p>
 
           </td>
           <td class="code empty leading">
@@ -63,7 +64,7 @@ does by default for HTTP servers.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/Sk-SVdofEIZ"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/6ZV-CnScTo9"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -80,23 +81,23 @@ does by default for HTTP servers.</p>
         
         <tr>
           <td class="docs">
-            <p>This function panics.</p>
+            <p>Тази функция ужасява програмата.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">mayPanic</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;a problem&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nx">можеДаУжаси</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">panic</span><span class="p">(</span><span class="kd">struct</span><span class="p">{</span> <span class="nx">a</span> <span class="kt">int</span> <span class="p">}{</span><span class="nx">a</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>recover</code> must be called within a deferred function.
-When the enclosing function panics, the defer will
-activate and a <code>recover</code> call within it will catch
-the panic.</p>
+            <p><code>recover</code> трябва да се извика в отложена функция.
+Когато обгръщащата я функция се ужаси <code>defer</code> ще се
+задейства а извиканата в нея <code>recover</code> ще прехване
+ужаса.</p>
 
           </td>
           <td class="code leading">
@@ -107,8 +108,8 @@ the panic.</p>
         
         <tr>
           <td class="docs">
-            <p>The return value of <code>recover</code> is the error raised in
-the call to <code>panic</code>.</p>
+            <p>Стойността, която <code>recover</code> връща е
+каквото е подадено на <code>panic</code>.</p>
 
           </td>
           <td class="code leading">
@@ -124,7 +125,7 @@ the call to <code>panic</code>.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Recovered. Error:\n&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Възстановено. Грешка: [%v]\n&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span></span></span></code></pre>
           </td>
@@ -136,20 +137,21 @@ the call to <code>panic</code>.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">mayPanic</span><span class="p">()</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">можеДаУжаси</span><span class="p">()</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>This code will not run, because <code>mayPanic</code> panics.
-The execution of <code>main</code> stops at the point of the
-panic and resumes in the deferred closure.</p>
+            <p>Този код няма да се изпълни, защото <code>mayPanic</code>
+ужасява. Изпълнението на <code>main</code> спира в точката на
+на извикване на <code>panic</code> и продължава в отложеното
+затваряне.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;After mayPanic()&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;След можеДаУжаси()&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -165,8 +167,7 @@ panic and resumes in the deferred closure.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run recover.go
-</span></span><span class="line"><span class="cl"><span class="go">Recovered. Error:
-</span></span></span><span class="line"><span class="cl"><span class="go"> a problem</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">Възстановено. Грешка: [{2}]</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -174,18 +175,18 @@ panic and resumes in the deferred closure.</p>
       
       
       <p class="next">
-        Next example: <a href="string-functions" rel="next">String Functions</a>.
+        Следващ пример: <a href="string-functions" rel="next">Функции за работа с низове</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func mayPanic() {\u000A    panic(\"a problem\")\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    defer func() {\u000A        if r :\u003D recover(); r !\u003D nil {\u000A');codeLines.push('            fmt.Println(\"Recovered. Error:\\n\", r)\u000A        }\u000A    }()\u000A');codeLines.push('    mayPanic()\u000A');codeLines.push('    fmt.Println(\"After mayPanic()\")\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func можеДаУжаси() {\u000A    panic(struct{ a int }{a: 2})\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    defer func() {\u000A        if r :\u003D recover(); r !\u003D nil {\u000A');codeLines.push('            fmt.Printf(\"Възстановено. Грешка: [%v]\\n\", r)\u000A        }\u000A    }()\u000A');codeLines.push('    можеДаУжаси()\u000A');codeLines.push('    fmt.Println(\"След можеДаУжаси()\")\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Atomic Counters</title>
+    <title>Go в примери: Неделими броячи</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,18 +24,30 @@
   </script>
   <body>
     <div class="example" id="atomic-counters">
-      <h2><a href="./">Go by Example</a>: Atomic Counters</h2>
+      <h2><a href="./">Go в примери</a>: Неделими броячи</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>The primary mechanism for managing state in Go is
-communication over channels. We saw this for example
-with <a href="worker-pools">worker pools</a>. There are a few other
-options for managing state though. Here we&rsquo;ll
-look at using the <code>sync/atomic</code> package for <em>atomic
-counters</em> accessed by multiple goroutines.</p>
+            <p>Главният начин за управление на състояние на данни в Го
+е чрез предаване на данни по канали. Видяхме как става
+това като разгледахме <a href="worker-pools">работилниците</a>.
+Има и някои други възможности за управление на
+състоянието. Сега ще разгледаме употребата на пакета
+<code>sync/atomic</code> осъществяващ т. нар. <em>неделими
+броячи</em><sup class="footnote-ref" id="fnref:atomicc"><a href="#fn:atomicc">1</a></sup>, като данни, предназначени за
+споделен достъп от множество съперничещи си гозадачи.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:atomicc">atomic counters – неделими или единични (атомарни) броячи. Броячи, при които увеличаването на едно, достъпно за няколко гозадчи, число е <em>неделимо единично действие</em> от гледна точка на другите текущи гозадачи, съревноваващи се с текущата гозадача, да увеличат с единица същото споделено в паметта число. Вижте подробни обяснения на https://antonz.org/go-concurrency/atomics/ и https://preshing.com/20130618/atomic-vs-non-atomic-operations/</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -49,7 +61,7 @@ counters</em> accessed by multiple goroutines.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/yiGAVfTH49v"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/JbfZfHx9bl3"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -80,20 +92,21 @@ counters</em> accessed by multiple goroutines.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll use an atomic integer type to represent our
-(always-positive) counter.</p>
+            <p>Ще използваме променлива стойност от вид неделимо
+цяло положително число, за нашия (винаги
+положителен) брояч.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ops</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Uint64</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">действия</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Uint64</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>A WaitGroup will help us wait for all goroutines
-to finish their work.</p>
+            <p>Ще си направим чакалня с <code>WaitGroup</code>, за да
+изчакаме всички задачи да приключат.</p>
 
           </td>
           <td class="code leading">
@@ -104,8 +117,7 @@ to finish their work.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll start 50 goroutines that each increment the
-counter exactly 1000 times.</p>
+            <p>Ще пуснем 50 гозадачи, всяка от които ще увеличи стойността на брояча точно 1000 пъти.</p>
 
           </td>
           <td class="code leading">
@@ -118,12 +130,14 @@ counter exactly 1000 times.</p>
         
         <tr>
           <td class="docs">
-            <p>To atomically increment the counter we use <code>Add</code>.</p>
+            <p>За да увеличим стойността на брояча
+чрез неделимо действие, ползваме метода
+<code>Add</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">                <span class="nx">ops</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">                <span class="nx">действия</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">})</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
@@ -132,7 +146,7 @@ counter exactly 1000 times.</p>
         
         <tr>
           <td class="docs">
-            <p>Wait until all the goroutines are done.</p>
+            <p>Чакаме всички гозадачки да приключат.</p>
 
           </td>
           <td class="code leading">
@@ -143,14 +157,12 @@ counter exactly 1000 times.</p>
         
         <tr>
           <td class="docs">
-            <p>Here no goroutines are writing to &lsquo;ops&rsquo;, but using
-<code>Load</code> it&rsquo;s safe to atomically read a value even while
-other goroutines are (atomically) updating it.</p>
+            <p>Тук вече никоя гозадаче не пише в <code>действия</code>, но благодарения на метода <code>Load</code> знаем, че действието зареждане (load) е неделимо, дори ако други задачи обновяваха стойността в <code>действия</code>.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ops:&#34;</span><span class="p">,</span> <span class="nx">ops</span><span class="p">.</span><span class="nf">Load</span><span class="p">())</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;действия:&#34;</span><span class="p">,</span> <span class="nx">действия</span><span class="p">.</span><span class="nf">Load</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -161,26 +173,28 @@ other goroutines are (atomically) updating it.</p>
         
         <tr>
           <td class="docs">
-            <p>We expect to get exactly 50,000 operations. Had we
-used a non-atomic integer and incremented it with
-<code>ops++</code>, we&rsquo;d likely get a different number,
-changing between runs, because the goroutines
-would interfere with each other. Moreover, we&rsquo;d
-get data race failures when running with the
-<code>-race</code> flag.</p>
+            <p>Очакваме програмата ни да изведе на екрана точно 50000 –
+броят извършени действия – увеличаване с единица. Ако
+бяхме използвали обикновено – не неделимо число, щяхме
+да видим друго число, което щеше даже да е различно при
+всяко пускане на програмата Причината щеше да се състои
+в това, че няколко гозадачи щяха да виждат една и съща
+стойност на числото едновременно. Също щяхме да получим
+и предупреждения за „съревнование“ (race), ако пуснехме
+програмата с флаг <code>-race</code>.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run atomic-counters.go
-</span></span><span class="line"><span class="cl"><span class="go">ops: 50000</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">действия: 50000</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Next we&rsquo;ll look at mutexes, another tool for managing
-state.</p>
+            <p>В следващия пример ще разгледаме <em>взаимното изключване</em>
+– друг способ за управление на състояние.</p>
 
           </td>
           <td class="code empty">
@@ -193,18 +207,18 @@ state.</p>
       
       
       <p class="next">
-        Next example: <a href="mutexes" rel="next">Mutexes</a>.
+        Следващ пример: <a href="mutexes" rel="next">Взаимно изключване</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"sync\"\u000A    \"sync/atomic\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    var ops atomic.Uint64\u000A');codeLines.push('    var wg sync.WaitGroup\u000A');codeLines.push('    for range 50 {\u000A        wg.Go(func() {\u000A            for range 1000 {\u000A');codeLines.push('                ops.Add(1)\u000A            }\u000A        })\u000A    }\u000A');codeLines.push('    wg.Wait()\u000A');codeLines.push('    fmt.Println(\"ops:\", ops.Load())\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"sync\"\u000A    \"sync/atomic\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    var действия atomic.Uint64\u000A');codeLines.push('    var wg sync.WaitGroup\u000A');codeLines.push('    for range 50 {\u000A        wg.Go(func() {\u000A            for range 1000 {\u000A');codeLines.push('                действия.Add(1)\u000A            }\u000A        })\u000A    }\u000A');codeLines.push('    wg.Wait()\u000A');codeLines.push('    fmt.Println(\"действия:\", действия.Load())\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

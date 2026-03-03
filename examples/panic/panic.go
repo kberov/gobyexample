@@ -1,7 +1,9 @@
-// A `panic` typically means something went unexpectedly
-// wrong. Mostly we use it to fail fast on errors that
-// shouldn't occur during normal operation, or that we
-// aren't prepared to handle gracefully.
+// Ужасът (`panic`) обикновено настъпва, когато се случи
+// нещо неочаквано лошо. Използва се най-често, за бързо
+// приключване на програмата при неочаквана грешка,
+// която не би трябвало да настъпи при обичайното
+// изпълнение, или не сме готови да обработим
+// благополучно.
 
 package main
 
@@ -12,15 +14,16 @@ import (
 
 func main() {
 
-	// We'll use panic throughout this site to check for
-	// unexpected errors. This is the only program on the
-	// site designed to panic.
-	panic("a problem")
+	// Ще ползваме `panic` в този сайт, за да проверяваме
+	// за неочаквани грешки. Това е единствената програма
+	// в сайта, направена да се ужаси.
+	panic("препятствие!")
 
-	// A common use of panic is to abort if a function
-	// returns an error value that we don't know how to
-	// (or want to) handle. Here's an example of
-	// `panic`king if we get an unexpected error when creating a new file.
+	// `panic` обичайно ползваме да прекратим изпълнението
+	// на функция, ако тя върне стойност, която не знаем
+	// какво да правим или как да обработим. Ето пример
+	// как се ужасяваме, ако получим неочаквана грешка
+	// при създаване на файл.
 	path := filepath.Join(os.TempDir(), "file")
 	_, err := os.Create(path)
 	if err != nil {

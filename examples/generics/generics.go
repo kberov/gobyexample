@@ -1,19 +1,20 @@
-// Starting with version 1.18, Go has added support for
-// _generics_, also known as _type parameters_.
+// От издание 1.18 насам Го поддържа _обобщения_[^generics], познати още като _податки за вид_[^type_p].
+// [^generics]: generics – обобщения
+// [^type_p]: type parameter – податка за очакван вид данни
 
 package main
 
 import "fmt"
 
-// As an example of a generic function, `SlicesIndex` takes
-// a slice of any `comparable` type and an element of that
-// type and returns the index of the first occurrence of
-// v in s, or -1 if not present. The `comparable` constraint
-// means that we can compare values of this type with the
-// `==` and `!=` operators. For a more thorough explanation
-// of this type signature, see [this blog post](https://go.dev/blog/deconstructing-type-parameters).
-// Note that this function exists in the standard library
-// as [slices.Index](https://pkg.go.dev/slices#Index).
+// `SlicesIndex` е пример за обобщена функция. Приема отрязък от всеки сравним (`comparable`) вид данни и един член от такъв вид, и връща показалец към първото съвпадение с `v`  в `s`, или -1, ако не го намери.
+// _Ограничението_[^constraint] `comparable` (сравним)
+// означава, че можем да сравняваме данните от такъв вид
+// чрез действията[^operators] `==` и `!=`. Много по-задълбочено обяснение ще намерите в [тази статия](https://go.dev/blog/deconstructing-type-parameters).
+// Обърнете внимание, че тази функция съществува в
+// стандартната библиотека под името
+// [slices.Index](https://pkg.go.dev/slices#Index).
+// [^constraint]: generic constraint – обобщaващо ограничение (за определен набор от видове)
+// [^operators]: operators – действия
 func SlicesIndex[S ~[]E, E comparable](s S, v E) int {
 	for i := range s {
 		if v == s[i] {
@@ -23,8 +24,10 @@ func SlicesIndex[S ~[]E, E comparable](s S, v E) int {
 	return -1
 }
 
-// As an example of a generic type, `List` is a
-// singly-linked list with values of any type.
+// Ето един примерен обобщен вид. `List` е единично
+// свързан списък, който може да съдържа стойности от
+// _всякакъв_[^any] вид.
+// [^any]: any – всякакъв. Това е друго име за `interface{}`, което в Го означава данна от _всякакъв вид_.
 type List[T any] struct {
 	head, tail *element[T]
 }
@@ -34,9 +37,9 @@ type element[T any] struct {
 	val  T
 }
 
-// We can define methods on generic types just like we
-// do on regular types, but we have to keep the type
-// parameters in place. The type is `List[T]`, not `List`.
+// Можем да създаваме методи за обобщени видове, но трябва
+// да обявяваме податките за вида. Вида е `List[T]`, не
+// `List`.
 func (lst *List[T]) Push(v T) {
 	if lst.tail == nil {
 		lst.head = &element[T]{val: v}
@@ -47,9 +50,12 @@ func (lst *List[T]) Push(v T) {
 	}
 }
 
-// AllElements returns all the List elements as a slice.
-// In the next example we'll see a more idiomatic way
-// of iterating over all elements of custom types.
+// `AllElements` връща всички членове на `List` като
+// отрязък. В следващия пример ще видим
+// по-изразителен[^idiomatic] начин да обикаляме по
+// членовете на потребителски[^custom] видове.
+// [^custom]: custom – потребителски. Собственоръчно направен от  програмиста – потребителя на езика.
+// [^idiomatic]: idiomatic – изразителен, присъщ. Изразителен, според начина на мислене, изказване, слововобаразуване, изразяване в съответния език.
 func (lst *List[T]) AllElements() []T {
 	var elems []T
 	for e := lst.head; e != nil; e = e.next {
@@ -59,21 +65,23 @@ func (lst *List[T]) AllElements() []T {
 }
 
 func main() {
-	var s = []string{"foo", "bar", "zoo"}
+	var s = []string{"ала", "бала", "ница"}
 
-	// When invoking generic functions, we can often rely
-	// on _type inference_. Note that we don't have to
-	// specify the types for `S` and `E` when
-	// calling `SlicesIndex` - the compiler infers them
-	// automatically.
-	fmt.Println("index of zoo:", SlicesIndex(s, "zoo"))
+	// Когато извикваме обобщени функции, често можем да
+	// разчитаме, че Го ще _отгатне_[^tinf] вида.
+	// Забележете, че не е нужно да указваме вида на `S` и
+	// `E`, когато извикваме `SlicesIndex`. Компилаторът
+	// отгатва вида им сам.
+	// [^tinf]: type inference – отгатване на вида. To infer – правя заключение за, загатвам, подсказвам, а в случая – отгатвам.
+	fmt.Printf("на кое място е %q:  %d\n",
+		s[0], SlicesIndex(s, "ала"))
 
-	// ... though we could also specify them explicitly.
+	// ... макар че бихме могли да ги зададем и изрично.
 	_ = SlicesIndex[[]string, string](s, "zoo")
 
 	lst := List[int]{}
 	lst.Push(10)
 	lst.Push(13)
 	lst.Push(23)
-	fmt.Println("list:", lst.AllElements())
+	fmt.Println("списък:", lst.AllElements())
 }

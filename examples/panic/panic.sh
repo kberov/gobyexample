@@ -1,20 +1,26 @@
-# Running this program will cause it to panic, print
-# an error message and goroutine traces, and exit with
-# a non-zero status.
+# Ако пуснем тази програма, тя ще се ужаси, ще изведе
+# грешка и проследяване на гозадачата, в която се е
+# случило това, след което ще излезе с ненулево състояние.
 
-# When first panic in `main` fires, the program exits
-# without reaching the rest of the code. If you'd like
-# to see the program try to create a temp file, comment
-# the first panic out.
+
+# Когато програмата достигне до извикването на първата
+# `panic` в `main`, програмата излиза, без да изпълни
+# остатъка от кода. Ако искате да видите, как програмата
+# се опитва да създаде временен файл, коментирайте първото
+# извикване на `panic`.
 $ go run panic.go
-panic: a problem
-
+panic: препятствие!
 goroutine 1 [running]:
 main.main()
-	/.../panic.go:12 +0x47
-...
+	/home/berov/opt/dev/gobyexample/examples/panic/panic.go:20 +0x25
 exit status 2
+...
 
-# Note that unlike some languages which use exceptions
-# for handling of many errors, in Go it is idiomatic
-# to use error-indicating return values wherever possible.
+# Забележете, че за разлика от някои езици, ползващи
+# изключения[^except] за управление на много грешки в Го е
+# прието да се връща стойност от вида данни за грешки
+# `error`, като така се обозначават състояния, които
+# могат да бъдат обработени и програмта да продължи.
+# `panic` се извиква, когато няма смисъл програмата да
+# продължава или няма как да продължи след тази грешка.
+# [^except]: exception – изключение. В Java това е ключова дума, част от езика. В Python ключовата дума е except.

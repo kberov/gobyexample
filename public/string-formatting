@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: String Formatting</title>
+    <title>Go в примери: Изглед на низове</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,25 @@
   </script>
   <body>
     <div class="example" id="string-formatting">
-      <h2><a href="./">Go by Example</a>: String Formatting</h2>
+      <h2><a href="./">Go в примери</a>: Изглед на низове</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go offers excellent support for string formatting in
-the <code>printf</code> tradition. Here are some examples of
-common string formatting tasks.</p>
+            <p>Го предлага превъзходна поддръжка за <em>задаване
+изгледа</em><sup class="footnote-ref" id="fnref:format"><a href="#fn:format">1</a></sup> на низове в духа на <code>printf</code> от езика
+C. Ето някои примери на чести такива задачи.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:format">formatting – задаване изгледа, външния вид на различни видове данни; форматиране. От др. гръцки морф ( вж. Морфей). Навлязло в употреба при сметалата около 1955 г.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +56,7 @@ common string formatting tasks.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/EZCZX1Uwp6D"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/jUTnLaG0k9F"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -88,57 +98,58 @@ common string formatting tasks.</p>
         
         <tr>
           <td class="docs">
-            <p>Go offers several printing &ldquo;verbs&rdquo; designed to
-format general Go values. For example, this prints
-an instance of our <code>point</code> struct.</p>
+            <p>Го предлага няколко печaтащи „глагола“, изобретени
+за задаване на изгледа на стойности. Например
+следното извежда стойността на структурата <code>point</code>.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">point</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;struct1: %v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;строй 1: %v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>If the value is a struct, the <code>%+v</code> variant will
-include the struct&rsquo;s field names.</p>
+            <p>Ако стойността е структура, разновидността <code>%+v</code> ще
+включи и имената на полетата.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;struct2: %+v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;строй 2: %+v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>The <code>%#v</code> variant prints a Go syntax representation
-of the value, i.e. the source code snippet that
-would produce that value.</p>
+            <p>Разновидността <code>%#v</code>  отпечатва стойността,
+представена с правописа на Го, сиреч, изходният
+код, който би произвел тази стойност.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;struct3: %#v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;строй 3: %#v\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>To print the type of a value, use <code>%T</code>.</p>
+            <p>За да отпечатим вида данни на тази стойност,
+ползваме <code>%T</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;type: %T\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;вид: %T\n&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Formatting booleans is straight-forward.</p>
+            <p>Булевите стойности се показват така.</p>
 
           </td>
           <td class="code leading">
@@ -149,54 +160,81 @@ would produce that value.</p>
         
         <tr>
           <td class="docs">
-            <p>There are many options for formatting integers.
-Use <code>%d</code> for standard, base-10 formatting.</p>
+            <p>Има много възможности за задаване изгледа на цели
+числа. Използвайте глагола <code>%d</code>, за да покажете
+числата като десетични, независимо как сте ги
+записали (или са) в изходния код.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;int: %d\n&#34;</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;int: %d\n&#34;</span><span class="p">,</span> <span class="mi">1133</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;int: %d\n&#34;</span><span class="p">,</span> <span class="mo">02155</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;int: %d\n&#34;</span><span class="p">,</span> <span class="mh">0x046D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;int: %d\n&#34;</span><span class="p">,</span> <span class="mb">0b10001101101</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>This prints a binary representation.</p>
+            <p><code>%b</code> ни дава двоично представяне.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;bin: %b\n&#34;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;bin: %b\n&#34;</span><span class="p">,</span> <span class="mi">1133</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>This prints the character corresponding to the
-given integer.</p>
+            <p><code>%o</code> ни дава осмично представяне.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;char: %c\n&#34;</span><span class="p">,</span> <span class="mi">33</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;oct: %o\n&#34;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;oct: %o\n&#34;</span><span class="p">,</span> <span class="mi">1133</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>%x</code> provides hex encoding.</p>
+            <p>Глаголът <code>%c</code> дава знака, съответстващ на
+подаденото цяло число, независимо от представянето
+му в изходния код.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;hex: %x\n&#34;</span><span class="p">,</span> <span class="mi">456</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;знак: %c\n&#34;</span><span class="p">,</span> <span class="mi">1133</span><span class="p">)</span>          <span class="c1">// ѭ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;знак: %c\n&#34;</span><span class="p">,</span> <span class="mo">02155</span><span class="p">)</span>         <span class="c1">// ѭ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;знак: %c\n&#34;</span><span class="p">,</span> <span class="mh">0x046D</span><span class="p">)</span>        <span class="c1">// ѭ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;char: %c\n&#34;</span><span class="p">,</span> <span class="mb">0b10001101101</span><span class="p">)</span> <span class="c1">// ѭ
+</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>There are also several formatting options for
-floats. For basic decimal formatting use <code>%f</code>.</p>
+            <p><code>%x</code> ни показва числото, кодирано като
+шестнадесетично, независимо от представянето му в
+изходния код.</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;hex: %x\n&#34;</span><span class="p">,</span> <span class="mi">1133</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;hex: %x\n&#34;</span><span class="p">,</span> <span class="mh">0x046D</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;hex: %x\n&#34;</span><span class="p">,</span> <span class="mb">0b10001101101</span><span class="p">)</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Има също няколко възможности за задаванае на
+изгледа на числа с плаваща запетая. За показване
+като число с основа десет, ползвайте <code>%f</code>.</p>
 
           </td>
           <td class="code leading">
@@ -207,8 +245,8 @@ floats. For basic decimal formatting use <code>%f</code>.</p>
         
         <tr>
           <td class="docs">
-            <p><code>%e</code> and <code>%E</code> format the float in (slightly
-different versions of) scientific notation.</p>
+            <p><code>%e</code> и <code>%E</code> представят десетичната дроб в леко
+различаващи се разновидности на научно означаване.</p>
 
           </td>
           <td class="code leading">
@@ -220,42 +258,64 @@ different versions of) scientific notation.</p>
         
         <tr>
           <td class="docs">
-            <p>For basic string printing use <code>%s</code>.</p>
+            <p>За обикновено отпечатване на низове, ползвайте <code>%s</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str1: %s\n&#34;</span><span class="p">,</span> <span class="s">&#34;\&#34;string\&#34;&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str1: %s\n&#34;</span><span class="p">,</span> <span class="s">&#34;низ&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>To double-quote strings as in Go source, use <code>%q</code>.</p>
+            <p>За ограждане на низ с двойни кавички както в
+изходния код на Го, ползвайте <code>%q</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str2: %q\n&#34;</span><span class="p">,</span> <span class="s">&#34;\&#34;string\&#34;&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str2: %q\n&#34;</span><span class="p">,</span> <span class="s">`&#34;низ&#34;`</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>As with integers seen earlier, <code>%x</code> renders
-the string in base-16, with two output characters
-per byte of input.</p>
+            <p>Както при целите числа по-горе, <code>%x</code> представя низа
+като последователност от двуцифрени шестнадесетични
+числа за всеки входен байт<sup class="footnote-ref" id="fnref:utf8"><a href="#fn:utf8">1</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:utf8">Това е малък йотуван юс, в UTF-8 (както е кодиран изходния код на програмите на Го), като всеки байт е представен като шестнадесетично двуцифрено число.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str3: %x\n&#34;</span><span class="p">,</span> <span class="s">&#34;hex this&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;str3: %x\n&#34;</span><span class="p">,</span> <span class="s">&#34;ѭ&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>To print a representation of a pointer, use <code>%p</code>.</p>
+            <p>Същият знак, от байтове към низ.</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">`d1ad:`</span><span class="p">,</span> <span class="nb">string</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="mh">0xd1</span><span class="p">,</span> <span class="mh">0xad</span><span class="p">}))</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>За да представите указател, ползвайте <code>%p</code>.</p>
 
           </td>
           <td class="code leading">
@@ -266,37 +326,41 @@ per byte of input.</p>
         
         <tr>
           <td class="docs">
-            <p>When formatting numbers you will often want to
-control the width and precision of the resulting
-figure. To specify the width of an integer, use a
-number after the <code>%</code> in the verb. By default the
-result will be right-justified and padded with
-spaces.</p>
+            <p>Когато представяте числа, често ще искате да
+управлявате ширината и знаците след точката. За да
+укажете заеманата ширина в знаци, в глагола
+използвайте цяло
+число след <code>%</code>. По подразбиране изходът е равнѐн
+вдясно и предхождан от празноти.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width1: |%6d|%6d|\n&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">345</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width1: |%6d|%6d|\n&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>You can also specify the width of printed floats,
-though usually you&rsquo;ll also want to restrict the
-decimal precision at the same time with the
-width.precision syntax.</p>
+            <p>Можете да указвате заеманата ширина в знаци и за
+десетични дроби, но ще искате да укажете и броя
+знаци след десетичната запетая (точката).
+Правописът е <em>ширина</em>.<em>точност</em>f.
+Забележете, че числото бива закръглено автоматично,
+а не просто отрязано.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width2: |%6.2f|%6.2f|\n&#34;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.45</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width2: |%6.2f|%6.2f|\n&#34;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.456</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width2: |%6.2f|%6.2f|\n&#34;</span><span class="p">,</span> <span class="mf">12.21</span><span class="p">,</span> <span class="mf">3.455</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width2: |%6.2f|%6.2f|\n&#34;</span><span class="p">,</span> <span class="mf">123.233</span><span class="p">,</span> <span class="mf">3.454</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>To left-justify, use the <code>-</code> flag.</p>
+            <p>За да равните вляво, използвайте знамето <code>-</code>.</p>
 
           </td>
           <td class="code leading">
@@ -307,20 +371,22 @@ width.precision syntax.</p>
         
         <tr>
           <td class="docs">
-            <p>You may also want to control width when formatting
-strings, especially to ensure that they align in
-table-like output. For basic right-justified width.</p>
+            <p>Може би искате да управлявате заеманата ширина в знаци,
+когато задавате изглед на низове, особено в
+табличен вид. Ето дясно равнен изглед с ширина шест
+знака.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width4: |%6s|%6s|\n&#34;</span><span class="p">,</span> <span class="s">&#34;foo&#34;</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;width4: |%6s|%6s|\n&#34;</span><span class="p">,</span> <span class="s">&#34;пѫт&#34;</span><span class="p">,</span> <span class="s">&#34;молѭ&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>To left-justify use the <code>-</code> flag as with numbers.</p>
+            <p>За да равните вляво, ползвайте знамето <code>-</code>, както с
+числата.</p>
 
           </td>
           <td class="code leading">
@@ -331,27 +397,28 @@ table-like output. For basic right-justified width.</p>
         
         <tr>
           <td class="docs">
-            <p>So far we&rsquo;ve seen <code>Printf</code>, which prints the
-formatted string to <code>os.Stdout</code>. <code>Sprintf</code> formats
-and returns a string without printing it anywhere.</p>
+            <p>Дотук видяхме <code>Printf</code>, която задава изглед и
+пише в <code>os.Stdout</code>. <code>Sprintf</code> задава изгледа и
+връща низа, без да го пише никъде.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;sprintf: a %s&#34;</span><span class="p">,</span> <span class="s">&#34;string&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;sprintf: %s&#34;</span><span class="p">,</span> <span class="s">&#34;наниз&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>You can format+print to <code>io.Writers</code> other than
-<code>os.Stdout</code> using <code>Fprintf</code>.</p>
+            <p>Можете да задавате изглед и да пишете и в други обекти,
+осъществяващи взаимодействието <code>io.Writer</code>, а не
+само в <code>os.Stdout</code> с помощта на <code>Fprintf</code>.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;io: an %s\n&#34;</span><span class="p">,</span> <span class="s">&#34;error&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&#34;изход: %s\n&#34;</span><span class="p">,</span> <span class="s">&#34;грешка&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -367,29 +434,42 @@ and returns a string without printing it anywhere.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run string-formatting.go
-</span></span><span class="line"><span class="cl"><span class="go">struct1: {1 2}
-</span></span></span><span class="line"><span class="cl"><span class="go">struct2: {x:1 y:2}
-</span></span></span><span class="line"><span class="cl"><span class="go">struct3: main.point{x:1, y:2}
-</span></span></span><span class="line"><span class="cl"><span class="go">type: main.point
+</span></span><span class="line"><span class="cl"><span class="go">строй 1: {1 2}
+</span></span></span><span class="line"><span class="cl"><span class="go">строй 2: {x:1 y:2}
+</span></span></span><span class="line"><span class="cl"><span class="go">строй 3: main.point{x:1, y:2}
+</span></span></span><span class="line"><span class="cl"><span class="go">вид: main.point
 </span></span></span><span class="line"><span class="cl"><span class="go">bool: true
-</span></span></span><span class="line"><span class="cl"><span class="go">int: 123
-</span></span></span><span class="line"><span class="cl"><span class="go">bin: 1110
-</span></span></span><span class="line"><span class="cl"><span class="go">char: !
-</span></span></span><span class="line"><span class="cl"><span class="go">hex: 1c8
+</span></span></span><span class="line"><span class="cl"><span class="go">int: 1133
+</span></span></span><span class="line"><span class="cl"><span class="go">int: 1133
+</span></span></span><span class="line"><span class="cl"><span class="go">int: 1133
+</span></span></span><span class="line"><span class="cl"><span class="go">int: 1133
+</span></span></span><span class="line"><span class="cl"><span class="go">bin: 10001101101
+</span></span></span><span class="line"><span class="cl"><span class="go">oct: 16
+</span></span></span><span class="line"><span class="cl"><span class="go">oct: 2155
+</span></span></span><span class="line"><span class="cl"><span class="go">знак: ѭ
+</span></span></span><span class="line"><span class="cl"><span class="go">знак: ѭ
+</span></span></span><span class="line"><span class="cl"><span class="go">знак: ѭ
+</span></span></span><span class="line"><span class="cl"><span class="go">char: ѭ
+</span></span></span><span class="line"><span class="cl"><span class="go">hex: 46d
+</span></span></span><span class="line"><span class="cl"><span class="go">hex: 46d
+</span></span></span><span class="line"><span class="cl"><span class="go">hex: 46d
 </span></span></span><span class="line"><span class="cl"><span class="go">float1: 78.900000
 </span></span></span><span class="line"><span class="cl"><span class="go">float2: 1.234000e+08
 </span></span></span><span class="line"><span class="cl"><span class="go">float3: 1.234000E+08
-</span></span></span><span class="line"><span class="cl"><span class="go">str1: &#34;string&#34;
-</span></span></span><span class="line"><span class="cl"><span class="go">str2: &#34;\&#34;string\&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="go">str3: 6865782074686973
-</span></span></span><span class="line"><span class="cl"><span class="go">pointer: 0xc0000ba000
-</span></span></span><span class="line"><span class="cl"><span class="go">width1: |    12|   345|
-</span></span></span><span class="line"><span class="cl"><span class="go">width2: |  1.20|  3.45|
+</span></span></span><span class="line"><span class="cl"><span class="go">str1: низ
+</span></span></span><span class="line"><span class="cl"><span class="go">str2: &#34;\&#34;низ\&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="go">str3: d1ad
+</span></span></span><span class="line"><span class="cl"><span class="go">d1ad: ѭ
+</span></span></span><span class="line"><span class="cl"><span class="go">pointer: 0xc00009a020
+</span></span></span><span class="line"><span class="cl"><span class="go">width1: |    12| 12345|
+</span></span></span><span class="line"><span class="cl"><span class="go">width2: |  1.20|  3.46|
+</span></span></span><span class="line"><span class="cl"><span class="go">width2: | 12.21|  3.46|
+</span></span></span><span class="line"><span class="cl"><span class="go">width2: |123.23|  3.45|
 </span></span></span><span class="line"><span class="cl"><span class="go">width3: |1.20  |3.45  |
-</span></span></span><span class="line"><span class="cl"><span class="go">width4: |   foo|     b|
+</span></span></span><span class="line"><span class="cl"><span class="go">width4: |   пѫт|  молѭ|
 </span></span></span><span class="line"><span class="cl"><span class="go">width5: |foo   |b     |
-</span></span></span><span class="line"><span class="cl"><span class="go">sprintf: a string
-</span></span></span><span class="line"><span class="cl"><span class="go">io: an error</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">sprintf: наниз
+</span></span></span><span class="line"><span class="cl"><span class="go">изход: грешка</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -397,18 +477,18 @@ and returns a string without printing it anywhere.</p>
       
       
       <p class="next">
-        Next example: <a href="text-templates" rel="next">Text Templates</a>.
+        Следващ пример: <a href="text-templates" rel="next">Образци за словоплет</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"os\"\u000A)\u000A');codeLines.push('type point struct {\u000A    x, y int\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    p :\u003D point{1, 2}\u000A    fmt.Printf(\"struct1: %v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"struct2: %+v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"struct3: %#v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"type: %T\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"bool: %t\\n\", true)\u000A');codeLines.push('    fmt.Printf(\"int: %d\\n\", 123)\u000A');codeLines.push('    fmt.Printf(\"bin: %b\\n\", 14)\u000A');codeLines.push('    fmt.Printf(\"char: %c\\n\", 33)\u000A');codeLines.push('    fmt.Printf(\"hex: %x\\n\", 456)\u000A');codeLines.push('    fmt.Printf(\"float1: %f\\n\", 78.9)\u000A');codeLines.push('    fmt.Printf(\"float2: %e\\n\", 123400000.0)\u000A    fmt.Printf(\"float3: %E\\n\", 123400000.0)\u000A');codeLines.push('    fmt.Printf(\"str1: %s\\n\", \"\\\"string\\\"\")\u000A');codeLines.push('    fmt.Printf(\"str2: %q\\n\", \"\\\"string\\\"\")\u000A');codeLines.push('    fmt.Printf(\"str3: %x\\n\", \"hex this\")\u000A');codeLines.push('    fmt.Printf(\"pointer: %p\\n\", \u0026p)\u000A');codeLines.push('    fmt.Printf(\"width1: |%6d|%6d|\\n\", 12, 345)\u000A');codeLines.push('    fmt.Printf(\"width2: |%6.2f|%6.2f|\\n\", 1.2, 3.45)\u000A');codeLines.push('    fmt.Printf(\"width3: |%-6.2f|%-6.2f|\\n\", 1.2, 3.45)\u000A');codeLines.push('    fmt.Printf(\"width4: |%6s|%6s|\\n\", \"foo\", \"b\")\u000A');codeLines.push('    fmt.Printf(\"width5: |%-6s|%-6s|\\n\", \"foo\", \"b\")\u000A');codeLines.push('    s :\u003D fmt.Sprintf(\"sprintf: a %s\", \"string\")\u000A    fmt.Println(s)\u000A');codeLines.push('    fmt.Fprintf(os.Stderr, \"io: an %s\\n\", \"error\")\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"os\"\u000A)\u000A');codeLines.push('type point struct {\u000A    x, y int\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    p :\u003D point{1, 2}\u000A    fmt.Printf(\"строй 1: %v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"строй 2: %+v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"строй 3: %#v\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"вид: %T\\n\", p)\u000A');codeLines.push('    fmt.Printf(\"bool: %t\\n\", true)\u000A');codeLines.push('    fmt.Printf(\"int: %d\\n\", 1133)\u000A    fmt.Printf(\"int: %d\\n\", 02155)\u000A    fmt.Printf(\"int: %d\\n\", 0x046D)\u000A    fmt.Printf(\"int: %d\\n\", 0b10001101101)\u000A');codeLines.push('    fmt.Printf(\"bin: %b\\n\", 1133)\u000A');codeLines.push('    fmt.Printf(\"oct: %o\\n\", 14)\u000A    fmt.Printf(\"oct: %o\\n\", 1133)\u000A');codeLines.push('    fmt.Printf(\"знак: %c\\n\", 1133)          // ѭ\u000A    fmt.Printf(\"знак: %c\\n\", 02155)         // ѭ\u000A    fmt.Printf(\"знак: %c\\n\", 0x046D)        // ѭ\u000A    fmt.Printf(\"char: %c\\n\", 0b10001101101) // ѭ\u000A');codeLines.push('    fmt.Printf(\"hex: %x\\n\", 1133)\u000A    fmt.Printf(\"hex: %x\\n\", 0x046D)\u000A    fmt.Printf(\"hex: %x\\n\", 0b10001101101)\u000A');codeLines.push('    fmt.Printf(\"float1: %f\\n\", 78.9)\u000A');codeLines.push('    fmt.Printf(\"float2: %e\\n\", 123400000.0)\u000A    fmt.Printf(\"float3: %E\\n\", 123400000.0)\u000A');codeLines.push('    fmt.Printf(\"str1: %s\\n\", \"низ\")\u000A');codeLines.push('    fmt.Printf(\"str2: %q\\n\", `\"низ\"`)\u000A');codeLines.push('    fmt.Printf(\"str3: %x\\n\", \"ѭ\")\u000A');codeLines.push('    fmt.Println(`d1ad:`, string([]byte{0xd1, 0xad}))\u000A');codeLines.push('    fmt.Printf(\"pointer: %p\\n\", \u0026p)\u000A');codeLines.push('    fmt.Printf(\"width1: |%6d|%6d|\\n\", 12, 12345)\u000A');codeLines.push('    fmt.Printf(\"width2: |%6.2f|%6.2f|\\n\", 1.2, 3.456)\u000A    fmt.Printf(\"width2: |%6.2f|%6.2f|\\n\", 12.21, 3.455)\u000A    fmt.Printf(\"width2: |%6.2f|%6.2f|\\n\", 123.233, 3.454)\u000A');codeLines.push('    fmt.Printf(\"width3: |%-6.2f|%-6.2f|\\n\", 1.2, 3.45)\u000A');codeLines.push('    fmt.Printf(\"width4: |%6s|%6s|\\n\", \"пѫт\", \"молѭ\")\u000A');codeLines.push('    fmt.Printf(\"width5: |%-6s|%-6s|\\n\", \"foo\", \"b\")\u000A');codeLines.push('    s :\u003D fmt.Sprintf(\"sprintf: %s\", \"наниз\")\u000A    fmt.Println(s)\u000A');codeLines.push('    fmt.Fprintf(os.Stderr, \"изход: %s\\n\", \"грешка\")\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,7 +1,10 @@
-// It's possible to define custom error types by
-// implementing the `Error()` method on them. Here's a
-// variant on the example above that uses a custom type
-// to explicitly represent an argument error.
+// Можем да съставяме нови видове грешки[^custerr] като
+// осъщетвим метода `Error()` за вид, зъздаден от нас. Ето
+// една разновидност на предишния пример, който използва
+// потребителски[^custom] вид данни, за да представи
+// изрично, грешка при подаване на данни.
+// [^custerr]: custom error – вид грешка, осъществена от разработчика
+// [^custom]: custom – потребителски, на потребителя. В случая потребителят е програмистът.
 
 package main
 
@@ -10,40 +13,39 @@ import (
 	"fmt"
 )
 
-// A custom error type usually has the suffix "Error".
+// Съставените грешки обикновено имат наставката "Error".
 type argError struct {
 	arg     int
 	message string
 }
 
-// Adding this `Error` method makes `argError` implement
-// the `error` interface.
+// Като добавим метода `Error`, осъществяваме взаимодействието `error`.
 func (e *argError) Error() string {
-	return fmt.Sprintf("%d - %s", e.arg, e.message)
+	return fmt.Sprintf("%s %d", e.message, e.arg)
 }
 
 func f(arg int) (int, error) {
 	if arg == 42 {
 
-		// Return our custom error.
-		return -1, &argError{arg, "can't work with it"}
+		// Връщаме съставената от нас грешка.
+		return -1, &argError{arg, "не мога да работя с"}
 	}
 	return arg + 3, nil
 }
 
 func main() {
 
-	// `errors.As` is a more advanced version of `errors.Is`.
-	// It checks that a given error (or any error in its chain)
-	// matches a specific error type and converts to a value
-	// of that type, returning `true`. If there's no match, it
-	// returns `false`.
+	// Функцията `errors.As` е по-сложна разновидност на
+	// `errors.Is`. С нея проверяваме дали дадена грешка
+	// (или всяка грешка в нейната верига) е от определен
+	// вид, като превръща текущата грешка в обявена от нас
+	// променлива от очаквания вид. Ако успее, връща
+	// `true`, иначе – `false`.
 	_, err := f(42)
 	var ae *argError
 	if errors.As(err, &ae) {
-		fmt.Println(ae.arg)
-		fmt.Println(ae.message)
+		fmt.Println(ae.Error())
 	} else {
-		fmt.Println("err doesn't match argError")
+		fmt.Println("err не от вида argError")
 	}
 }

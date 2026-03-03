@@ -1,17 +1,18 @@
-# When we run this program, we see the output of the
-# blocking call first, then the output of the two
-# goroutines. The goroutines' output may be interleaved,
-# because goroutines are being run concurrently by the
-# Go runtime.
+# Когато пуснем тази програма, ще видим първо изхода от
+# блокиращото извикване, след това изхода от две
+# гозадачи. Изходът от гозадачите може да се смеси,
+# защото са пуснати едновременно от двигателя за
+# изпълнение[^runtime] на Го.
+# [^runtime]: runtime – буквално „по време на изпълнение“. Това е програмен код, който става част от нашата програма и я управлява по време на изпълнение. спокойно да го преведем _изпълнение_ или _изпълнител_
 $ go run goroutines.go
-direct : 0
-direct : 1
-direct : 2
-goroutine : 0
-going
-goroutine : 1
-goroutine : 2
-done
+пряко извикване : 0
+пряко извикване : 1
+пряко извикване : 2
+извикване в отделна go-нишка : 0
+върви
+извикване в отделна go-нишка : 1
+извикване в отделна go-нишка : 2
+готово
 
-# Next we'll look at a complement to goroutines in
-# concurrent Go programs: channels.
+# В следващия пример ще разгледаме едно допълнение към
+# гозадачите – канали.

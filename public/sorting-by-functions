@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Sorting by Functions</title>
+    <title>Go в примери: Подреждане чрез функции</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,17 +24,18 @@
   </script>
   <body>
     <div class="example" id="sorting-by-functions">
-      <h2><a href="./">Go by Example</a>: Sorting by Functions</h2>
+      <h2><a href="./">Go в примери</a>: Подреждане чрез функции</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Sometimes we&rsquo;ll want to sort a collection by something
-other than its natural order. For example, suppose we
-wanted to sort strings by their length instead of
-alphabetically. Here&rsquo;s an example of custom sorts
-in Go.</p>
+            <p>Понякога може да искаме да подредим някакъв набор от
+неща по някакъв друг признак, а не по естесвения им
+ред. Например нека си представим, че искаме да подредим
+набор от низове според тяхната дължина вместо по
+азбучен ред. Ето един пример с определено от
+потребителя на Го подреждане.</p>
 
           </td>
           <td class="code empty leading">
@@ -48,7 +49,7 @@ in Go.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/3EaTknAZHMu"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/uBuFQe2VtV_3"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -74,14 +75,15 @@ in Go.</p>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fruits</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;peach&#34;</span><span class="p">,</span> <span class="s">&#34;banana&#34;</span><span class="p">,</span> <span class="s">&#34;kiwi&#34;</span><span class="p">}</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">    <span class="nx">плодове</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;праскова&#34;</span><span class="p">,</span> <span class="s">&#34;банан&#34;</span><span class="p">,</span> <span class="s">&#34;киви&#34;</span><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We implement a comparison function for string
-lengths. <code>cmp.Compare</code> is helpful for this.</p>
+            <p>Осъществяваме функция, която сравнява дължините на
+два низа. <code>cmp.Compare</code> ни върши работа в тоя
+случай.</p>
 
           </td>
           <td class="code leading">
@@ -94,28 +96,29 @@ lengths. <code>cmp.Compare</code> is helpful for this.</p>
         
         <tr>
           <td class="docs">
-            <p>Now we can call <code>slices.SortFunc</code> with this custom
-comparison function to sort <code>fruits</code> by name length.</p>
+            <p>Сега можем да извикаме <code>slices.SortFunc</code> с нашата
+потребителска функция за сравнение, за да подредим
+отрязъка <code>плодове</code> по дължина на името.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">fruits</span><span class="p">,</span> <span class="nx">lenCmp</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">fruits</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">плодове</span><span class="p">,</span> <span class="nx">lenCmp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">плодове</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We can use the same technique to sort a slice of
-values that aren&rsquo;t built-in types.</p>
+            <p>Можем да ползваме същия подход и за невградени
+в езика видове данни.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">age</span>  <span class="kt">int</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="kd">type</span> <span class="nx">Личност</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">име</span>     <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">възраст</span> <span class="kt">int</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -126,31 +129,33 @@ values that aren&rsquo;t built-in types.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">people</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">Person</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;Jax&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">37</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;TJ&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;Alex&#34;</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mi">72</span><span class="p">},</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">народ</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">Личност</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Личност</span><span class="p">{</span><span class="nx">име</span><span class="p">:</span> <span class="s">&#34;Пешо&#34;</span><span class="p">,</span> <span class="nx">възраст</span><span class="p">:</span> <span class="mi">37</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Личност</span><span class="p">{</span><span class="nx">име</span><span class="p">:</span> <span class="s">&#34;Иван&#34;</span><span class="p">,</span> <span class="nx">възраст</span><span class="p">:</span> <span class="mi">25</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Личност</span><span class="p">{</span><span class="nx">име</span><span class="p">:</span> <span class="s">&#34;Краси&#34;</span><span class="p">,</span> <span class="nx">възраст</span><span class="p">:</span> <span class="mi">72</span><span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Sort <code>people</code> by age using <code>slices.SortFunc</code>.</p>
+            <p>Подреждаме <code>народ</code> по възраст с помощта на
+<code>slices.SortFunc</code>.</p>
 
-<p>Note: if the <code>Person</code> struct is large,
-you may want the slice to contain <code>*Person</code> instead
-and adjust the sorting function accordingly. If in
-doubt, <a href="testing-and-benchmarking">benchmark</a>!</p>
+<p>Забележка: ако структурата <code>Личност</code> е голяма може
+би ще предпочетете отрязъка да съдържа <code>*Личност</code>и
+и да преправите подреждащата си функция. Ако се
+колебаете, прочетете
+<a href="testing-and-benchmarking">benchmark</a>!</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">people</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="kd">func</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">Person</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">cmp</span><span class="p">.</span><span class="nf">Compare</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">slices</span><span class="p">.</span><span class="nf">SortFunc</span><span class="p">(</span><span class="nx">народ</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">func</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="nx">Личност</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">cmp</span><span class="p">.</span><span class="nf">Compare</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">възраст</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">възраст</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">})</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">people</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">народ</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -166,8 +171,8 @@ doubt, <a href="testing-and-benchmarking">benchmark</a>!</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run sorting-by-functions.go 
-</span></span><span class="line"><span class="cl"><span class="go">[kiwi peach banana]
-</span></span></span><span class="line"><span class="cl"><span class="go">[{TJ 25} {Jax 37} {Alex 72}]</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">[киви банан праскова]
+</span></span></span><span class="line"><span class="cl"><span class="go">[{Иван 25} {Пешо 37} {Краси 72}]</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -175,18 +180,18 @@ doubt, <a href="testing-and-benchmarking">benchmark</a>!</p>
       
       
       <p class="next">
-        Next example: <a href="panic" rel="next">Panic</a>.
+        Следващ пример: <a href="panic" rel="next">Ужас</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"cmp\"\u000A    \"fmt\"\u000A    \"slices\"\u000A)\u000A');codeLines.push('func main() {\u000A    fruits :\u003D []string{\"peach\", \"banana\", \"kiwi\"}\u000A');codeLines.push('    lenCmp :\u003D func(a, b string) int {\u000A        return cmp.Compare(len(a), len(b))\u000A    }\u000A');codeLines.push('    slices.SortFunc(fruits, lenCmp)\u000A    fmt.Println(fruits)\u000A');codeLines.push('    type Person struct {\u000A        name string\u000A        age  int\u000A    }\u000A');codeLines.push('    people :\u003D []Person{\u000A        Person{name: \"Jax\", age: 37},\u000A        Person{name: \"TJ\", age: 25},\u000A        Person{name: \"Alex\", age: 72},\u000A    }\u000A');codeLines.push('    slices.SortFunc(people,\u000A        func(a, b Person) int {\u000A            return cmp.Compare(a.age, b.age)\u000A        })\u000A    fmt.Println(people)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"cmp\"\u000A    \"fmt\"\u000A    \"slices\"\u000A)\u000A');codeLines.push('func main() {\u000A    плодове :\u003D []string{\"праскова\", \"банан\", \"киви\"}\u000A');codeLines.push('    lenCmp :\u003D func(a, b string) int {\u000A        return cmp.Compare(len(a), len(b))\u000A    }\u000A');codeLines.push('    slices.SortFunc(плодове, lenCmp)\u000A    fmt.Println(плодове)\u000A');codeLines.push('    type Личност struct {\u000A        име     string\u000A        възраст int\u000A    }\u000A');codeLines.push('    народ :\u003D []Личност{\u000A        Личност{име: \"Пешо\", възраст: 37},\u000A        Личност{име: \"Иван\", възраст: 25},\u000A        Личност{име: \"Краси\", възраст: 72},\u000A    }\u000A');codeLines.push('    slices.SortFunc(народ,\u000A        func(a, b Личност) int {\u000A            return cmp.Compare(a.възраст, b.възраст)\u000A        })\u000A    fmt.Println(народ)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,5 +1,5 @@
-// Go offers built-in support for XML and XML-like
-// formats with the `encoding/xml` package.
+// Го предлага вградена поддръжка за XML  и подобни на XML
+// формати чрез пакета `encoding/xml`.
 
 package main
 

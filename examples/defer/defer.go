@@ -1,7 +1,8 @@
-// _Defer_ is used to ensure that a function call is
-// performed later in a program's execution, usually for
-// purposes of cleanup. `defer` is often used where e.g.
-// `ensure` and `finally` would be used in other languages.
+// Изявлението _defer_ (отлагане (на изпълнение)) се
+// използва за осигуряване извикването на някоя функция
+// по-късно в работата на някоя програма. `defer` се
+// използва в същия смисъл, в какъвто биха се използвали в
+// други езици например `ensure` и `finally`.
 
 package main
 
@@ -11,16 +12,17 @@ import (
 	"path/filepath"
 )
 
-// Suppose we wanted to create a file, write to it,
-// and then close when we're done. Here's how we could
-// do that with `defer`.
+// Да предположим, че искаме да създадем файл, да напишем
+// нещо в него и после да го затворим. Ето как бихме
+// направили това, като употребим и `defer`.
 func main() {
 
-	// Immediately after getting a file object with
-	// `createFile`, we defer the closing of that file
-	// with `closeFile`. This will be executed at the end
-	// of the enclosing function (`main`), after
-	// `writeFile` has finished.
+	// Веднага след като получим обект за файл от
+	// функцията `createFile`, ние отлагаме затварянето на
+	// файла, като извикваме отложено `closeFile`. това
+	// извикване ще се изпълни в края на обгръщатата
+	// функция (в случая – `main`), след като `writeFile`
+	// е приключила.
 	path := filepath.Join(os.TempDir(), "defer.txt")
 	f := createFile(path)
 	defer closeFile(f)
@@ -28,8 +30,8 @@ func main() {
 }
 
 func createFile(p string) *os.File {
-	fmt.Println("creating")
 	f, err := os.Create(p)
+	fmt.Println("създаваме", f.Name())
 	if err != nil {
 		panic(err)
 	}
@@ -37,15 +39,15 @@ func createFile(p string) *os.File {
 }
 
 func writeFile(f *os.File) {
-	fmt.Println("writing")
-	fmt.Fprintln(f, "data")
+	fmt.Println("пишем в ", f.Name())
+	fmt.Fprintln(f, "данни")
 }
 
 func closeFile(f *os.File) {
-	fmt.Println("closing")
+	fmt.Println("затваряме", f.Name())
 	err := f.Close()
-	// It's important to check for errors when closing a
-	// file, even in a deferred function.
+	// Важно е да се проверява за грешки, когато затваряме
+	// файл дори в отложена функция.
 	if err != nil {
 		panic(err)
 	}

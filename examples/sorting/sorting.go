@@ -1,6 +1,6 @@
-// Go's `slices` package implements sorting for builtins
-// and user-defined types. We'll look at sorting for
-// builtins first.
+// Пакетът `slices` в Го осъществява подреждане за
+// вградени и за създадени от потребителя видове
+// данни. Първо ще разгледаме вградените видове.
 
 package main
 
@@ -11,20 +11,21 @@ import (
 
 func main() {
 
-	// Sorting functions are generic, and work for any
-	// _ordered_ built-in type. For a list of ordered
-	// types, see [cmp.Ordered](https://pkg.go.dev/cmp#Ordered).
+	// Функциите за подреждане са _обобщени_ и работят с
+	// всеки _подреден_ вграден вид. За да видите списък с
+	// подредените видове, погледнете
+	// [cmp.Ordered](https://pkg.go.dev/cmp#Ordered).
 	strs := []string{"c", "a", "b"}
 	slices.Sort(strs)
-	fmt.Println("Strings:", strs)
+	fmt.Println("Низове:     ", strs)
 
-	// An example of sorting `int`s.
+	// Пример с подреждане на стойности от вида `int`.
 	ints := []int{7, 2, 4}
 	slices.Sort(ints)
-	fmt.Println("Ints:   ", ints)
+	fmt.Println("Цели числа: ", ints)
 
-	// We can also use the `slices` package to check if
-	// a slice is already in sorted order.
+	//  Можем да ползваме пакета `slices` и за да
+	//  проверим, дали един отрязък е вече подреден.
 	s := slices.IsSorted(ints)
-	fmt.Println("Sorted: ", s)
+	fmt.Println("Подреден:   ", s)
 }

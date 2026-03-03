@@ -1,23 +1,26 @@
-# Note that while slices are different types than arrays,
-# they are rendered similarly by `fmt.Println`.
+# Забележете, че въпреки че отрязъците са различен вид
+# данни от поредиците, те биват показвани по същия начин
+# от `fmt.Println`.
 $ go run slices.go
-uninit: [] true true
-emp: [  ] len: 3 cap: 3
-set: [a b c]
-get: c
+неначенат: [] true true
+празен: [  ] len: 3 cap: 3
+задаваме: [a b c]
+взимаме: c
 len: 3
-apd: [a b c d e f]
-cpy: [a b c d e f]
+добавено: [a b c d e f]
+copy: [a b c d e f]
 sl1: [c d e]
 sl2: [a b c d e]
 sl3: [c d e f]
-dcl: [g h i]
+обявление: [g h i]
 t == t2
 2d:  [[0] [1 2] [2 3 4]]
 
-# Check out this [great blog post](https://go.dev/blog/slices-intro)
-# by the Go team for more details on the design and
-# implementation of slices in Go.
+# Прегледайте следната [прекрасна
+# статия](https://go.dev/blog/slices-intro) от
+# разработчиците на Go, за да научите повече подробности
+# как са осъществени отрязъците в Go.
 
-# Now that we've seen arrays and slices we'll look at
-# Go's other key builtin data structure: maps.
+# Сега, след като разгледахме поредиците и отрязъците, ще
+# видим и другата вградена в Го структура от данни –
+# картите.

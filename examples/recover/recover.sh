@@ -1,3 +1,2 @@
 $ go run recover.go
-Recovered. Error:
- a problem
+Възстановено. Грешка: [{2}]

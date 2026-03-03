@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Range over Iterators</title>
+    <title>Go в примери: Обхождане чрез повторители</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,15 +24,25 @@
   </script>
   <body>
     <div class="example" id="range-over-iterators">
-      <h2><a href="./">Go by Example</a>: Range over Iterators</h2>
+      <h2><a href="./">Go в примери</a>: Обхождане чрез повторители</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Starting with version 1.23, Go has added support for
-<a href="https://go.dev/blog/range-functions">iterators</a>,
-which lets us range over pretty much anything!</p>
+            <p>В издание 1.23 Го добави поддръжка на
+<a href="https://go.dev/blog/range-functions">повторители</a><sup class="footnote-ref" id="fnref:iterators"><a href="#fn:iterators">1</a></sup>,
+които ни позволяват да обхождаме почти всичко!</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:iterators">iterators – повторители – функции, които се ползват с <code>range</code></li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -46,7 +56,7 @@ which lets us range over pretty much anything!</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/5_fyZQZSn3S"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/wXSeZ98lJiw"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -67,11 +77,11 @@ which lets us range over pretty much anything!</p>
         
         <tr>
           <td class="docs">
-            <p>Let&rsquo;s look at the <code>List</code> type from the
-<a href="generics">previous example</a> again. In that example
-we had an <code>AllElements</code> method that returned a slice
-of all elements in the list. With Go iterators, we
-can do it better - as shown below.</p>
+            <p>Да разгледаме отново вида <code>List</code> от <a href="generics">предишния
+пример</a>. Там имахме метод <code>AllElements</code>,
+който връщаше отрязък с всички членове на списъка. С
+повторителите в Го можем да го направим по-добре, както
+е показано долу.</p>
 
           </td>
           <td class="code leading">
@@ -115,8 +125,7 @@ can do it better - as shown below.</p>
         
         <tr>
           <td class="docs">
-            <p>All returns an <em>iterator</em>, which in Go is a function
-with a <a href="https://pkg.go.dev/iter#Seq">special signature</a>.</p>
+            <p><code>All</code> връща <em>повторител</em>. В Го това е функция със <a href="https://pkg.go.dev/iter#Seq">особено заглавие</a>.</p>
 
           </td>
           <td class="code leading">
@@ -128,11 +137,13 @@ with a <a href="https://pkg.go.dev/iter#Seq">special signature</a>.</p>
         
         <tr>
           <td class="docs">
-            <p>The iterator function takes another function as
-a parameter, called <code>yield</code> by convention (but
-the name can be arbitrary). It will call <code>yield</code> for
-every element we want to iterate over, and note <code>yield</code>&rsquo;s
-return value for a potential early termination.</p>
+            <p>Повтарящата функция приема друга функция като
+данна, наречена обичайно <code>yield</code> (но името ѝ
+може да е произволно). Повтарящата функция ще
+извика <code>yield</code> за всеки член върху които искаме
+да извършим някакво действие и ще следи
+връщаната от <code>yield</code> стойност, ако е нужно да
+приключи незабавно.</p>
 
           </td>
           <td class="code leading">
@@ -149,10 +160,11 @@ return value for a potential early termination.</p>
         
         <tr>
           <td class="docs">
-            <p>Iteration doesn&rsquo;t require an underlying data structure,
-and doesn&rsquo;t even have to be finite! Here&rsquo;s a function
-returning an iterator over Fibonacci numbers: it keeps
-running as long as <code>yield</code> keeps returning <code>true</code>.</p>
+            <p>Повторението не изисква някаквакви данни, които да
+обхождаме, и дори може да е безкрайно! Ето една
+функция, връщаща повторител върху числата на Фибоначи.
+Тя продължава да връща число, докато <code>yield</code> връща
+<code>true</code>.</p>
 
           </td>
           <td class="code leading">
@@ -196,8 +208,8 @@ running as long as <code>yield</code> keeps returning <code>true</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>Since <code>List.All</code> returns an iterator, we can use it
-in a regular <code>range</code> loop.</p>
+            <p>Тъй като <code>List.All</code> връща повторител, можем да я
+ползваме както обикновено с <code>range</code></p>
 
           </td>
           <td class="code leading">
@@ -210,10 +222,11 @@ in a regular <code>range</code> loop.</p>
         
         <tr>
           <td class="docs">
-            <p>Packages like <a href="https://pkg.go.dev/slices">slices</a> have
-a number of useful functions to work with iterators.
-For example, <code>Collect</code> takes any iterator and collects
-all its values into a slice.</p>
+            <p>Пакети като <a href="https://pkg.go.dev/slices">slices</a>
+имат множество полезни функции за работа с
+повторители. Например <code>Collect</code> приема всякакъв
+повторител и събира всичките му стойности в
+отрязък.</p>
 
           </td>
           <td class="code leading">
@@ -235,8 +248,9 @@ all its values into a slice.</p>
         
         <tr>
           <td class="docs">
-            <p>Once the loop hits <code>break</code> or an early return, the <code>yield</code> function
-passed to the iterator will return <code>false</code>.</p>
+            <p>Ако някое повторение се натъкне на <code>break</code> или
+<code>return</code>, функцията <code>yeld</code>, подадена на
+повторителя, ще върне <code>false</code>.</p>
 
           </td>
           <td class="code">
@@ -279,12 +293,12 @@ passed to the iterator will return <code>false</code>.</p>
       
       
       <p class="next">
-        Next example: <a href="errors" rel="next">Errors</a>.
+        Следващ пример: <a href="errors" rel="next">Грешки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

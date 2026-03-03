@@ -1,8 +1,11 @@
-// We often want to execute Go code at some point in the
-// future, or repeatedly at some interval. Go's built-in
-// _timer_ and _ticker_ features make both of these tasks
-// easy. We'll look first at timers and then
-// at [tickers](tickers).
+// Често искаме да изпълним код на Го някъде в бъдещето
+// или да го изпълняваме повторно през определено време.
+// Вградените възможности в Го за осъществяване на
+// срочници[^timer] и часовници[^ticker] правят и двете
+// задачи лесни. Първо ще разгледаме срочниците, а после
+// часовниците.
+// [^timer]: timer – срочник (брояч за оставащо време – срок), хронометър, таймер. Чрез срочника задаваме [краен срок](timeouts) за сбъдване на събитие.
+// [^ticker]: ticker – (в разговорната реч) часовник, махало, времемер
 
 package main
 
@@ -13,33 +16,37 @@ import (
 
 func main() {
 
-	// Timers represent a single event in the future. You
-	// tell the timer how long you want to wait, and it
-	// provides a channel that will be notified at that
-	// time. This timer will wait 2 seconds.
-	timer1 := time.NewTimer(2 * time.Second)
+	// Срочниците отчитат оставащото време до единично
+	// събитие в бъдещето – задават срок. Казвате на
+	// срочника колко време искате да чакате и той ви дава
+	// канал, по който ще се изпрати съобщение, като му
+	// дойде времето. Този срочник ще чака две секунди.
+	срочник1 := time.NewTimer(2 * time.Second)
 
-	// The `<-timer1.C` blocks on the timer's channel `C`
-	// until it sends a value indicating that the timer
-	// fired.
-	<-timer1.C
-	fmt.Println("Timer 1 fired")
+	// Изразът `<-timer1.C` възпира програмата чрез своя
+	// канал `C` докато изпрати стойност, означаваща
+	// настъпването на срока.
+	<-срочник1.C
+	fmt.Println("`срочник1` звънна.")
 
-	// If you just wanted to wait, you could have used
-	// `time.Sleep`. One reason a timer may be useful is
-	// that you can cancel the timer before it fires.
-	// Here's an example of that.
-	timer2 := time.NewTimer(time.Second)
+	// Ако просто искахте да изчакате определено време,
+	// можехте да използвате `time.Sleep`. Онователна
+	// причина да използвате срочник, е че можете да
+	// отмените настъпването на събитието (изтичането на зададения срок),
+	// преди да се случи. Ето един такъв пример.
+	срочник2 := time.NewTimer(time.Second)
 	go func() {
-		<-timer2.C
-		fmt.Println("Timer 2 fired")
+		<-срочник2.C
+		fmt.Println("Пуснахме срочник2.")
 	}()
-	stop2 := timer2.Stop()
+	stop2 := срочник2.Stop()
 	if stop2 {
-		fmt.Println("Timer 2 stopped")
+		fmt.Println("Спряхме срочник2.")
 	}
 
-	// Give the `timer2` enough time to fire, if it ever
-	// was going to, to show it is in fact stopped.
+	// Даваме на `срочник2` достатъчно време, да отброи
+	// времето до събитието, ако изобщо е щял да го
+	// направи. Така показваме, че всъщност е бил
+	// прекъснат (спрян).
 	time.Sleep(2 * time.Second)
 }

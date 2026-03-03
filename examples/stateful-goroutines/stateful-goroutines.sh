@@ -1,15 +1,15 @@
-# Running our program shows that the goroutine-based
-# state management example completes about 80,000
-# total operations.
+# Като пуснем програмата виждаме, че при основаното на
+# гозадачи управление на състоянието, тя извършва (на
+# моето сметало) общо 73732 действия.
 $ go run stateful-goroutines.go
-readOps: 71708
-writeOps: 7177
+Общо четения: 66790
+Общо писания: 6942
 
-# For this particular case the goroutine-based approach
-# was a bit more involved than the mutex-based one. It
-# might be useful in certain cases though, for example
-# where you have other channels involved or when managing
-# multiple such mutexes would be error-prone. You should
-# use whichever approach feels most natural, especially
-# with respect to understanding the correctness of your
-# program.
+# Точно в този случай подходът, основан на гозадачи беше
+# малко по-сложен от основаващия се на превключватели. Все
+# пак може да е полезно в някои случаи. Например когато
+# работите с други канали или когато използването на
+# превключватели, може да доведе до повече грешки.
+# Използвайте подхода, който ви изглежда по-естествен,
+# особено с оглед на по-лесното разбиране, дали програмата
+# ви работи правилно.

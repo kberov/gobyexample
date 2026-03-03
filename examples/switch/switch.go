@@ -1,5 +1,5 @@
-// _Switch statements_ express conditionals across many
-// branches.
+// Изявленията от вида _switch_ (превключване) изразяват
+// условия с множество разклонения.
 
 package main
 
@@ -10,54 +10,59 @@ import (
 
 func main() {
 
-	// Here's a basic `switch`.
+	// Ето просто изявление `switch`.
 	i := 2
-	fmt.Print("Write ", i, " as ")
+	fmt.Print("Пишем ", i, " като ")
 	switch i {
 	case 1:
-		fmt.Println("one")
+		fmt.Println("едно")
 	case 2:
-		fmt.Println("two")
+		fmt.Println("две")
 	case 3:
-		fmt.Println("three")
+		fmt.Println("три")
 	}
 
-	// You can use commas to separate multiple expressions
-	// in the same `case` statement. We use the optional
-	// `default` case in this example as well.
+	// Може да ползвате запетаи, за да разделите множество
+	// изрази в едно и също изявление за случай – `case`.
+	// В този пример ползваме и незадължителния случай
+	// `default` (когато не попаднем в нито един от
+	// изброените преди това случаи).
 	switch time.Now().Weekday() {
 	case time.Saturday, time.Sunday:
-		fmt.Println("It's the weekend")
+		fmt.Println("Почивен ден е.")
 	default:
-		fmt.Println("It's a weekday")
+		fmt.Println("Работен ден е.")
 	}
 
-	// `switch` without an expression is an alternate way
-	// to express if/else logic. Here we also show how the
-	// `case` expressions can be non-constants.
+	// `switch` без израз  е друг начин да извършваме
+	// логически действия както при if/else. Тук също
+	// показваме, че изразите `case` може и да не са
+	// непроменливи (константи).
 	t := time.Now()
 	switch {
 	case t.Hour() < 12:
-		fmt.Println("It's before noon")
+		fmt.Println("Преди обяд е.")
 	default:
-		fmt.Println("It's after noon")
+		fmt.Println("След обяд е.")
 	}
 
-	// A type `switch` compares types instead of values.  You
-	// can use this to discover the type of an interface
-	// value.  In this example, the variable `t` will have the
-	// type corresponding to its clause.
-	whatAmI := func(i interface{}) {
+	// `switch` (превключване) между типове сравнява
+	// типовете на променливите вместо техните стойности.
+	// Можете да ползвате този подход, за да откриете типа
+	// на стойност за взаимодействие (интерфейс). В този
+	// пример променливата `t` ще има тип, съответстващ на
+	// типа на подадената на функцията стойност.
+	каквоСъмАз := func(i interface{}) {
 		switch t := i.(type) {
 		case bool:
-			fmt.Println("I'm a bool")
+			fmt.Println("Аз съм булева стойност – bool.")
 		case int:
-			fmt.Println("I'm an int")
+			fmt.Println("Аз съм цяло число – int.")
 		default:
-			fmt.Printf("Don't know type %T\n", t)
+			fmt.Printf("Непознат тип – %T\n", t)
 		}
 	}
-	whatAmI(true)
-	whatAmI(1)
-	whatAmI("hey")
+	каквоСъмАз(true)
+	каквоСъмАз(1)
+	каквоСъмАз("Ей!")
 }

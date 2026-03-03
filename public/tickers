@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Tickers</title>
+    <title>Go в примери: Часовници</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,17 +24,19 @@
   </script>
   <body>
     <div class="example" id="tickers">
-      <h2><a href="./">Go by Example</a>: Tickers</h2>
+      <h2><a href="./">Go в примери</a>: Часовници</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><a href="timers">Timers</a> are for when you want to do
-something once in the future - <em>tickers</em> are for when
-you want to do something repeatedly at regular
-intervals. Here&rsquo;s an example of a ticker that ticks
-periodically until we stop it.</p>
+            <p>Ползваме <a href="timers">срочници</a>, когато искаме да извършим
+еднократно действие в бъдещето. <em>Часовниците</em> ги
+ползваме, за да извършваме многратно повтарящи се през
+определено време действия. Иначе казано, срочниците
+цъкват веднъж, а часовниците цъкат многократно. Ето
+пример за часовник, който цъка своевременно, докато го
+спрем.</p>
 
           </td>
           <td class="code empty leading">
@@ -48,7 +50,7 @@ periodically until we stop it.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/gs6zoJP-Pl9"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/mLa_8GoGGOa"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -78,16 +80,17 @@ periodically until we stop it.</p>
         
         <tr>
           <td class="docs">
-            <p>Tickers use a similar mechanism to timers: a
-channel that is sent values. Here we&rsquo;ll use the
-<code>select</code> builtin on the channel to await the
-values as they arrive every 500ms.</p>
+            <p>Часовниците работят подобно на срочниците – чрез
+канал, по който изпращат стойности. Сега ще
+използваме вграденото изявление <code>select</code>, за да
+очакваме стойности, които пристигат веднъж на всеки
+500 милисекунди.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">ticker</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTicker</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">часовник</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTicker</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">край</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -100,10 +103,11 @@ values as they arrive every 500ms.</p>
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">край</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">                <span class="k">return</span>
-</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Tick at&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">часовник</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;Цък в&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="s">`15:04:05.000`</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}()</span></span></span></code></pre>
@@ -112,17 +116,19 @@ values as they arrive every 500ms.</p>
         
         <tr>
           <td class="docs">
-            <p>Tickers can be stopped like timers. Once a ticker
-is stopped it won&rsquo;t receive any more values on its
-channel. We&rsquo;ll stop ours after 1600ms.</p>
+            <p>Часовниците могат да бъдат спирани също както
+срочниците. След като веднъж е спрян часовника, той
+няма повече да получава стойности по канала си.
+Нашия ще го спрем след 1600 милисекунди.</p>
 
           </td>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1600</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ticker</span><span class="p">.</span><span class="nf">Stop</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">done</span> <span class="o">&lt;-</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Ticker stopped&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">часовник</span><span class="p">.</span><span class="nf">Stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">край</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Спряхме часовника в&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Format</span><span class="p">(</span><span class="s">`15:04:05.000`</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -133,17 +139,16 @@ channel. We&rsquo;ll stop ours after 1600ms.</p>
         
         <tr>
           <td class="docs">
-            <p>When we run this program the ticker should tick 3 times
-before we stop it.</p>
+            <p>Когато пуснем тази програма, часовника ще цъкне три пъти преди да го спрем.</p>
 
           </td>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run tickers.go
-</span></span><span class="line"><span class="cl"><span class="go">Tick at 2012-09-23 11:29:56.487625 -0700 PDT
-</span></span></span><span class="line"><span class="cl"><span class="go">Tick at 2012-09-23 11:29:56.988063 -0700 PDT
-</span></span></span><span class="line"><span class="cl"><span class="go">Tick at 2012-09-23 11:29:57.488076 -0700 PDT
-</span></span></span><span class="line"><span class="cl"><span class="go">Ticker stopped</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">Цък в 13:35:01.620
+</span></span></span><span class="line"><span class="cl"><span class="go">Цък в 13:35:02.120
+</span></span></span><span class="line"><span class="cl"><span class="go">Цък в 13:35:02.620
+</span></span></span><span class="line"><span class="cl"><span class="go">Спряхме часовника в 13:35:02.721</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -151,18 +156,18 @@ before we stop it.</p>
       
       
       <p class="next">
-        Next example: <a href="worker-pools" rel="next">Worker Pools</a>.
+        Следващ пример: <a href="worker-pools" rel="next">Работилници</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    ticker :\u003D time.NewTicker(500 * time.Millisecond)\u000A    done :\u003D make(chan bool)\u000A');codeLines.push('    go func() {\u000A        for {\u000A            select {\u000A            case \u003C-done:\u000A                return\u000A            case t :\u003D \u003C-ticker.C:\u000A                fmt.Println(\"Tick at\", t)\u000A            }\u000A        }\u000A    }()\u000A');codeLines.push('    time.Sleep(1600 * time.Millisecond)\u000A    ticker.Stop()\u000A    done \u003C- true\u000A    fmt.Println(\"Ticker stopped\")\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    часовник :\u003D time.NewTicker(500 * time.Millisecond)\u000A    край :\u003D make(chan bool)\u000A');codeLines.push('    go func() {\u000A        for {\u000A            select {\u000A            case \u003C-край:\u000A                return\u000A            case t :\u003D \u003C-часовник.C:\u000A                fmt.Println(\u000A                    \"Цък в\", t.Format(`15:04:05.000`))\u000A            }\u000A        }\u000A    }()\u000A');codeLines.push('    time.Sleep(1600 * time.Millisecond)\u000A    часовник.Stop()\u000A    край \u003C- true\u000A    fmt.Println(\"Спряхме часовника в\",\u000A        time.Now().Format(`15:04:05.000`))\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

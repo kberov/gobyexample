@@ -1,5 +1,5 @@
-// To wait for multiple goroutines to finish, we can
-// use a *wait group*.
+// За да изчакаме множество гозадачи да свършат работа,
+// можем да ползваме *чакалня*.
 
 package main
 
@@ -9,36 +9,39 @@ import (
 	"time"
 )
 
-// This is the function we'll run in every goroutine.
-func worker(id int) {
-	fmt.Printf("Worker %d starting\n", id)
+// Това е функцията, която ще изпълним във всяка гозадача.
+func работник(id int) {
+	fmt.Printf("Работник %d започва работа.\n", id)
 
-	// Sleep to simulate an expensive task.
+	// Заспиваме, за да наподобим тежка задача.
 	time.Sleep(time.Second)
-	fmt.Printf("Worker %d done\n", id)
+	fmt.Printf("Работник %d е готов.\n", id)
 }
 
 func main() {
 
-	// This WaitGroup is used to wait for all the
-	// goroutines launched here to finish. Note: if a WaitGroup is
-	// explicitly passed into functions, it should be done *by pointer*.
+	// Тази чакалня – структура от вида `sync.WaitGroup` –
+	// ще ползваме, за да чакаме всички пуснати гозадачи
+	// да свършат работа. Забележка: Ако ще подавате
+	// чакалня на функция трябва да подадете *указател*
+	// към нея.
 	var wg sync.WaitGroup
 
-	// Launch several goroutines using `WaitGroup.Go`
+	// пускаме няколко гозадачи с помощта на
+	// `WaitGroup.Go`.
 	for i := 1; i <= 5; i++ {
 		wg.Go(func() {
-			worker(i)
+			работник(i)
 		})
 	}
 
-	// Block until all the goroutines started by `wg` are
-	// done. A goroutine is done when the function it invokes
-	// returns.
+	// Спираме програмата, докато всички гозадачи, пуснати
+	// от `wg` станат готови. Гозадачата е готова, когато
+	// функцията, която тя извиква, се изпълни.
 	wg.Wait()
 
-	// Note that this approach has no straightforward way
-	// to propagate errors from workers. For more
-	// advanced use cases, consider using the
-	// [errgroup package](https://pkg.go.dev/golang.org/x/sync/errgroup).
+	// Забележте, че при този подход няма ясен начин как
+	// да предадем вероятните грешки от работниците. За
+	// по-сложни случаи може да ползвате пакета
+	// [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup).
 }

@@ -1,41 +1,43 @@
-// Go makes it possible to _recover_ from a panic, by
-// using the `recover` built-in function. A `recover` can
-// stop a `panic` from aborting the program and let it
-// continue with execution instead.
+// В Го имаме възможност да _възстановим_ програмата след
+// като е изпаднала в ужас като ползваме вградената
+// функция `recover` (възстановявам (се)). Извикването на
+// `recover` може да спре действието на `panic` – спиране
+// на програмата и така да продължим изпълнението ѝ.
 
-// An example of where this can be useful: a server
-// wouldn't want to crash if one of the client connections
-// exhibits a critical error. Instead, the server would
-// want to close that connection and continue serving
-// other clients. In fact, this is what Go's `net/http`
-// does by default for HTTP servers.
+// Ето пример как това може да ни бъде от полза: един
+// сървър не би спрял ако някоя от връзките с клиенти
+// прекъсне с критична грешка. Вместо това сървърът ще
+// затвори връзката и ще продължи да обслужва други
+// клиентски програми. Всъщност това и прави пакетът
+// `net/http`, предназна`ен за създаване на уеб сървъри.
 
 package main
 
 import "fmt"
 
-// This function panics.
-func mayPanic() {
-	panic("a problem")
+// Тази функция ужасява програмата.
+func можеДаУжаси() {
+	panic(struct{ a int }{a: 2})
 }
 
 func main() {
-	// `recover` must be called within a deferred function.
-	// When the enclosing function panics, the defer will
-	// activate and a `recover` call within it will catch
-	// the panic.
+	// `recover` трябва да се извика в отложена функция.
+	// Когато обгръщащата я функция се ужаси `defer` ще се
+	// задейства а извиканата в нея `recover` ще прехване
+	// ужаса.
 	defer func() {
 		if r := recover(); r != nil {
-			// The return value of `recover` is the error raised in
-			// the call to `panic`.
-			fmt.Println("Recovered. Error:\n", r)
+			// Стойността, която `recover` връща е
+			// каквото е подадено на `panic`.
+			fmt.Printf("Възстановено. Грешка: [%v]\n", r)
 		}
 	}()
 
-	mayPanic()
+	можеДаУжаси()
 
-	// This code will not run, because `mayPanic` panics.
-	// The execution of `main` stops at the point of the
-	// panic and resumes in the deferred closure.
-	fmt.Println("After mayPanic()")
+	// Този код няма да се изпълни, защото `mayPanic`
+	// ужасява. Изпълнението на `main` спира в точката на
+	// на извикване на `panic` и продължава в отложеното
+	// затваряне.
+	fmt.Println("След можеДаУжаси()")
 }

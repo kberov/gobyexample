@@ -1,11 +1,13 @@
-// In the previous example we used explicit locking with
-// [mutexes](mutexes) to synchronize access to shared state
-// across multiple goroutines. Another option is to use the
-// built-in synchronization features of  goroutines and
-// channels to achieve the same result. This channel-based
-// approach aligns with Go's ideas of sharing memory by
-// communicating and having each piece of data owned
-// by exactly 1 goroutine.
+// В предишния пример използвахме изрично заключване на
+// данните с помощта на [превключвачи](mutexes), за да
+// съгласуваме достъпа до споделено състояние между
+// множество гозадачи. Друга възможност да постигнем
+// същото е да използваме вградените възможности на езика
+// за съгласуване чрез гозадачи и канали. Този подход,
+// основан на канали е в съзвучие с представата на Го да
+// се споделя памет чрез предаване на съобщения между
+// гозадачите и едно парче данни да се владее винаги само
+// от една гозадача.
 
 package main
 
@@ -16,100 +18,109 @@ import (
 	"time"
 )
 
-// In this example our state will be owned by a single
-// goroutine. This will guarantee that the data is never
-// corrupted with concurrent access. In order to read or
-// write that state, other goroutines will send messages
-// to the owning goroutine and receive corresponding
-// replies. These `readOp` and `writeOp` `struct`s
-// encapsulate those requests and a way for the owning
-// goroutine to respond.
-type readOp struct {
-	key  int
-	resp chan int
+// В този пример състоянието на данните ще се владее само
+// от една единствена гозадача. Така данните няма как да бъдат
+// повредени при едновременен достъп, просто защото няма
+// такъв. За да четат или променят това състояние, другите
+// гозадачи ще изпращат съобщения на владеещата
+// състоянието на данните гозадача и ще получават
+// съответни отговори от нея.
+// Тези стртури – `четене` и `писане` съдържат в себе си
+// самите заявки и начини за владеещата състоянието
+// гозадача да отговаря. Начините са каналите, именувани
+// `отговор`.
+type четене struct {
+	key     int
+	отговор chan int
 }
-type writeOp struct {
-	key  int
-	val  int
-	resp chan bool
+type писане struct {
+	key     int
+	val     int
+	отговор chan bool
 }
 
 func main() {
 
-	// As before we'll count how many operations we perform.
-	var readOps uint64
-	var writeOps uint64
+	// Както преди, ще броим извършените действия.
+	var бройЧетения uint64
+	var бройПисания uint64
 
-	// The `reads` and `writes` channels will be used by
-	// other goroutines to issue read and write requests,
-	// respectively.
-	reads := make(chan readOp)
-	writes := make(chan writeOp)
+	// Каналите `четения` и `писания` ще се използват от
+	// другите гозадачи, за да правят заявки за четене и
+	// писане.
+	четения := make(chan четене)
+	писания := make(chan писане)
 
-	// Here is the goroutine that owns the `state`, which
-	// is a map as in the previous example but now private
-	// to the stateful goroutine. This goroutine repeatedly
-	// selects on the `reads` and `writes` channels,
-	// responding to requests as they arrive. A response
-	// is executed by first performing the requested
-	// operation and then sending a value on the response
-	// channel `resp` to indicate success (and the desired
-	// value in the case of `reads`).
+	// Ето я задачата, която притежава `състояние`то.
+	// Състоянието е карта, както в предния пример, но
+	// сега е частна собственост на *състоятелната*
+	// гозадача. Тази гозадача непрекъснато избира чрез
+	// `select` пристигащи по каналите `четения` и
+	// `писания` стойности като веднага отговаря на
+	// заявките щом пристигнат. Отговорът бива изпратен по
+	// съответния за действието канал, веднага след като
+	// бъде изпълнено заявеното действие. Самото изпращане
+	// по съответния канал за отговор означава, че
+	// действието е успешно. В случай на заявка за четене
+	// бива изпратена заявената стойност, а в случай на
+	// заявка за писане – двоична стойност – „да”
+	// (`true`).
 	go func() {
-		var state = make(map[int]int)
+		var състояние = make(map[int]int)
 		for {
 			select {
-			case read := <-reads:
-				read.resp <- state[read.key]
-			case write := <-writes:
-				state[write.key] = write.val
-				write.resp <- true
+			case read := <-четения:
+				read.отговор <- състояние[read.key]
+			case write := <-писания:
+				състояние[write.key] = write.val
+				write.отговор <- true
 			}
 		}
 	}()
 
-	// This starts 100 goroutines to issue reads to the
-	// state-owning goroutine via the `reads` channel.
-	// Each read requires constructing a `readOp`, sending
-	// it over the `reads` channel, and then receiving the
-	// result over the provided `resp` channel.
+	// Това повторение пуска 100 гозадачи, да правят
+	// заявки за четене към владеещата състоянието
+	// гозадачача по канала `четения`. Всяко четене
+	// изисква да се напраи заявка за четене, като се
+	// състави ново `четене` и се изпрати по канала
+	// `четения`, а отговорът бива получен по канала
+	// `read.отговор`, като напишем `<-read.отговор`.
 	for range 100 {
 		go func() {
 			for {
-				read := readOp{
-					key:  rand.Intn(5),
-					resp: make(chan int)}
-				reads <- read
-				<-read.resp
-				atomic.AddUint64(&readOps, 1)
+				read := четене{
+					key:     rand.Intn(5),
+					отговор: make(chan int)}
+				четения <- read
+				<-read.отговор
+				atomic.AddUint64(&бройЧетения, 1)
 				time.Sleep(time.Millisecond)
 			}
 		}()
 	}
 
-	// We start 10 writes as well, using a similar
-	// approach.
+	// По подобен начин пускаме и 10 писания.
 	for range 10 {
 		go func() {
 			for {
-				write := writeOp{
-					key:  rand.Intn(5),
-					val:  rand.Intn(100),
-					resp: make(chan bool)}
-				writes <- write
-				<-write.resp
-				atomic.AddUint64(&writeOps, 1)
+				write := писане{
+					key:     rand.Intn(5),
+					val:     rand.Intn(100),
+					отговор: make(chan bool)}
+				писания <- write
+				<-write.отговор
+				atomic.AddUint64(&бройПисания, 1)
 				time.Sleep(time.Millisecond)
 			}
 		}()
 	}
 
-	// Let the goroutines work for a second.
+	// Да оставим гозадачите да поработят една секунда.
 	time.Sleep(time.Second)
 
-	// Finally, capture and report the op counts.
-	readOpsFinal := atomic.LoadUint64(&readOps)
-	fmt.Println("readOps:", readOpsFinal)
-	writeOpsFinal := atomic.LoadUint64(&writeOps)
-	fmt.Println("writeOps:", writeOpsFinal)
+	// Накрая извеждаме отчет за броя, извършени действия.
+	краенБройЧетения := atomic.LoadUint64(&бройЧетения)
+	fmt.Println("Общо четения:", краенБройЧетения)
+	краенБройПисания := atomic.LoadUint64(&бройПисания)
+	fmt.Println("Общо писания:", краенБройПисания)
 }

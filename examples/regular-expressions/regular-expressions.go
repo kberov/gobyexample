@@ -1,6 +1,7 @@
-// Go offers built-in support for [regular expressions](https://en.wikipedia.org/wiki/Regular_expression).
-// Here are some examples of  common regexp-related tasks
-// in Go.
+// Го предлага вградена поддръжка за редовѝ
+// изрази[^regex]. Ето няколко примера с често срещани
+// задачи, налагащи използването на поредови изрази.
+// [^regex]: regular expressions – редовѝ изрази – изрази, съставени от поредици от знаци за търсене на подобия в словен плет и вероятно заместване, регулярни изрази. https://bg.wikipedia.org/wiki/Регулярен_израз
 
 package main
 
@@ -12,73 +13,90 @@ import (
 
 func main() {
 
-	// This tests whether a pattern matches a string.
-	match, _ := regexp.MatchString("p([a-z]+)ch", "peach")
+	// Този израз проверява за съответствие[^match] в низ.
+	// [^match]: match – (намирам) съответствие, съвпадение, подобие
+	match, _ := regexp.MatchString("п([а-я]+)а", "праскова")
 	fmt.Println(match)
 
-	// Above we used a string pattern directly, but for
-	// other regexp tasks you'll need to `Compile` an
-	// optimized `Regexp` struct.
-	r, _ := regexp.Compile("p([a-z]+)ch")
+	// Горе приложихме израза за търсене направо върху
+	// низа, но в други случаи ще ви е нужно да
+	// компилирате с `Compile` оптимизирана структура от
+	// вида `Regexp`.
+	r, _ := regexp.Compile("п([а-я]+)а")
 
-	// Many methods are available on these structs. Here's
-	// a match test like we saw earlier.
-	fmt.Println(r.MatchString("peach"))
+	// Тази структура има много методи. Ето я същата
+	// проверка за съвпадение като горе, но вече не като
+	// функция, а като метод на `Regexp`.
+	fmt.Println(r.MatchString("праскова"))
 
-	// This finds the match for the regexp.
-	fmt.Println(r.FindString("peach punch"))
+	// Това извикване намира съответствие в подадения низ и
+	// връща съответстващото.
+	fmt.Println(`съвп.:`,
+		r.FindString("прасковa с дупка"))
 
-	// This also finds the first match but returns the
-	// start and end indexes for the match instead of the
-	// matching text.
-	fmt.Println("idx:", r.FindStringIndex("peach punch"))
+	// Това също намира първото съвпадение, но връща
+	// местата на началото и края на съвпаденията в словния
+	// плет.
+	fmt.Println("показалци:",
+		r.FindStringIndex("прасковa с дупка"))
 
-	// The `Submatch` variants include information about
-	// both the whole-pattern matches and the submatches
-	// within those matches. For example this will return
-	// information for both `p([a-z]+)ch` and `([a-z]+)`.
-	fmt.Println(r.FindStringSubmatch("peach punch"))
+	// Разновидностите на метода `Submatch` включват
+	// сведения, както за цялото съвпадение, така и за
+	// подсъответствията – частите му. Така например
+	// следното извикване връща сведения за `п([а-я]+)а`
+	// и `([а-я]+)`.
+	fmt.Println(r.FindStringSubmatch("прасковa с дупка"))
 
-	// Similarly this will return information about the
-	// indexes of matches and submatches.
-	fmt.Println(r.FindStringSubmatchIndex("peach punch"))
+	// Подобно, следното извикване ще върне сведения за
+	// местонахожденията на съвпаденията и частите.
+	fmt.Println(
+		r.FindStringSubmatchIndex("прасковa с дупка"))
 
-	// The `All` variants of these functions apply to all
-	// matches in the input, not just the first. For
-	// example to find all matches for a regexp.
-	fmt.Println(r.FindAllString("peach punch pinch", -1))
+	// Разновидностите, съдържащи в името си `All`,
+	// се прилагат върху целия низ и връщат _всички_
+	// съвпадения, не само първото. Например, ето как
+	// намираме всички подобия за един редовѝ израз.
+	fmt.Println(
+		r.FindAllString("прасковa с дупка и щипалка", -1))
 
-	// These `All` variants are available for the other
-	// functions we saw above as well.
-	fmt.Println("all:", r.FindAllStringSubmatchIndex(
-		"peach punch pinch", -1))
+	// Тези разновидности с `All` (всички), ги има и за
+	// другите методи, които видяхме по-горе.
+	fmt.Println("всички:",
+		r.FindAllStringSubmatchIndex(
+			"прасковa с дупка и щипалка", -1))
 
-	// Providing a non-negative integer as the second
-	// argument to these functions will limit the number
-	// of matches.
-	fmt.Println(r.FindAllString("peach punch pinch", 2))
+	// Ако подадем на тези методи положително цяло число
+	// след низа, ограничаваме броя на търсените подобия.
+	fmt.Println(
+		r.FindAllString("прасковa с дупка и щипалка", 2))
 
-	// Our examples above had string arguments and used
-	// names like `MatchString`. We can also provide
-	// `[]byte` arguments and drop `String` from the
-	// function name.
-	fmt.Println(r.Match([]byte("peach")))
+	// Примерите по-горе ползваха низове като податки и
+	// използваха методи с имена като `MatchString`
+	// (намеривниз). Но можем да подадем и данни от вида
+	// `[]byte` и да махнем `String` от името на
+	// извиквания метод.
+	fmt.Println(r.Match([]byte("праскова")))
 
-	// When creating global variables with regular
-	// expressions you can use the `MustCompile` variation
-	// of `Compile`. `MustCompile` panics instead of
-	// returning an error, which makes it safer to use for
-	// global variables.
-	r = regexp.MustCompile("p([a-z]+)ch")
-	fmt.Println("regexp:", r)
+	// Когато създавате _общи_[^global] променливи,
+	// съдържащи редовѝ изрази, можете да използвате
+	// разновидността `MustCompile` вместо `Compile`.
+	// `MustCompile` хвърля в ужас програмата вместо да
+	// хвърли грешка, което я прави по-сигурна за употреба
+	// с общи променливи. Програмата ще „гръмне” в началото
+	// на изпълнението, а не по средата, а вие да се
+	// чудите какво не е наред.
+	// [^global]: global – общи, общодостъпни, достъпни, видими отвсякъде, глобални променливи
+	r = regexp.MustCompile("п([а-я]+)а")
+	fmt.Println("израз:", r)
 
-	// The `regexp` package can also be used to replace
-	// subsets of strings with other values.
-	fmt.Println(r.ReplaceAllString("a peach", "<fruit>"))
+	// Пакетът `regexp` може да се използва за заместване
+	// на подмножества от даден низ с други стойности.
+	fmt.Println(r.ReplaceAllString("една праскова", "слива"))
 
-	// The `Func` variant allows you to transform matched
-	// text with a given function.
-	in := []byte("a peach")
+	// Разновидността, съдържаща `Func` в името на метода
+	// ви позволява да промените намерения откъс с
+	// произведението на подадена от вас функция.
+	in := []byte("една праскова")
 	out := r.ReplaceAllFunc(in, bytes.ToUpper)
 	fmt.Println(string(out))
 }

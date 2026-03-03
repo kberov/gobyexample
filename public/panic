@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Panic</title>
+    <title>Go в примери: Ужас</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,18 @@
   </script>
   <body>
     <div class="example" id="panic">
-      <h2><a href="./">Go by Example</a>: Panic</h2>
+      <h2><a href="./">Go в примери</a>: Ужас</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>A <code>panic</code> typically means something went unexpectedly
-wrong. Mostly we use it to fail fast on errors that
-shouldn&rsquo;t occur during normal operation, or that we
-aren&rsquo;t prepared to handle gracefully.</p>
+            <p>Ужасът (<code>panic</code>) обикновено настъпва, когато се случи
+нещо неочаквано лошо. Използва се най-често, за бързо
+приключване на програмата при неочаквана грешка,
+която не би трябвало да настъпи при обичайното
+изпълнение, или не сме готови да обработим
+благополучно.</p>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +49,7 @@ aren&rsquo;t prepared to handle gracefully.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/Z57OSC0ASwn"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/e64sBHyxU-g"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -77,23 +79,24 @@ aren&rsquo;t prepared to handle gracefully.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll use panic throughout this site to check for
-unexpected errors. This is the only program on the
-site designed to panic.</p>
+            <p>Ще ползваме <code>panic</code> в този сайт, за да проверяваме
+за неочаквани грешки. Това е единствената програма
+в сайта, направена да се ужаси.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;a problem&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;препятствие!&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>A common use of panic is to abort if a function
-returns an error value that we don&rsquo;t know how to
-(or want to) handle. Here&rsquo;s an example of
-<code>panic</code>king if we get an unexpected error when creating a new file.</p>
+            <p><code>panic</code> обичайно ползваме да прекратим изпълнението
+на функция, ако тя върне стойност, която не знаем
+какво да правим или как да обработим. Ето пример
+как се ужасяваме, ако получим неочаквана грешка
+при създаване на файл.</p>
 
           </td>
           <td class="code">
@@ -113,9 +116,9 @@ returns an error value that we don&rsquo;t know how to
         
         <tr>
           <td class="docs">
-            <p>Running this program will cause it to panic, print
-an error message and goroutine traces, and exit with
-a non-zero status.</p>
+            <p>Ако пуснем тази програма, тя ще се ужаси, ще изведе
+грешка и проследяване на гозадачата, в която се е
+случило това, след което ще излезе с ненулево състояние.</p>
 
           </td>
           <td class="code empty leading">
@@ -126,38 +129,44 @@ a non-zero status.</p>
         
         <tr>
           <td class="docs">
-            <p>When first panic in <code>main</code> fires, the program exits
-without reaching the rest of the code. If you&rsquo;d like
-to see the program try to create a temp file, comment
-the first panic out.</p>
+            <p>Когато програмата достигне до извикването на първата
+<code>panic</code> в <code>main</code>, програмата излиза, без да изпълни
+остатъка от кода. Ако искате да видите, как програмата
+се опитва да създаде временен файл, коментирайте първото
+извикване на <code>panic</code>.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run panic.go
-</span></span><span class="line"><span class="cl"><span class="go">panic: a problem</span></span></span></code></pre>
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            
-          </td>
-          <td class="code leading">
-            
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">goroutine 1 [running]:
+</span></span><span class="line"><span class="cl"><span class="go">panic: препятствие!
+</span></span></span><span class="line"><span class="cl"><span class="go">goroutine 1 [running]:
 </span></span></span><span class="line"><span class="cl"><span class="go">main.main()
-</span></span></span><span class="line"><span class="cl"><span class="go">    /.../panic.go:12 +0x47
-</span></span></span><span class="line"><span class="cl"><span class="go">...
-</span></span></span><span class="line"><span class="cl"><span class="go">exit status 2</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">    /home/berov/opt/dev/gobyexample/examples/panic/panic.go:20 +0x25
+</span></span></span><span class="line"><span class="cl"><span class="go">exit status 2
+</span></span></span><span class="line"><span class="cl"><span class="go">...</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Note that unlike some languages which use exceptions
-for handling of many errors, in Go it is idiomatic
-to use error-indicating return values wherever possible.</p>
+            <p>Забележете, че за разлика от някои езици, ползващи
+изключения<sup class="footnote-ref" id="fnref:except"><a href="#fn:except">1</a></sup> за управление на много грешки в Го е
+прието да се връща стойност от вида данни за грешки
+<code>error</code>, като така се обозначават състояния, които
+могат да бъдат обработени и програмта да продължи.
+<code>panic</code> се извиква, когато няма смисъл програмата да
+продължава или няма как да продължи след тази грешка.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:except">exception – изключение. В Java това е ключова дума, част от езика. В Python ключовата дума е except.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty">
@@ -170,18 +179,18 @@ to use error-indicating return values wherever possible.</p>
       
       
       <p class="next">
-        Next example: <a href="defer" rel="next">Defer</a>.
+        Следващ пример: <a href="defer" rel="next">Отлагане</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"os\"\u000A    \"path/filepath\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    panic(\"a problem\")\u000A');codeLines.push('    path :\u003D filepath.Join(os.TempDir(), \"file\")\u000A    _, err :\u003D os.Create(path)\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"os\"\u000A    \"path/filepath\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    panic(\"препятствие!\")\u000A');codeLines.push('    path :\u003D filepath.Join(os.TempDir(), \"file\")\u000A    _, err :\u003D os.Create(path)\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

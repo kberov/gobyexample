@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: File Paths</title>
+    <title>Go в примери: Файлови пътища</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="file-paths">
-      <h2><a href="./">Go by Example</a>: File Paths</h2>
+      <h2><a href="./">Go в примери</a>: Файлови пътища</h2>
       
       <table>
         
@@ -218,12 +218,12 @@ be made relative to base.</p>
       
       
       <p class="next">
-        Next example: <a href="directories" rel="next">Directories</a>.
+        Следващ пример: <a href="directories" rel="next">Папки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
