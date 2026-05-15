@@ -1,9 +1,9 @@
-$ go run directories.go
+$ go run directories.go 
 Списък със съдържанието на подпапка/родител
   дете е папка.
   фаил2 е файл.
   фаил3 е файл.
-Съдържание на /home/berov/opt/dev/gobyexample/examples/directories/подпапка/родител/дете
+Съдържание на /home/berov/opt/dev/gobyexample_bg/examples/directories/подпапка/родител/дете
   фаил4 false
 Посещаваме подпапка
   подпапка е папка.
