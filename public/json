@@ -56,7 +56,7 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/G2Ymd-U_nwN"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/UiY6pk-di33"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -262,7 +262,8 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
           <td class="docs">
             <p>Ето превръщането в действие. При превръщането проверяваме за грешки. За
 краткост пренебрегваме грешките, но знайте, че някои действия може да не
-успеят.</p>
+успеят. В истински програми винаги трябва да проверявате за грешки и да
+действате в съответствие с тях.</p>
 
           </td>
           <td class="code leading">
