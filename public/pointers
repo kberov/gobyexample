@@ -58,7 +58,7 @@
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/uxUam6se_vj"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/Su2UrSaFuUt"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -160,9 +160,23 @@
             <p>Указателите също могат да бъдат отпечатвани.</p>
 
           </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;указател към i – &amp;i:&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Нов указател към стойност може да бъде създаден с вградената функция <code>new</code>.</p>
+
+          </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;указател към i – &amp;i:&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span><span class="w">
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;стойност, указана от *p:&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">p</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">zeroptr</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;стойност, указана от *p:&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">p</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -173,17 +187,20 @@
         
         <tr>
           <td class="docs">
-            <p><code>zeroval</code> не променя зададената стойност на <code>i</code> в <code>main</code>, но
-<code>zeroptr</code> я променя защото получава препратка към местонахождението на стойността на тази променлива.</p>
+            <p><code>zeroval</code> не променя зададената стойност на <code>i</code> в <code>main</code>, но <code>zeroptr</code> я
+променя защото получава препратка към местонахождението на стойността на тази
+променлива.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run pointers.go
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run pointers.go 
 </span></span><span class="line"><span class="cl"><span class="go">начална стойност на i: 1
 </span></span></span><span class="line"><span class="cl"><span class="go">zeroval: 1
 </span></span></span><span class="line"><span class="cl"><span class="go">zeroptr: 0
-</span></span></span><span class="line"><span class="cl"><span class="go">указател към i – &amp;i: 0xc000108008</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">указател към i – &amp;i: 0x1631184180d8
+</span></span></span><span class="line"><span class="cl"><span class="go">стойност, указана от *p: 42
+</span></span></span><span class="line"><span class="cl"><span class="go">стойност, указана от *p: 0</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -202,7 +219,7 @@
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func zeroval(ival int) {\u000A    ival \u003D 0\u000A}\u000A');codeLines.push('func zeroptr(iptr *int) {\u000A    *iptr \u003D 0\u000A}\u000A');codeLines.push('func main() {\u000A    i :\u003D 1\u000A    fmt.Println(\"начална стойност на i:\", i)\u000A');codeLines.push('    zeroval(i)\u000A    fmt.Println(\"zeroval:\", i)\u000A');codeLines.push('    zeroptr(\u0026i)\u000A    fmt.Println(\"zeroptr:\", i)\u000A');codeLines.push('    fmt.Println(\"указател към i – \u0026i:\", \u0026i)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func zeroval(ival int) {\u000A    ival \u003D 0\u000A}\u000A');codeLines.push('func zeroptr(iptr *int) {\u000A    *iptr \u003D 0\u000A}\u000A');codeLines.push('func main() {\u000A    i :\u003D 1\u000A    fmt.Println(\"начална стойност на i:\", i)\u000A');codeLines.push('    zeroval(i)\u000A    fmt.Println(\"zeroval:\", i)\u000A');codeLines.push('    zeroptr(\u0026i)\u000A    fmt.Println(\"zeroptr:\", i)\u000A');codeLines.push('    fmt.Println(\"указател към i – \u0026i:\", \u0026i)\u000A');codeLines.push('    p :\u003D new(42)\u000A    fmt.Println(\"стойност, указана от *p:\", *p)\u000A    zeroptr(p)\u000A    fmt.Println(\"стойност, указана от *p:\", *p)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>
