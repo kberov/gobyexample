@@ -1,5 +1,5 @@
-// Sometimes our Go programs need to spawn other
-// processes.
+// Понякога се налага нашите програми да породят[^spawn] други процеси.
+// [^spawn]: to spawn a process – пораждам, създавам процес
 
 package main
 
@@ -12,16 +12,14 @@ import (
 
 func main() {
 
-	// We'll start with a simple command that takes no
-	// arguments or input and just prints something to
-	// stdout. The `exec.Command` helper creates an object
-	// to represent this external process.
+	// Да започнем с проста команда, която не приема податки или вход, а просто
+	// отпечатва нещо на стандартния изход. Помощната функция `exec.Command`
+	// създава обект, представляващ този външен процес.
 	dateCmd := exec.Command("date")
 
-	// The `Output` method runs the command, waits for it
-	// to finish and collects its standard output.
-	//  If there were no errors, `dateOut` will hold bytes
-	// with the date info.
+	// Методът `Output` изпълнява командата, чака я да приключи и събира нейния
+	// стандартени изход. Ако няма грешки, `dateOut` ще съдържа отрязък от
+	// байтове – изходът на `date`.
 	dateOut, err := dateCmd.Output()
 	if err != nil {
 		panic(err)
@@ -29,35 +27,34 @@ func main() {
 	fmt.Println("> date")
 	fmt.Println(string(dateOut))
 
-	// `Output` and other methods of `Command` will return
-	// `*exec.Error` if there was a problem executing the
-	// command (e.g. wrong path), and `*exec.ExitError`
-	// if the command ran but exited with a non-zero return
-	// code.
+	// `Output` и други методи на `Command` връщат `*exec.Error` ако бъдат
+	// възпрепятствани при изпълнението на командата (например грешен пѫт), и
+	// `*exec.ExitError`, ако командата се изпълни, но излезе с код различен от
+	// нула.
 	_, err = exec.Command("date", "-x").Output()
 	if err != nil {
 		var execErr *exec.Error
 		var exitErr *exec.ExitError
 		switch {
 		case errors.As(err, &execErr):
-			fmt.Println("failed executing:", err)
+			fmt.Println("Провалено изпълнение:", err)
 		case errors.As(err, &exitErr):
 			exitCode := exitErr.ExitCode()
-			fmt.Println("command exit rc =", exitCode)
+			fmt.Println("Код на изхода =", exitCode)
 		default:
 			panic(err)
 		}
 	}
 
-	// Next we'll look at a slightly more involved case
-	// where we pipe data to the external process on its
-	// `stdin` and collect the results from its `stdout`.
+	// Сега да разгледаме по-сложен случай, в който подаваме данни на външния
+	// процес по неговия стандартен вход и събираме произведеното от процеса от
+	// неговия стандартен изход.
 	grepCmd := exec.Command("grep", "hello")
 
-	// Here we explicitly grab input/output pipes, start
-	// the process, write some input to it, read the
-	// resulting output, and finally wait for the process
-	// to exit.
+	// Тук изрично боравим с входноизходните потоци (тръби)[^pipes], пускаме
+	// процеса, пишем някакви данни във входа, четем изхода му и накрая чакаме
+	// процеса да приключи.
+	// [^pipes]: pipe – тръба. Това е обичайният начин в юникс-подобните уредби за навързване на няколко програми последователно за извършване на някаква определена задача. Изведените изходни данни от една програма са входни данни за друга програма. Данните са просто низове (последователности от байтове.)
 	grepIn, _ := grepCmd.StdinPipe()
 	grepOut, _ := grepCmd.StdoutPipe()
 	grepCmd.Start()
@@ -66,20 +63,17 @@ func main() {
 	grepBytes, _ := io.ReadAll(grepOut)
 	grepCmd.Wait()
 
-	// We omitted error checks in the above example, but
-	// you could use the usual `if err != nil` pattern for
-	// all of them. We also only collect the `StdoutPipe`
-	// results, but you could collect the `StderrPipe` in
-	// exactly the same way.
+	// В горнния пример не проверихме за грешки, но винаги може да се ползва
+	// обичайното `if err != nil`. Също така четохме само от `StdoutPipe`, но
+	// вие може да ползвате изхода в `StderrPipe` по съвсем същия начин.
 	fmt.Println("> grep hello")
 	fmt.Println(string(grepBytes))
 
-	// Note that when spawning commands we need to
-	// provide an explicitly delineated command and
-	// argument array, vs. being able to just pass in one
-	// command-line string. If you want to spawn a full
-	// command with a string, you can use `bash`'s `-c`
-	// option:
+	// Забележете, че когато пускаме команди трябва да предоставим изрично
+	// командата отделно и отделно поредица от податки към командата вместо да
+	// подадем командата и податките като един цял низ. Ако искате да пуснете
+	// команда заедно с податките ѝ в един низ, можете да я податеде на `bash`
+	// с флаг `-c`, ето така:
 	lsCmd := exec.Command("bash", "-c", "ls -a -l -h")
 	lsOut, err := lsCmd.Output()
 	if err != nil {
@@ -87,4 +81,9 @@ func main() {
 	}
 	fmt.Println("> ls -a -l -h")
 	fmt.Println(string(lsOut))
+
+	// Пускане на програма, която не изчакваме да приключи. (бел. прев.)
+	// zombie := exec.Commanddd(`bash`, `-c`,
+	//	`date >>out.txt; sleep 2; date >> out.txt`)
+	// zombie.Start()
 }

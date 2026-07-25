@@ -1,7 +1,8 @@
-// [_Command-line arguments_](https://en.wikipedia.org/wiki/Command-line_interface#Arguments)
-// are a common way to parameterize execution of programs.
-// For example, `go run hello.go` uses `run` and
-// `hello.go` arguments to the `go` program.
+// Подаването на данни на командния ред[^cli] е обичаен начин за изпълнение на
+// програми с различни входни данни. Например при изпълнението на `go run
+// hello.go` `run` и `hello.go` са податки (данни, подадени на командния ред)
+// на програмата `go`.
+// [^cli]: command-line interface – взаимодействие чрез команден ред https://bg.wikipedia.org/wiki/Интерфейс_с_команден_ред
 
 package main
 
@@ -12,14 +13,16 @@ import (
 
 func main() {
 
-	// `os.Args` provides access to raw command-line
-	// arguments. Note that the first value in this slice
-	// is the path to the program, and `os.Args[1:]`
-	// holds the arguments to the program.
+	// Отрязъкът `os.Args` съдържа суровите данни, подадени на командния
+	// ред[^sep]. Забележете, че първата стойност в отрязъка е пълният пѫт до
+	// програмата, а `os.Args[1:]` (всички останали стойности) са податките към
+	// програмата.
+	// [^sep]: Разделител за данните е празното пространство между тях.
+
 	argsWithProg := os.Args
 	argsWithoutProg := os.Args[1:]
 
-	// You can get individual args with normal indexing.
+	// Можете да ползвате отделните податки като укажете мястото им в отрязъка.
 	arg := os.Args[3]
 
 	fmt.Println(argsWithProg)

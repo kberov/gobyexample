@@ -1,21 +1,26 @@
-// _Enumerated types_ (enums) are a special case of
-// [sum types](https://en.wikipedia.org/wiki/Algebraic_data_type).
-// An enum is a type that has a fixed number of possible
-// values, each with a distinct name. Go doesn't have an
-// enum type as a distinct language feature, but enums
-// are simple to implement using existing language idioms.
+// _Изброяващите видове_ (броители)[^enums] са частен
+// случай на сумарен вид от алгебрични данни – [sum
+// types](https://en.wikipedia.org/wiki/Algebraic_data_type).
+// Броителят е вид данни, който има определен брой
+// възможни стойности, всяка от които има различно име. В
+// Го няма отделен вид данни за броители като част от
+// езика, но те са прости за осъществяване чрез
+// съществуващите вече в езика изразни средства.
+// [^enums]: enumerated types, enums – изброяващи видове, броители
 
 package main
 
 import "fmt"
 
-// Our enum type `ServerState` has an underlying `int` type.
+// Нашият вид `ServerState` (СъстояниеНаСървъра) е основан
+// на вида `int`.
 type ServerState int
 
-// The possible values for `ServerState` are defined as
-// constants. The special keyword [iota](https://go.dev/ref/spec#Iota)
-// generates successive constant values automatically; in this
-// case 0, 1, 2 and so on.
+// Възможните стойности `ServerState` са зададени като
+// непроменливи. Ключовата дума
+// [`iota`](https://go.dev/ref/spec#Iota) създава
+// автоматично последователни непроменливи стойности; в
+// този случай 0, 1, 2 и т.н.
 const (
 	StateIdle ServerState = iota
 	StateConnected
@@ -23,20 +28,20 @@ const (
 	StateRetrying
 )
 
-// By implementing the [fmt.Stringer](https://pkg.go.dev/fmt#Stringer)
-// interface, values of `ServerState` can be printed out or converted
-// to strings.
-//
-// This can get cumbersome if there are many possible values. In such
-// cases the [stringer tool](https://pkg.go.dev/golang.org/x/tools/cmd/stringer)
-// can be used in conjunction with `go:generate` to automate the
-// process. See [this post](https://eli.thegreenplace.net/2021/a-comprehensive-guide-to-go-generate)
-// for a longer explanation.
+// Като осъществим взаимодействието [fmt.Stringer](https://pkg.go.dev/fmt#Stringer) можем да извеждаме стойностите на `ServerState` или да ги превръщаме в низове.
+// Това може да се окаже тежичко, ако имаме много възможни
+// стойности. В такъв случай пособието[^tool] за командния ред
+// [stringer](https://pkg.go.dev/golang.org/x/tools/cmd/stringer)
+// може да бъде ползвано с `go:generate` за да
+// автоматизираме задачата. В [тази
+// статия](https://eli.thegreenplace.net/2021/a-comprehensive-guide-to-go-generate)
+// ще видите по-подробно обяснение.
+// [^tool]: tool – пособие, оръдие (на труда), инструмент
 var stateName = map[ServerState]string{
-	StateIdle:      "idle",
-	StateConnected: "connected",
-	StateError:     "error",
-	StateRetrying:  "retrying",
+	StateIdle:      "бездеен",
+	StateConnected: "свързан",
+	StateError:     "грешка",
+	StateRetrying:  "нов опит",
 }
 
 func (ss ServerState) String() string {
@@ -46,28 +51,30 @@ func (ss ServerState) String() string {
 func main() {
 	ns := transition(StateIdle)
 	fmt.Println(ns)
-	// If we have a value of type `int`, we cannot pass it to `transition` - the
-	// compiler will complain about type mismatch. This provides some degree of
-	// compile-time type safety for enums.
-
+	// Ако имаме стойност от вида `int`, не можем да я
+	// подадем на `transition`. Компилаторът ще се оплаче
+	// за несъответствие на вида. Това в някаква степен ни
+	// предоставя безопасност по отношение на броителите
+	// по време на компилация.
 	ns2 := transition(ns)
 	fmt.Println(ns2)
 }
 
-// transition emulates a state transition for a
-// server; it takes the existing state and returns
-// a new state.
+// `transition` наподобява прехода към различни състояния
+// на сървър. Приема текущо състояние и връща ново
+// състояние.
 func transition(s ServerState) ServerState {
 	switch s {
 	case StateIdle:
 		return StateConnected
 	case StateConnected, StateRetrying:
-		// Suppose we check some predicates here to
-		// determine the next state...
+		// Да си представим тук, че проверяваме някакви
+		// предпоставки, за да определим следващото
+		// състояние.
 		return StateIdle
 	case StateError:
 		return StateError
 	default:
-		panic(fmt.Errorf("unknown state: %s", s))
+		panic(fmt.Errorf("незнайно състояние: %s", s))
 	}
 }

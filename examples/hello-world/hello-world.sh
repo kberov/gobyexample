@@ -1,17 +1,19 @@
-# To run the program, put the code in `hello-world.go` and
-# use `go run`.
+# За да пуснете програмата, поставете изходния код в
+# `hello-world.go` и на командния ред напишете `go run`,
+# след което натиснете клавиша ⏎ (Enter/Return).
 $ go run hello-world.go
 hello world
 
-# Sometimes we'll want to build our programs into
-# binaries. We can do this using `go build`.
+# По-често ще искаме да изградим програмата като
+# двоично-изпълним файл. Това можем да направим с помощта
+# на `go build`.
 $ go build hello-world.go
 $ ls
 hello-world	hello-world.go
 
-# We can then execute the built binary directly.
+# След това можем да изпълним направо двоичния файл.
 $ ./hello-world
 hello world
 
-# Now that we can run and build basic Go programs, let's
-# learn more about the language.
+# Сега, след като можем да пускаме и изграждаме прости
+# програми на Го, нека научим повече за езика.

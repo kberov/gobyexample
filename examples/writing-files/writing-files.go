@@ -1,5 +1,4 @@
-// Writing files in Go follows similar patterns to the
-// ones we saw earlier for reading.
+// Писането във файлове следва подобни похвати като тези при четенето.
 
 package main
 
@@ -18,45 +17,46 @@ func check(e error) {
 
 func main() {
 
-	// To start, here's how to dump a string (or just
-	// bytes) into a file.
+	// За начало, да видим как да хвърлим някакъв низ (или просто байтове)
+	// във файл.
 	d1 := []byte("hello\ngo\n")
 	path1 := filepath.Join(os.TempDir(), "dat1")
 	err := os.WriteFile(path1, d1, 0644)
 	check(err)
 
-	// For more granular writes, open a file for writing.
+	// При нужда от писане „на парче”, трябва първо да отворим файла за
+	// писане.
 	path2 := filepath.Join(os.TempDir(), "dat2")
 	f, err := os.Create(path2)
 	check(err)
 
-	// It's idiomatic to defer a `Close` immediately
-	// after opening a file.
+	// Обичайно, веднага след отварянето отлагаме `Close`.
 	defer f.Close()
 
-	// You can `Write` byte slices as you'd expect.
+	// С `Write`(пиши) можете да пишете и последователности от байтове.
 	d2 := []byte{115, 111, 109, 101, 10}
 	n2, err := f.Write(d2)
 	check(err)
-	fmt.Printf("wrote %d bytes\n", n2)
+	fmt.Printf("записах %d байта\n", n2)
 
-	// A `WriteString` is also available.
-	n3, err := f.WriteString("writes\n")
+	// Също така има и метод `WriteString` (ПишиНиз).
+	n3, err := f.WriteString("пише\n")
 	check(err)
-	fmt.Printf("wrote %d bytes\n", n3)
+	fmt.Printf("записах %d байта\n", n3)
 
-	// Issue a `Sync` to flush writes to stable storage.
+	// Изпълнете `Sync`, за да отиде всичко писано (досега в подвижната
+	// памет) на диска.
 	f.Sync()
 
-	// `bufio` provides buffered writers in addition
-	// to the buffered readers we saw earlier.
+	// Пакетът `bufio` предоставя освен складиращи четци, така и складиращи
+	// писци.
 	w := bufio.NewWriter(f)
-	n4, err := w.WriteString("buffered\n")
+	n4, err := w.WriteString("складирано\n")
 	check(err)
-	fmt.Printf("wrote %d bytes\n", n4)
+	fmt.Printf("записах %d байта\n", n4)
 
-	// Use `Flush` to ensure all buffered operations have
-	// been applied to the underlying writer.
+	// Използвайте `Flush`, за да се уверите, че всички действия са
+	// приложени върху основния писец.
 	w.Flush()
 
 }

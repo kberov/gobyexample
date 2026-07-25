@@ -1,10 +1,11 @@
-// Parsing numbers from strings is a basic but common task
-// in many programs; here's how to do it in Go.
+// _Извличането на числа_[^parse] от низ е проста, но честа задача
+// в програмирането. Ето как се прави в Го.
+// [^parse]: parse – извличане (в този случай). В английски ползват една и съща дума както за извличане на съставни стойности като структури от низове така и за неделими стойности като числата.
 
 package main
 
-// The built-in package `strconv` provides the number
-// parsing.
+// Стандартният пакет `strconv` предоставя поддръжка за
+// ивличане на числа от низ.
 import (
 	"fmt"
 	"strconv"
@@ -12,31 +13,33 @@ import (
 
 func main() {
 
-	// With `ParseFloat`, this `64` tells how many bits of
-	// precision to parse.
+	// Податката със стойност 64, казва на метода
+	// `ParseFloat` колко бита да задели за точност.
 	f, _ := strconv.ParseFloat("1.234", 64)
 	fmt.Println(f)
 
-	// For `ParseInt`, the `0` means infer the base from
-	// the string. `64` requires that the result fit in 64
-	// bits.
+	// Податката със стойност 0 за метода `ParseInt` му
+	// казва „Отгатни бройната система от числото”. `64`
+	// задава изискване числото да може да се запише в  64
+	// бита.
 	i, _ := strconv.ParseInt("123", 0, 64)
 	fmt.Println(i)
 
-	// `ParseInt` will recognize hex-formatted numbers.
+	// `ParseInt` разпознава шестнадесетични числа.
 	d, _ := strconv.ParseInt("0x1c8", 0, 64)
 	fmt.Println(d)
 
-	// A `ParseUint` is also available.
+	// Има и метод `ParseUint` за числа без знак.
 	u, _ := strconv.ParseUint("789", 0, 64)
 	fmt.Println(u)
 
-	// `Atoi` is a convenience function for basic base-10
-	// `int` parsing.
+	// `Atoi` е удобна функция за просто извличане на
+	// числа от вида `int` с основа 10.
 	k, _ := strconv.Atoi("135")
 	fmt.Println(k)
 
-	// Parse functions return an error on bad input.
+	// Всички функции за извличане връщат грешка при лоши
+	// входни данни.
 	_, e := strconv.Atoi("wat")
 	fmt.Println(e)
 }

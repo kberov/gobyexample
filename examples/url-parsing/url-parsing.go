@@ -1,6 +1,9 @@
-// URLs provide a [uniform way to locate resources](https://adam.herokuapp.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/).
-// Here's how to parse URLs in Go.
-
+// Местонахожденията в световната мрежа, т.нар. URL[^URL],
+// представляват еднѡбразен начин за указване мястото на
+// първоизточници за данни. Ето как да
+// _разпределяме_[^parse] в структура първоизточници в Го.
+// [^URL]: URL – Uniform Resourse Locator – Единен (уеднаквен, еднообразен) Указател за Източник (на данни) ЕУИ – https://bg.wikipedia.org/wiki/Унифициран\_локатор\_на\_ресурси, https://adam.herokuapp.com/past/2010/3/30/urls\_are\_the\_uniform\_way\_to\_locate\_resources/, за по-кратко _изто̀чник_
+// [^parse]: parse – (в случая) разпределям (откритите стойности в отделни полета в структура)
 package main
 
 import (
@@ -11,45 +14,60 @@ import (
 
 func main() {
 
-	// We'll parse this example URL, which includes a
-	// scheme, authentication info, host, port, path,
-	// query params, and query fragment.
+	// Ще разпределим този примерен _изто̀чник_.
+	// Частите му включват _схема_,
+	// _достоверnости_[^auth], гостоприемник (хост),
+	// порт[^port], път, податки за заявката, и _откъс от
+	// заявката_[^frag].
+	//
+	// Следният изто̀чник не може да бъде разпределен
+	// просто защото стандартът приема само знаци от
+	// знаковата таблица ASCII.
+	// `s :=
+	// "схема://потребител:тайна@гостоприемник.com:5432/пѫт?ключ=стойност#откъс"`
+	// [^auth]: authentication info – достоверности – данни за удостоверяване на потребител
+	// [^port]: port – буквално порта, врата, двери, https://bg.wikipedia.org/wiki/Мрежов_порт
+	// [^frag]: query fragment – откъс (на заявката) – указател към място в изто̀чника, чието име е след знака #
 	s := "postgres://user:pass@host.com:5432/path?k=v#f"
 
-	// Parse the URL and ensure there are no errors.
+	// Разпределяме изто̀чника и проверяваме за грешка.
 	u, err := url.Parse(s)
 	if err != nil {
 		panic(err)
 	}
 
-	// Accessing the scheme is straightforward.
+	// Достъпът до схемата е лесен.
 	fmt.Println(u.Scheme)
 
-	// `User` contains all authentication info; call
-	// `Username` and `Password` on this for individual
-	// values.
+	// Полето `User` съдържа всички данни за
+	// удостоверяване. Извикайте неговите методи
+	// `Username` и `Password`, за да вземете отделните
+	// стойности.
 	fmt.Println(u.User)
 	fmt.Println(u.User.Username())
 	p, _ := u.User.Password()
 	fmt.Println(p)
 
-	// The `Host` contains both the hostname and the port,
-	// if present. Use `SplitHostPort` to extract them.
+	// Полето `Host` съдържа името на хоста и порта, ако
+	// има такъв. Изполвайте метода `SplitHostPort`, за да
+	// ги извлечете.
 	fmt.Println(u.Host)
 	host, port, _ := net.SplitHostPort(u.Host)
 	fmt.Println(host)
 	fmt.Println(port)
 
-	// Here we extract the `path` and the fragment after
-	// the `#`.
+	// Тук извличаме пътя – `path` и откъса след знака `#`.
 	fmt.Println(u.Path)
 	fmt.Println(u.Fragment)
 
-	// To get query params in a string of `k=v` format,
-	// use `RawQuery`. You can also parse query params
-	// into a map. The parsed query param maps are from
-	// strings to slices of strings, so index into `[0]`
-	// if you only want the first value.
+	// За да вземете податките към заявката от низ във
+	// вида `k=v`, използвайте полето `RawQuery`. Можете
+	// също да разпределите податките към заявката
+	// в карта. Разпределените в карта податки се състоят
+	// от съответствия между ключове – низове към
+	// стойности – отрязъци от низове, така че, за да
+	// вземете само една (първата) стойност, трябва да
+	// укажете нулевия член.
 	fmt.Println(u.RawQuery)
 	m, _ := url.ParseQuery(u.RawQuery)
 	fmt.Println(m)

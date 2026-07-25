@@ -1,55 +1,53 @@
-# To experiment with the command-line flags program it's
-# best to first compile it and then run the resulting
-# binary directly.
+# За да придобием опит с флаговете на командния ред, най-добре е първо да
+# компилираме програмата и после да изпълним направо произведения изпълним
+# файл.
 $ go build command-line-flags.go
 
-# Try out the built program by first giving it values for
-# all flags.
-$ ./command-line-flags -word=opt -numb=7 -fork -svar=flag
-word: opt
+# Пробваме изградената програма, като първо ѝ подадем стойности за всички
+# флагове.
+$ ./command-line-flags -дума=opt -numb=7 -fork -svar=flag
+дума: opt
 numb: 7
 fork: true
 svar: flag
 tail: []
 
-# Note that if you omit flags they automatically take
-# their default values.
-$ ./command-line-flags -word=opt
-word: opt
+# Забележете, че ако пропуснете да подадете стойност за някой от флаговете, той
+# ще има стойността по подразбиране.
+$ ./command-line-flags -дума=opt
+дума: opt
 numb: 42
 fork: false
 svar: bar
 tail: []
 
-# Trailing positional arguments can be provided after
-# any flags.
-$ ./command-line-flags -word=opt a1 a2 a3
-word: opt
+# Допълнителни податки, могат да се предоставят след флаговете.
+$ ./command-line-flags -дума=opt a1 a2 a3
+дума: opt
 ...
 tail: [a1 a2 a3]
 
-# Note that the `flag` package requires all flags to
-# appear before positional arguments (otherwise the flags
-# will be interpreted as positional arguments).
-$ ./command-line-flags -word=opt a1 a2 a3 -numb=7
-word: opt
+# Забележете, че пакетът `flag` изисква всички флагове да се намират преди
+# допълнителните податки (иначе флаговете ще бъдат разбрани като допълнителни
+# податки).
+$ ./command-line-flags -дума=opt a1 a2 a3 -numb=7
+дума: opt
 numb: 42
 fork: false
 svar: bar
 tail: [a1 a2 a3 -numb=7]
 
-# Use `-h` or `--help` flags to get automatically
-# generated help text for the command-line program.
+# Използвайте флаговете `-h` или `--help` за показване на автоматично породена
+# помощ за програмата. 
 $ ./command-line-flags -h
 Usage of ./command-line-flags:
   -fork=false: a bool
   -numb=42: an int
   -svar="bar": a string var
-  -word="foo": a string
+  -дума="foo": a string
 
-# If you provide a flag that wasn't specified to the
-# `flag` package, the program will print an error message
-# and show the help text again.
+# Ако подадете необявен в програмата флаг, тя ще изведе грешка  и ще покаже
+# помощта отново.
 $ ./command-line-flags -wat
 flag provided but not defined: -wat
 Usage of ./command-line-flags:

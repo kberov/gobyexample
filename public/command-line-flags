@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Command-Line Flags</title>
+    <title>Go в примери: Флагове на командния ред</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,15 @@
   </script>
   <body>
     <div class="example" id="command-line-flags">
-      <h2><a href="./">Go by Example</a>: Command-Line Flags</h2>
+      <h2><a href="./">Go в примери</a>: Флагове на командния ред</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><a href="https://en.wikipedia.org/wiki/Command-line_interface#Command-line_option"><em>Command-line flags</em></a>
-are a common way to specify options for command-line
-programs. For example, in <code>wc -l</code> the <code>-l</code> is a
-command-line flag.</p>
+            <p>Флаговете на командния ред са обичаен начин за указване на възможности за
+избор (на податки със и без стойности) за изпълнение на програми. Например в
+случая с <code>wc -l</code> <code>-l</code> е флаг за командния ред.</p>
 
           </td>
           <td class="code empty leading">
@@ -47,16 +46,16 @@ command-line flag.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/IUPZlYSigc3"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/NoN9VRnvjt7"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Go provides a <code>flag</code> package supporting basic
-command-line flag parsing. We&rsquo;ll use this package to
-implement our example command-line program.</p>
+            <p>Го предоставя стандартния пакет <code>flag</code> за разбор на прости флагове. Ще
+ползваме този пакет, за осъществяване на наша си програма, която
+взаимодейства с командния ред.</p>
 
           </td>
           <td class="code leading">
@@ -80,24 +79,23 @@ implement our example command-line program.</p>
         
         <tr>
           <td class="docs">
-            <p>Basic flag declarations are available for string,
-integer, and boolean options. Here we declare a
-string flag <code>word</code> with a default value <code>&quot;foo&quot;</code>
-and a short description. This <code>flag.String</code> function
-returns a string pointer (not a string value);
-we&rsquo;ll see how to use this pointer below.</p>
+            <p>Можете да обявявате прости флагове за вход на низове, цели числа и
+булеви стойности. Тук обявяваме флага <code>дума</code> със стойност по
+подразбиране <code>&quot;алабала&quot;</code> и кратко описание. Функцията <code>flag.String</code>
+връща указател към низ (не стойност низ). По-долу ще видим как се ползва
+указателя.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">wordPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;word&#34;</span><span class="p">,</span> <span class="s">&#34;foo&#34;</span><span class="p">,</span> <span class="s">&#34;a string&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">wordPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;дума&#34;</span><span class="p">,</span> <span class="s">&#34;алабала&#34;</span><span class="p">,</span> <span class="s">&#34;приема низ&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>This declares <code>numb</code> and <code>fork</code> flags, using a
-similar approach to the <code>word</code> flag.</p>
+            <p>Следното изявление обявява флаговете <code>numb</code> и <code>fork</code>, подобно на флага
+<code>дума</code>.</p>
 
           </td>
           <td class="code leading">
@@ -109,10 +107,9 @@ similar approach to the <code>word</code> flag.</p>
         
         <tr>
           <td class="docs">
-            <p>It&rsquo;s also possible to declare an option that uses an
-existing var declared elsewhere in the program.
-Note that we need to pass in a pointer to the flag
-declaration function.</p>
+            <p>Също така е възможно да обявим избор на стойност, който използва вече
+съществуваща променлива, обявена по-рано в програмата. Забележете, че
+трябва да подадем указател при обявяването на флага.</p>
 
           </td>
           <td class="code leading">
@@ -124,8 +121,8 @@ declaration function.</p>
         
         <tr>
           <td class="docs">
-            <p>Once all flags are declared, call <code>flag.Parse()</code>
-to execute the command-line parsing.</p>
+            <p>След като сме обявили всички флагове, трябва да извикаме <code>flag.Parse()</code>,
+за да разложим командния ред в обявените от нас променливи.</p>
 
           </td>
           <td class="code leading">
@@ -136,15 +133,15 @@ to execute the command-line parsing.</p>
         
         <tr>
           <td class="docs">
-            <p>Here we&rsquo;ll just dump out the parsed options and
-any trailing positional arguments. Note that we
-need to dereference the pointers with e.g. <code>*wordPtr</code>
-to get the actual option values.</p>
+            <p>Тук просто ще изведем обратно разложените стойности и всички оставащи
+податки. Забележете, че трябва да достъпим източниците на данните, към
+които сочат указателите с помощта на звезда, например <code>*wordPtr</code>, за да
+достигнем до самите стойности.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;word:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">wordPtr</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;дума:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">wordPtr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;numb:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">numbPtr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;fork:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">forkPtr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;svar:&#34;</span><span class="p">,</span> <span class="nx">svar</span><span class="p">)</span>
@@ -159,9 +156,9 @@ to get the actual option values.</p>
         
         <tr>
           <td class="docs">
-            <p>To experiment with the command-line flags program it&rsquo;s
-best to first compile it and then run the resulting
-binary directly.</p>
+            <p>За да придобием опит с флаговете на командния ред, най-добре е първо да
+компилираме програмата и после да изпълним направо произведения изпълним
+файл.</p>
 
           </td>
           <td class="code leading">
@@ -172,14 +169,14 @@ binary directly.</p>
         
         <tr>
           <td class="docs">
-            <p>Try out the built program by first giving it values for
-all flags.</p>
+            <p>Пробваме изградената програма, като първо ѝ подадем стойности за всички
+флагове.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -word=opt -numb=7 -fork -svar=flag
-</span></span><span class="line"><span class="cl"><span class="go">word: opt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -дума=opt -numb=7 -fork -svar=flag
+</span></span><span class="line"><span class="cl"><span class="go">дума: opt
 </span></span></span><span class="line"><span class="cl"><span class="go">numb: 7
 </span></span></span><span class="line"><span class="cl"><span class="go">fork: true
 </span></span></span><span class="line"><span class="cl"><span class="go">svar: flag
@@ -189,14 +186,14 @@ all flags.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that if you omit flags they automatically take
-their default values.</p>
+            <p>Забележете, че ако пропуснете да подадете стойност за някой от флаговете, той
+ще има стойността по подразбиране.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -word=opt
-</span></span><span class="line"><span class="cl"><span class="go">word: opt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -дума=opt
+</span></span><span class="line"><span class="cl"><span class="go">дума: opt
 </span></span></span><span class="line"><span class="cl"><span class="go">numb: 42
 </span></span></span><span class="line"><span class="cl"><span class="go">fork: false
 </span></span></span><span class="line"><span class="cl"><span class="go">svar: bar
@@ -206,14 +203,13 @@ their default values.</p>
         
         <tr>
           <td class="docs">
-            <p>Trailing positional arguments can be provided after
-any flags.</p>
+            <p>Допълнителни податки, могат да се предоставят след флаговете.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -word=opt a1 a2 a3
-</span></span><span class="line"><span class="cl"><span class="go">word: opt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -дума=opt a1 a2 a3
+</span></span><span class="line"><span class="cl"><span class="go">дума: opt
 </span></span></span><span class="line"><span class="cl"><span class="go">...
 </span></span></span><span class="line"><span class="cl"><span class="go">tail: [a1 a2 a3]</span></span></span></code></pre>
           </td>
@@ -221,15 +217,15 @@ any flags.</p>
         
         <tr>
           <td class="docs">
-            <p>Note that the <code>flag</code> package requires all flags to
-appear before positional arguments (otherwise the flags
-will be interpreted as positional arguments).</p>
+            <p>Забележете, че пакетът <code>flag</code> изисква всички флагове да се намират преди
+допълнителните податки (иначе флаговете ще бъдат разбрани като допълнителни
+податки).</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -word=opt a1 a2 a3 -numb=7
-</span></span><span class="line"><span class="cl"><span class="go">word: opt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> ./command-line-flags -дума=opt a1 a2 a3 -numb=7
+</span></span><span class="line"><span class="cl"><span class="go">дума: opt
 </span></span></span><span class="line"><span class="cl"><span class="go">numb: 42
 </span></span></span><span class="line"><span class="cl"><span class="go">fork: false
 </span></span></span><span class="line"><span class="cl"><span class="go">svar: bar
@@ -239,8 +235,8 @@ will be interpreted as positional arguments).</p>
         
         <tr>
           <td class="docs">
-            <p>Use <code>-h</code> or <code>--help</code> flags to get automatically
-generated help text for the command-line program.</p>
+            <p>Използвайте флаговете <code>-h</code> или <code>--help</code> за показване на автоматично породена
+помощ за програмата.</p>
 
           </td>
           <td class="code leading">
@@ -250,15 +246,14 @@ generated help text for the command-line program.</p>
 </span></span></span><span class="line"><span class="cl"><span class="go">  -fork=false: a bool
 </span></span></span><span class="line"><span class="cl"><span class="go">  -numb=42: an int
 </span></span></span><span class="line"><span class="cl"><span class="go">  -svar=&#34;bar&#34;: a string var
-</span></span></span><span class="line"><span class="cl"><span class="go">  -word=&#34;foo&#34;: a string</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">  -дума=&#34;foo&#34;: a string</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>If you provide a flag that wasn&rsquo;t specified to the
-<code>flag</code> package, the program will print an error message
-and show the help text again.</p>
+            <p>Ако подадете необявен в програмата флаг, тя ще изведе грешка  и ще покаже
+помощта отново.</p>
 
           </td>
           <td class="code">
@@ -274,18 +269,18 @@ and show the help text again.</p>
       
       
       <p class="next">
-        Next example: <a href="command-line-subcommands" rel="next">Command-Line Subcommands</a>.
+        Следващ пример: <a href="command-line-subcommands" rel="next">Подкоманди на командния ред</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"flag\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    wordPtr :\u003D flag.String(\"word\", \"foo\", \"a string\")\u000A');codeLines.push('    numbPtr :\u003D flag.Int(\"numb\", 42, \"an int\")\u000A    forkPtr :\u003D flag.Bool(\"fork\", false, \"a bool\")\u000A');codeLines.push('    var svar string\u000A    flag.StringVar(\u0026svar, \"svar\", \"bar\", \"a string var\")\u000A');codeLines.push('    flag.Parse()\u000A');codeLines.push('    fmt.Println(\"word:\", *wordPtr)\u000A    fmt.Println(\"numb:\", *numbPtr)\u000A    fmt.Println(\"fork:\", *forkPtr)\u000A    fmt.Println(\"svar:\", svar)\u000A    fmt.Println(\"tail:\", flag.Args())\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"flag\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    wordPtr :\u003D flag.String(\"дума\", \"алабала\", \"приема низ\")\u000A');codeLines.push('    numbPtr :\u003D flag.Int(\"numb\", 42, \"an int\")\u000A    forkPtr :\u003D flag.Bool(\"fork\", false, \"a bool\")\u000A');codeLines.push('    var svar string\u000A    flag.StringVar(\u0026svar, \"svar\", \"bar\", \"a string var\")\u000A');codeLines.push('    flag.Parse()\u000A');codeLines.push('    fmt.Println(\"дума:\", *wordPtr)\u000A    fmt.Println(\"numb:\", *numbPtr)\u000A    fmt.Println(\"fork:\", *forkPtr)\u000A    fmt.Println(\"svar:\", svar)\u000A    fmt.Println(\"tail:\", flag.Args())\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

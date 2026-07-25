@@ -1,15 +1,15 @@
 $ go run directories.go
-Listing subdir/parent
-  child true
-  file2 false
-  file3 false
-Listing subdir/parent/child
-  file4 false
-Visiting subdir
-  subdir true
-  subdir/file1 false
-  subdir/parent true
-  subdir/parent/child true
-  subdir/parent/child/file4 false
-  subdir/parent/file2 false
-  subdir/parent/file3 false
+Списък със съдържанието на подпапка/родител
+  дете е папка.
+  фаил2 е файл.
+  фаил3 е файл.
+Съдържание на /home/berov/opt/dev/gobyexample/examples/directories/подпапка/родител/дете
+  фаил4 false
+Посещаваме подпапка
+  подпапка е папка.
+  подпапка/родител е папка.
+  подпапка/родител/дете е папка.
+  подпапка/родител/дете/фаил4 е файл.
+  подпапка/родител/фаил2 е файл.
+  подпапка/родител/фаил3 е файл.
+  подпапка/фаил1 е файл.

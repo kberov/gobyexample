@@ -1,13 +1,13 @@
-#  If you run `exit.go` using `go run`, the exit
-# will be picked up by `go` and printed.
+# Ако пуснете `exit.go` с помощта на `go run`, изходното състояние ще бъде
+# прието от `go` и изведено на екрана.
 $ go run exit.go
 exit status 3
 
-# By building and executing a binary you can see
-# the status in the terminal.
+# Ако първо изградите двоичния изпълним файл и после го пуснете, състоянието на
+# изхода бива записано в променливата `$?`
 $ go build exit.go
 $ ./exit
 $ echo $?
 3
 
-# Note that the `!` from our program never got printed.
+# Забележете, че удивителната не бива изведена на екрана.

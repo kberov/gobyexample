@@ -1,7 +1,12 @@
-// Go offers built-in support for creating dynamic content or showing customized
-// output to the user with the `text/template` package. A sibling package
-// named `html/template` provides the same API but has additional security
-// features and should be used for generating HTML.
+// Го предлага вградена поддръжка за създаване на
+// променливо[^dynamic] съдържание или за показване на пригодѐн
+// за потребителя изход с пакета `text/template`. Сродният
+// му пакет `html/template` предоставя същото
+// взаимодействие[^api] но има добавени пособия за
+// сигурност и е предназначен за извеждане на HTML[^html].
+// [^dynamic]: dynamic – променливо
+// [^api]: (API) application programming interface – обявено от програмиста взаимодействие за ползване на набор от обекти – в най-общ смисъл
+// [^html]: HTML – Hypertext Markup Language – език за обозначаване на свръхтекст
 
 package main
 
@@ -12,25 +17,34 @@ import (
 
 func main() {
 
-	// We can create a new template and parse its body from
-	// a string.
-	// Templates are a mix of static text and "actions" enclosed in
-	// `{{...}}` that are used to dynamically insert content.
+	// Можем да създадем нов _образец_[^templ] и да
+	// _разберем_[^parse] тялото му от низ. Образците
+	// са смесица от словен плет (текст) и „действия“,
+	// обгърнати в две двойки къдрави скоби – `{{...}}`,
+	// които са предназначени да вмъкнат променливо съдържание.
+	// [^templ]: template – образец на документ с места за попълване, обозначени  по някакъв начин
+	// [^parse]: parse – правя разбор – разбирам; разделям на по-малки парчета, за да събера наново, но произвеждайки качествено ново нещо.
 	t1 := template.New("t1")
-	t1, err := t1.Parse("Value is {{.}}\n")
+	t1, err := t1.Parse("Стойността е {{.}}\n")
 	if err != nil {
 		panic(err)
 	}
 
-	// Alternatively, we can use the `template.Must` function to
-	// panic in case `Parse` returns an error. This is especially
-	// useful for templates initialized in the global scope.
-	t1 = template.Must(t1.Parse("Value: {{.}}\n"))
+	// Можем също да използваме функцията `template.Must`,
+	// за да ужасим програмата, в случай че `Parse` върне
+	// грешка. Това е особено полезно при образци,
+	// _наченати_[^init] в _общия обхват_[^glscope] на
+	// програмата - общодостъпни.
+	// [^init]: initialized – наченат, инициализиран
+	// [^glscope]: global scope – общ обхват (на програма), там където дадена променлива може да бъде достъпена от всяка част на програмата
+	t1 = template.Must(t1.Parse("Стойността е: {{.}}\n"))
 
-	// By "executing" the template we generate its text with
-	// specific values for its actions. The `{{.}}` action is
-	// replaced by the value passed as a parameter to `Execute`.
-	t1.Execute(os.Stdout, "some text")
+	// Като „изпълним“ образеца, пресъздаваме словоплета му
+	// със зададените за всяко действие стойности.
+	// Действието `{{.}}` – точка между двойни къдрави
+	// скоби – бива заместено с подадената на `Execute`
+	// (изпълнявам) стойност.
+	t1.Execute(os.Stdout, "нѣкакъв словен плѣт")
 	t1.Execute(os.Stdout, 5)
 	t1.Execute(os.Stdout, []string{
 		"Go",
@@ -39,40 +53,46 @@ func main() {
 		"C#",
 	})
 
-	// Helper function we'll use below.
+	// Помощна функция, която ще ползваме по-долу.
 	Create := func(name, t string) *template.Template {
 		return template.Must(template.New(name).Parse(t))
 	}
 
-	// If the data is a struct we can use the `{{.FieldName}}` action to access
-	// its fields. The fields should be exported to be accessible when a
-	// template is executing.
-	t2 := Create("t2", "Name: {{.Name}}\n")
+	// Ако данната е структура, можем да ползваме
+	// действието `{{.ИмеНаПоле}}` за достъп до полетата
+	// ѝ. Полетата трябва да са _изнесени_[^exported], за
+	// да са достъпни, когато образецът бива изпълнен.
+	// [^exported]: exported – изнесен (навън), видим, достъпен, общодостъпен. Всяко поле, започващо с главна буква е изнесено. В други езици, public – общодостъпно.
+	t2 := Create("t2", "Име: {{.Име}}\n")
 
 	t2.Execute(os.Stdout, struct {
-		Name string
-	}{"Jane Doe"})
+		Име string
+	}{"Янка Готованка"})
 
-	// The same applies to maps; with maps there is no restriction on the
-	// case of key names.
+	// Същото се отнася за карти. При картите имената на
+	// ключовете могат да започват и с малки букви.
 	t2.Execute(os.Stdout, map[string]string{
-		"Name": "Mickey Mouse",
+		"Име": "Педя Човек",
 	})
 
-	// if/else provide conditional execution for templates. A value is considered
-	// false if it's the default value of a type, such as 0, an empty string,
-	// nil pointer, etc.
-	// This sample demonstrates another
-	// feature of templates: using `-` in actions to trim whitespace.
+	// Изявленията `if/else`, предоставят условно
+	// изпълнение в образците. Една стойност се смята за
+	// `false` ако е нулева стойност за съответния вид
+	// данни. Например 0, празен низ, нулев указател и
+	// т.н. Това парче показва друга способност на
+	// образците: употребата на действия `-` за окастряне
+	// на бели пространства.
 	t3 := Create("t3",
-		"{{if . -}} yes {{else -}} no {{end}}\n")
-	t3.Execute(os.Stdout, "not empty")
+		"{{if . -}} да {{- else -}} не {{- end}}\n")
+	t3.Execute(os.Stdout, "непразно")
 	t3.Execute(os.Stdout, "")
 
-	// range blocks let us loop through slices, arrays, maps or channels. Inside
-	// the range block `{{.}}` is set to the current item of the iteration.
+	// Блоковете `range` ни дават възможност за
+	// повторителни действия върху всеки член от отрязъци,
+	// поредици, карти или канали. Вътре в блока `{{.}}`
+	// съдържа текущата стойност в повторението.
 	t4 := Create("t4",
-		"Range: {{range .}}{{.}} {{end}}\n")
+		"Обход: {{range .}}{{.}} {{end}}\n")
 	t4.Execute(os.Stdout,
 		[]string{
 			"Go",

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Directories</title>
+    <title>Go в примери: Папки</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,14 @@
   </script>
   <body>
     <div class="example" id="directories">
-      <h2><a href="./">Go by Example</a>: Directories</h2>
+      <h2><a href="./">Go в примери</a>: Папки</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go has several useful functions for working with
-<em>directories</em> in the file system.</p>
+            <p>Го предоставя няколко полезни функции за работа с <em>папки</em> във файловата
+уредба.</p>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +45,7 @@
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/ORNj2BPrLQr"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/g3RLnhBG8xi"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -91,34 +91,32 @@
         
         <tr>
           <td class="docs">
-            <p>Create a new sub-directory in the current working
-directory.</p>
+            <p>Създаваме подпапка в текущата работна папка.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Mkdir</span><span class="p">(</span><span class="s">&#34;subdir&#34;</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Mkdir</span><span class="p">(</span><span class="s">&#34;подпапка&#34;</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>When creating temporary directories, it&rsquo;s good
-practice to <code>defer</code> their removal. <code>os.RemoveAll</code>
-will delete a whole directory tree (similarly to
-<code>rm -rf</code>).</p>
+            <p>Когато създаваме временни директории, е добре да отложим премахването им
+с помощта на <code>defer</code>. <code>os.RemoveAll</code> изтрива цялото дърво подобно на
+командата <code>rm -rf</code> в Линукс.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">os</span><span class="p">.</span><span class="nf">RemoveAll</span><span class="p">(</span><span class="s">&#34;subdir&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">os</span><span class="p">.</span><span class="nf">RemoveAll</span><span class="p">(</span><span class="s">&#34;подпапка&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Helper function to create a new empty file.</p>
+            <p>Помощна функция за създаване на нов празен файл.</p>
 
           </td>
           <td class="code leading">
@@ -136,20 +134,19 @@ will delete a whole directory tree (similarly to
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;subdir/file1&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;подпапка/фаил1&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We can create a hierarchy of directories, including
-parents with <code>MkdirAll</code>. This is similar to the
-command-line <code>mkdir -p</code>.</p>
+            <p>Можем да създадем ѝерархия от папки, включително и родителската папка с
+<code>MkdirAll</code>. Действието е като на командата <code>mkdir -p</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="s">&#34;subdir/parent/child&#34;</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="s">&#34;подпапка/родител/дете&#34;</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
@@ -160,21 +157,21 @@ command-line <code>mkdir -p</code>.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;subdir/parent/file2&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;subdir/parent/file3&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;subdir/parent/child/file4&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;подпапка/родител/фаил2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;подпапка/родител/фаил3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">createEmptyFile</span><span class="p">(</span><span class="s">&#34;подпапка/родител/дете/фаил4&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>ReadDir</code> lists directory contents, returning a
-slice of <code>os.DirEntry</code> objects.</p>
+            <p><code>ReadDir</code> извежда списък със съдържанието на папката, като връща отрязък
+от обекти от вида <code>os.DirEntry</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">ReadDir</span><span class="p">(</span><span class="s">&#34;subdir/parent&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">ReadDir</span><span class="p">(</span><span class="s">&#34;подпапка/родител&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
@@ -185,30 +182,35 @@ slice of <code>os.DirEntry</code> objects.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Listing subdir/parent&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Списък със съдържанието на подпапка/родител&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">entry</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">вид</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">вид</span> <span class="p">=</span> <span class="s">&#34;е папка.&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">вид</span> <span class="p">=</span> <span class="s">&#34;е файл.&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">вид</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>Chdir</code> lets us change the current working directory,
-similarly to <code>cd</code>.</p>
+            <p>С <code>Chdir</code> променяме текущата работна директория – същото като <code>cd</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Chdir</span><span class="p">(</span><span class="s">&#34;subdir/parent/child&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Chdir</span><span class="p">(</span><span class="s">&#34;подпапка/родител/дете&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Now we&rsquo;ll see the contents of <code>subdir/parent/child</code>
-when listing the <em>current</em> directory.</p>
+            <p>Сега ще видим съдържанието на <code>подпапка/родител/дете</code>, като изведем
+съдържанието на <em>текущата</em> папка.</p>
 
           </td>
           <td class="code leading">
@@ -224,7 +226,9 @@ when listing the <em>current</em> directory.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Listing subdir/parent/child&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">cwd</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getwd</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">check</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Съдържание на&#34;</span><span class="p">,</span> <span class="nx">cwd</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">entry</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">Name</span><span class="p">(),</span> <span class="nx">entry</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
@@ -233,7 +237,7 @@ when listing the <em>current</em> directory.</p>
         
         <tr>
           <td class="docs">
-            <p><code>cd</code> back to where we started.</p>
+            <p><code>cd</code> обратно, откъдето дойдохме.</p>
 
           </td>
           <td class="code leading">
@@ -245,33 +249,38 @@ when listing the <em>current</em> directory.</p>
         
         <tr>
           <td class="docs">
-            <p>We can also visit a directory <em>recursively</em>,
-including all its sub-directories. <code>WalkDir</code> accepts
-a callback function to handle every file or
-directory visited.</p>
+            <p>Можем също да навестим папка чрез <em>самоизвикване</em>. Това включва всички
+подпапки. <code>WalkDir</code> приема функция, която да извика, за да обработи
+всеки файл или папка по пѫтя.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Visiting subdir&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">WalkDir</span><span class="p">(</span><span class="s">&#34;subdir&#34;</span><span class="p">,</span> <span class="nx">visit</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Посещаваме подпапка&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">WalkDir</span><span class="p">(</span><span class="s">&#34;подпапка&#34;</span><span class="p">,</span> <span class="nx">посети</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>visit</code> is called for every file or directory found
-recursively by <code>filepath.WalkDir</code>.</p>
+            <p><code>посети</code> бива извикана за всеки файл или папка, на които сме се натъкнали при
+обхода чрез <code>filepath.WalkDir</code>.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">visit</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">d</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">DirEntry</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nx">посети</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">d</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">DirEntry</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">err</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">вид</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nf">IsDir</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">вид</span> <span class="p">=</span> <span class="s">&#34;е папка.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">вид</span> <span class="p">=</span> <span class="s">&#34;е файл.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">вид</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
@@ -288,20 +297,20 @@ recursively by <code>filepath.WalkDir</code>.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run directories.go
-</span></span><span class="line"><span class="cl"><span class="go">Listing subdir/parent
-</span></span></span><span class="line"><span class="cl"><span class="go">  child true
-</span></span></span><span class="line"><span class="cl"><span class="go">  file2 false
-</span></span></span><span class="line"><span class="cl"><span class="go">  file3 false
-</span></span></span><span class="line"><span class="cl"><span class="go">Listing subdir/parent/child
-</span></span></span><span class="line"><span class="cl"><span class="go">  file4 false
-</span></span></span><span class="line"><span class="cl"><span class="go">Visiting subdir
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir true
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/file1 false
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/parent true
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/parent/child true
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/parent/child/file4 false
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/parent/file2 false
-</span></span></span><span class="line"><span class="cl"><span class="go">  subdir/parent/file3 false</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">Списък със съдържанието на подпапка/родител
+</span></span></span><span class="line"><span class="cl"><span class="go">  дете е папка.
+</span></span></span><span class="line"><span class="cl"><span class="go">  фаил2 е файл.
+</span></span></span><span class="line"><span class="cl"><span class="go">  фаил3 е файл.
+</span></span></span><span class="line"><span class="cl"><span class="go">Съдържание на /home/berov/opt/dev/gobyexample/examples/directories/подпапка/родител/дете
+</span></span></span><span class="line"><span class="cl"><span class="go">  фаил4 false
+</span></span></span><span class="line"><span class="cl"><span class="go">Посещаваме подпапка
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка е папка.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/родител е папка.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/родител/дете е папка.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/родител/дете/фаил4 е файл.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/родител/фаил2 е файл.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/родител/фаил3 е файл.
+</span></span></span><span class="line"><span class="cl"><span class="go">  подпапка/фаил1 е файл.</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -309,18 +318,18 @@ recursively by <code>filepath.WalkDir</code>.</p>
       
       
       <p class="next">
-        Next example: <a href="temporary-files-and-directories" rel="next">Temporary Files and Directories</a>.
+        Следващ пример: <a href="temporary-files-and-directories" rel="next">Временни файлове и Папки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"io/fs\"\u000A    \"os\"\u000A    \"path/filepath\"\u000A)\u000A');codeLines.push('func check(e error) {\u000A    if e !\u003D nil {\u000A        panic(e)\u000A    }\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    err :\u003D os.Mkdir(\"subdir\", 0755)\u000A    check(err)\u000A');codeLines.push('    defer os.RemoveAll(\"subdir\")\u000A');codeLines.push('    createEmptyFile :\u003D func(name string) {\u000A        d :\u003D []byte(\"\")\u000A        check(os.WriteFile(name, d, 0644))\u000A    }\u000A');codeLines.push('    createEmptyFile(\"subdir/file1\")\u000A');codeLines.push('    err \u003D os.MkdirAll(\"subdir/parent/child\", 0755)\u000A    check(err)\u000A');codeLines.push('    createEmptyFile(\"subdir/parent/file2\")\u000A    createEmptyFile(\"subdir/parent/file3\")\u000A    createEmptyFile(\"subdir/parent/child/file4\")\u000A');codeLines.push('    c, err :\u003D os.ReadDir(\"subdir/parent\")\u000A    check(err)\u000A');codeLines.push('    fmt.Println(\"Listing subdir/parent\")\u000A    for _, entry :\u003D range c {\u000A        fmt.Println(\" \", entry.Name(), entry.IsDir())\u000A    }\u000A');codeLines.push('    err \u003D os.Chdir(\"subdir/parent/child\")\u000A    check(err)\u000A');codeLines.push('    c, err \u003D os.ReadDir(\".\")\u000A    check(err)\u000A');codeLines.push('    fmt.Println(\"Listing subdir/parent/child\")\u000A    for _, entry :\u003D range c {\u000A        fmt.Println(\" \", entry.Name(), entry.IsDir())\u000A    }\u000A');codeLines.push('    err \u003D os.Chdir(\"../../..\")\u000A    check(err)\u000A');codeLines.push('    fmt.Println(\"Visiting subdir\")\u000A    err \u003D filepath.WalkDir(\"subdir\", visit)\u000A}\u000A');codeLines.push('func visit(path string, d fs.DirEntry, err error) error {\u000A    if err !\u003D nil {\u000A        return err\u000A    }\u000A    fmt.Println(\" \", path, d.IsDir())\u000A    return nil\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"io/fs\"\u000A    \"os\"\u000A    \"path/filepath\"\u000A)\u000A');codeLines.push('func check(e error) {\u000A    if e !\u003D nil {\u000A        panic(e)\u000A    }\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    err :\u003D os.Mkdir(\"подпапка\", 0755)\u000A    check(err)\u000A');codeLines.push('    defer os.RemoveAll(\"подпапка\")\u000A');codeLines.push('    createEmptyFile :\u003D func(name string) {\u000A        d :\u003D []byte(\"\")\u000A        check(os.WriteFile(name, d, 0644))\u000A    }\u000A');codeLines.push('    createEmptyFile(\"подпапка/фаил1\")\u000A');codeLines.push('    err \u003D os.MkdirAll(\"подпапка/родител/дете\", 0755)\u000A    check(err)\u000A');codeLines.push('    createEmptyFile(\"подпапка/родител/фаил2\")\u000A    createEmptyFile(\"подпапка/родител/фаил3\")\u000A    createEmptyFile(\"подпапка/родител/дете/фаил4\")\u000A');codeLines.push('    c, err :\u003D os.ReadDir(\"подпапка/родител\")\u000A    check(err)\u000A');codeLines.push('    fmt.Println(\"Списък със съдържанието на подпапка/родител\")\u000A    for _, entry :\u003D range c {\u000A        вид :\u003D \"\"\u000A        if entry.IsDir() {\u000A            вид \u003D \"е папка.\"\u000A        } else {\u000A            вид \u003D \"е файл.\"\u000A        }\u000A        fmt.Println(\" \", entry.Name(), вид)\u000A    }\u000A');codeLines.push('    err \u003D os.Chdir(\"подпапка/родител/дете\")\u000A    check(err)\u000A');codeLines.push('    c, err \u003D os.ReadDir(\".\")\u000A    check(err)\u000A');codeLines.push('    cwd, e :\u003D os.Getwd()\u000A    check(e)\u000A    fmt.Println(\"Съдържание на\", cwd)\u000A    for _, entry :\u003D range c {\u000A        fmt.Println(\" \", entry.Name(), entry.IsDir())\u000A    }\u000A');codeLines.push('    err \u003D os.Chdir(\"../../..\")\u000A    check(err)\u000A');codeLines.push('    fmt.Println(\"Посещаваме подпапка\")\u000A    err \u003D filepath.WalkDir(\"подпапка\", посети)\u000A}\u000A');codeLines.push('func посети(path string, d fs.DirEntry, err error) error {\u000A    if err !\u003D nil {\u000A        return err\u000A    }\u000A    вид :\u003D \"\"\u000A    if d.IsDir() {\u000A        вид \u003D \"е папка.\"\u000A    } else {\u000A        вид \u003D \"е файл.\"\u000A    }\u000A    fmt.Println(\" \", path, вид)\u000A    return nil\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

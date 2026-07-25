@@ -1,18 +1,18 @@
-# Sample output; the date and time
-# emitted will depend on when the example ran.
+# Примерен изход: датата и времето зависят от това,
+# кога е бил пуснат примера.
 $ go run logging.go
-2023/08/22 10:45:16 standard logger
-2023/08/22 10:45:16.904141 with micro
-2023/08/22 10:45:16 logging.go:40: with file/line
-my:2023/08/22 10:45:16 from mylog
-ohmy:2023/08/22 10:45:16 from mylog
-from buflog:buf:2023/08/22 10:45:16 hello
+2026/05/18 12:30:56 стандартния отчетник
+2026/05/18 12:30:56.665801 с микросекунди
+2026/05/18 12:30:56 logging.go:45: с файл и ред
+мой:2026/05/18 12:30:56 от мен
+моят:2026/05/18 12:30:56 от моя
+от 'buflog':buf:2026/05/18 12:30:56 здрасти
 
-# These are wrapped for clarity of presentation
-# on the website; in reality they are emitted
-# on a single line.
-{"time":"2023-08-22T10:45:16.904166391-07:00",
- "level":"INFO","msg":"hi there"}
-{"time":"2023-08-22T10:45:16.904178985-07:00",
-	"level":"INFO","msg":"hello again",
-	"key":"val","age":25}
+# Тези записи се пренасят на нов ред с цел по-добро
+# представяне на сайта; в действителност се извежда
+# по един запис на ред.
+{"time":"2026-05-18T12:30:56.665856473+03:00",
+    "level":"INFO","msg":"хей, здравей"}
+{"time":"2026-05-18T12:30:56.665879347+03:00",
+    "level":"INFO","msg":"здрасти пак",
+    "ключ":"стойност","възраст":25}

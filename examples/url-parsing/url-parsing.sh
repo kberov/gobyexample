@@ -1,5 +1,5 @@
-# Running our URL parsing program shows all the different
-# pieces that we extracted.
+Ако пуснем програмата разпределител на изто̀чник, ще видим
+извлечените съставни части.
 $ go run url-parsing.go 
 postgres
 user:pass

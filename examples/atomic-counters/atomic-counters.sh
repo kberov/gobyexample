@@ -1,12 +1,14 @@
-# We expect to get exactly 50,000 operations. Had we
-# used a non-atomic integer and incremented it with
-# `ops++`, we'd likely get a different number,
-# changing between runs, because the goroutines
-# would interfere with each other. Moreover, we'd
-# get data race failures when running with the
-# `-race` flag.
+# Очакваме програмата ни да изведе на екрана точно 50000 –
+# броят извършени действия – увеличаване с единица. Ако
+# бяхме използвали обикновено – не неделимо число, щяхме
+# да видим друго число, което щеше даже да е различно при
+# всяко пускане на програмата Причината щеше да се състои
+# в това, че няколко гозадачи щяха да виждат една и съща
+# стойност на числото едновременно. Също щяхме да получим
+# и предупреждения за „съревнование“ (race), ако пуснехме
+# програмата с флаг `-race`.
 $ go run atomic-counters.go
-ops: 50000
+действия: 50000
 
-# Next we'll look at mutexes, another tool for managing
-# state.
+# В следващия пример ще разгледаме _взаимното изключване_
+# – друг способ за управление на състояние.

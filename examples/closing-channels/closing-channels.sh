@@ -1,13 +1,14 @@
-$ go run closing-channels.go 
-sent job 1
-received job 1
-sent job 2
-received job 2
-sent job 3
-received job 3
-sent all jobs
-received all jobs
-received more jobs: false
+$ go run closing-channels.go
+изпратена задчка 1
+изпратена задчка 2
+изпратена задчка 3
+изпратени са всичи задачки
+получих задачка 1
+получих задачка 2
+получих задачка 3
+получих всички задачки
+има още задачки: 0 false
 
-# The idea of closed channels leads naturally to our next
-# example: `range` over channels.
+# Мисълта за затворени канали ни води естествено към
+# следващия ни пример – обхождане на канали с помощта на
+# `range`.

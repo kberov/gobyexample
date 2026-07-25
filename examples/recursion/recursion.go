@@ -1,13 +1,13 @@
-// Go supports
-// <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)"><em>recursive functions</em></a>.
-// Here's a classic example.
+// Go поддържа самоизвикващи се функции[^самозвикване].
+// Тук имаме класически пример.
+// [^самозвикване]: recusrsion – самоизвикване, рекурсия – https://ru.wikipedia.org/wiki/Рекурсивная_функция
 
 package main
 
 import "fmt"
 
-// This `fact` function calls itself until it reaches the
-// base case of `fact(0)`.
+// Тази функция `fact` извиква себе си докато достигне
+// първичния си случай `fact(0)`.
 func fact(n int) int {
 	if n == 0 {
 		return 1
@@ -18,9 +18,11 @@ func fact(n int) int {
 func main() {
 	fmt.Println(fact(7))
 
-	// Anonymous functions can also be recursive, but this requires
-	// explicitly declaring a variable with `var` to store
-	// the function before it's defined.
+	// Безименните функции също могат да се самоизвикват,
+	// но е нужно преди това да обявим променлива с
+	// помощта на `var`, за да съхраним препратка към вида
+	// на функцията преди да ѝ дадем определение. Така
+	// всъщност я именуваме.
 	var fib func(n int) int
 
 	fib = func(n int) int {
@@ -28,8 +30,9 @@ func main() {
 			return n
 		}
 
-		// Since `fib` was previously declared in `main`, Go
-		// knows which function to call with `fib` here.
+		// Понеже `fib` е обявена предварително в `main`,
+		// Go знае коя функция, с име `fib`, да извика
+		// тука.
 		return fib(n-1) + fib(n-2)
 	}
 

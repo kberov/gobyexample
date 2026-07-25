@@ -1,6 +1,6 @@
-# The first timer will fire ~2s after we start the
-# program, but the second should be stopped before it has
-# a chance to fire.
+# Първият срочник ще звънне две секунди след като пуснем
+# програмата, а вторият бива спрян преди да му дойде
+# времето да звънне.
 $ go run timers.go
-Timer 1 fired
-Timer 2 stopped
+`срочник1` звънна.
+Спряхме срочник2.

@@ -1,11 +1,13 @@
-// Unit testing is an important part of writing
-// principled Go programs. The `testing` package
-// provides the tools we need to write unit tests
-// and the `go test` command runs tests.
+// Изпитанията за правилност на работата на отделните единици код (unit testing)
+// е важна част от писането на програми, подчинени на определени правила.
+// Пакетът `testing` предоставя нужните пособия за писане на единични
+// изпитания[^ut], а с командата `go test` изпълняваме тестовете.
+// [^ut]: unit tests – изпитания на единици (програмен код). Единиците обикновено са функциите в даден пакет или методи към структура.
 
-// For the sake of demonstration, this code is in package
-// `main`, but it could be any package. Testing code
-// typically lives in the same package as the code it tests.
+// За целите на това показно̀ програмният код се намира в пакета `main`, но това
+// би могъл да бъде всеки пакет. Изпитващият програмен код (тестовете)
+// обикновено се намира в същия пакет, който бива изпитан дали работи
+// правилно.
 package main
 
 import (
@@ -13,11 +15,9 @@ import (
 	"testing"
 )
 
-// We'll be testing this simple implementation of an
-// integer minimum. Typically, the code we're testing
-// would be in a source file named something like
-// `intutils.go`, and the test file for it would then
-// be named `intutils_test.go`.
+// Ще изпитаме това просто осъществяване на проверка за по-малкото от две цели
+// числа. Обикновено код като този би се намирал във файл с име, да речем
+// `intutils.go`,  а файла с изпитанията – в `intutils_test.go`
 func IntMin(a, b int) int {
 	if a < b {
 		return a
@@ -25,26 +25,29 @@ func IntMin(a, b int) int {
 	return b
 }
 
-// A test is created by writing a function with a name
-// beginning with `Test`.
+// Изпитанието се състои в написване на изпитваща функция, чието име
+// задължително започва с `Test`.
 func TestIntMinBasic(t *testing.T) {
 	ans := IntMin(2, -2)
 	if ans != -2 {
-		// `t.Error*` will report test failures but continue
-		// executing the test. `t.Fatal*` will report test
-		// failures and stop the test immediately.
+		// Методите с имена, започващи с `t.Error*` докладват провалените
+		// единични изпитания, но продължават изпълнението на файла с изпитанията.
+		// А тези, започващи с `t.Fatal*` докладват и спират изпълнението
+		// незабавно.
 		t.Errorf("IntMin(2, -2) = %d; want -2", ans)
 	}
 }
 
-// Writing tests can be repetitive, so it's idiomatic to
-// use a *table-driven style*, where test inputs and
-// expected outputs are listed in a table and a single loop
-// walks over them and performs the test logic.
+// Писането на изпитания предполага много повторение на почти един и същи код,
+// затова е прието да се пишат т.нар. *таблични изпитания*, където входните
+// данни и очакваните изходни данни биват описани в таблица и чрез повторение
+// таблицата бива обходена, за да се изпълни изпитваната единица с всяко
+// съчетание от входни данни, и да се сравнят изходните данни, получени при
+// изпълнението с очакваните, описани в таблицата.
 func TestIntMinTableDriven(t *testing.T) {
 	var tests = []struct {
-		a, b int
-		want int
+		a, b     int
+		очаквано int
 	}{
 		{0, 1, 0},
 		{1, 0, 0},
@@ -54,28 +57,32 @@ func TestIntMinTableDriven(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		// `t.Run` enables running "subtests", one for each
-		// table entry. These are shown separately
-		// when executing `go test -v`.
+
+		// Чрез `t.Run` изпълняваме „подизпитания” – по едно за всеки ред от таблицата.
+		// Те се извеждат на екрана пѡтделно, когато пуснем изпитанията с командата `go
+		// test -v`.
 		testname := fmt.Sprintf("%d,%d", tt.a, tt.b)
 		t.Run(testname, func(t *testing.T) {
-			ans := IntMin(tt.a, tt.b)
-			if ans != tt.want {
-				t.Errorf("got %d, want %d", ans, tt.want)
+			получено := IntMin(tt.a, tt.b)
+			if получено != tt.очаквано {
+				t.Errorf("получено %d, очаквано %d",
+					получено, tt.очаквано)
 			}
 		})
 	}
 }
 
-// Benchmark tests typically go in `_test.go` files and are
-// named beginning with `Benchmark`.
-// Any code that's required for the benchmark to run but should
-// not be measured goes before this loop.
+// Изпитанията за бързодействие също се намират във файлове с имена
+// `*_test.go`, където `*` се замества с името на пакета. Имената на тези
+// изпитания трябва да започват с `Benchmark`. Програмният код, който е нужен,
+// за да се подготви изпитанието за бързодействие, но не трябва да влиза в
+// изпитанието, се пише извън повторението `b.Loop()`.
 func BenchmarkIntMin(b *testing.B) {
 	for b.Loop() {
-		// The benchmark runner will automatically execute this loop
-		// body many times to determine a reasonable estimate of the
-		// run-time of a single iteration.
+
+		// Изпълнителят на изпитанието ще изпълни автоматично тялото на
+		// повторението многократно, за да направи оценка на бързодействието на
+		// отделното извикване.
 		IntMin(1, 2)
 	}
 }

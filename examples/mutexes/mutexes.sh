@@ -1,7 +1,8 @@
-# Running the program shows that the counters
-# updated as expected.
+# Като пуснем програмата, виждаме, че броячите са
+# променени както очакваме.
 $ go run mutexes.go
 map[a:20000 b:10000]
 
-# Next we'll look at implementing this same state
-# management task using only goroutines and channels.
+# В следващия пример ще видим как се осъществява същото
+# това управление на състоянието само чрез гозадачи и
+# канали.

@@ -1,5 +1,6 @@
-// Branching with `if` and `else` in Go is
-// straight-forward.
+// Разклоняване[^branching] на програмата с `if` и `else`
+// в Go е лесно.
+// [^branching]: branching – разклоняване
 
 package main
 
@@ -7,35 +8,36 @@ import "fmt"
 
 func main() {
 
-	// Here's a basic example.
+	// Ето един прост пример.
 	if 7%2 == 0 {
-		fmt.Println("7 is even")
+		fmt.Println("7 е четно")
 	} else {
-		fmt.Println("7 is odd")
+		fmt.Println("7 е нечетно")
 	}
 
-	// You can have an `if` statement without an else.
+	// Може да имате изявление `if` без `else`.
 	if 8%4 == 0 {
-		fmt.Println("8 is divisible by 4")
+		fmt.Println("8 се дели на 4")
 	}
 
-	// Logical operators like `&&` and `||` are often
-	// useful in conditions.
+	// Логически действия като `&&` и `||` често се срещат
+	// в условия.
 	if 8%2 == 0 || 7%2 == 0 {
-		fmt.Println("either 8 or 7 are even")
+		fmt.Println("или 8, или 7 е четно")
 	}
 
-	// A statement can precede conditionals; any variables
-	// declared in this statement are available in the current
-	// and all subsequent branches.
+	// Условията могат да бъдад предшествани от изявление.
+	// Всички променливи, обявени в изявлението, могат да се
+	// ползват в текущото и всички последващи разклонения.
 	if num := 9; num < 0 {
-		fmt.Println(num, "is negative")
+		fmt.Println(num, "е отрицателно")
 	} else if num < 10 {
-		fmt.Println(num, "has 1 digit")
+		fmt.Println(num, "е едноцифрено число")
 	} else {
-		fmt.Println(num, "has multiple digits")
+		fmt.Println(num, "е многоцифрено")
 	}
 }
 
-// Note that you don't need parentheses around conditions
-// in Go, but that the braces are required.
+// Обърнете внимание, че не се нуждаете от кръгли скоби
+// около условията, както е в повечето други езици за
+// програмиране.

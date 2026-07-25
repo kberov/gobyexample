@@ -1,24 +1,24 @@
 $ go build command-line-subcommands.go 
 
-# First invoke the foo subcommand.
-$ ./command-line-subcommands foo -enable -name=joe a1 a2
-subcommand 'foo'
-  enable: true
-  name: joe
-  tail: [a1 a2]
+# Първо извикайте подкомандата ала.
+$ ./command-line-subcommands ала -включ -име=Краси бала ница
+подкоманда 'ала'
+  включ: true
+  име: Краси
+  още податки: [бала ница]
 
-# Now try bar.
-$ ./command-line-subcommands bar -level 8 a1
-subcommand 'bar'
-  level: 8
-  tail: [a1]
+# Сега бала.
+$ ./command-line-subcommands бала -равнище 8 ба ни ца
+подкоманда 'бала'
+  равнище: 8
+  още податки: [ба ни ца]
 
-# But bar won't accept foo's flags.
-$ ./command-line-subcommands bar -enable a1
-flag provided but not defined: -enable
-Usage of bar:
-  -level int
-    	level
+# Но бала няма да приеме флаговете на ала.
+$ ./command-line-subcommands бала -включ ни ца
+flag provided but not defined: -включ
+Usage of бала:
+  -равнище int
+    	равнище
 
-# Next we'll look at environment variables, another common
-# way to parameterize programs.
+# После ще разгледаме променливите на обкръжението, друг обичаен начин за
+# подаване на данни към приложенията.

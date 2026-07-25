@@ -1,10 +1,10 @@
-# To experiment with command-line arguments it's best to
-# build a binary with `go build` first.
+# За придобиване на опит с податките на командния ред, най-добре е първо да
+# изградите програмата като изпълните `go build`.
 $ go build command-line-arguments.go
 $ ./command-line-arguments a b c d
 [./command-line-arguments a b c d]       
 [a b c d]
 c
 
-# Next we'll look at more advanced command-line processing
-# with flags.
+# В следващия пример ще разгледаме по-напредничав начин за обработка на
+# податките чрез т.нар. флагове.

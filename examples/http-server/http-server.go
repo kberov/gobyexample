@@ -1,5 +1,4 @@
-// Writing a basic HTTP server is easy using the
-// `net/http` package.
+// Лесно можем да напишем прост HTTP сървър, като ползваме пакета `net/http`.
 package main
 
 import (
@@ -7,26 +6,26 @@ import (
 	"net/http"
 )
 
-// A fundamental concept in `net/http` servers is
-// *handlers*. A handler is an object implementing the
-// `http.Handler` interface. A common way to write
-// a handler is by using the `http.HandlerFunc` adapter
-// on functions with the appropriate signature.
+// Основно понятие при сървърите, създадени с `net/http` са т.нар.
+// *обработчици*[^handl]. Обработчикът представлява обект, който осъществява
+// взаимодействието `http.Handler`. Обичайният начин да се напише обработчик е
+// като ползваме преходникът[^adapt] `http.HandlerFunc` върху функции с подходящ
+// надпис.
+// [^handl]: handler – обработчик (на HTTP заявки) (функция)
+// [^adapt]: adapter – преходник
 func hello(w http.ResponseWriter, req *http.Request) {
 
-	// Functions serving as handlers take a
-	// `http.ResponseWriter` and a `http.Request` as
-	// arguments. The response writer is used to fill in the
-	// HTTP response. Here our simple response is just
-	// "hello\n".
-	fmt.Fprintf(w, "hello\n")
+	// Функциите обработчици приемат като податки два обекта – всеки обект,
+	// осъществяващ взимодействието `http.ResponseWriter`, и обект от вида
+	// `http.Request`. в `http.ResponseWriter` пишем отговора на HTTP заявката.
+	// Тук отговорът е просто `здрасти\n`.
+	fmt.Fprintf(w, "здрасти\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
 
-	// This handler does something a little more
-	// sophisticated by reading all the HTTP request
-	// headers and echoing them into the response body.
+	// Този обработчик прави нещо малко по-сложно. Чете всички заглавки на
+	// заявката и ги връща обратно в тялото на отговора.
 	for name, headers := range req.Header {
 		for _, h := range headers {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
@@ -36,15 +35,16 @@ func headers(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 
-	// We register our handlers on server routes using the
-	// `http.HandleFunc` convenience function. It sets up
-	// the *default router* in the `net/http` package and
-	// takes a function as an argument.
+	// Записваме нашите разработчици да отговарят при заявки към различни
+	// пътища с помощта на функцията `http.HandleFunc`. Тя настройва
+	// управлението на пътищата в пакета `net/http`. Приема като податки пътя и
+	// съответната му функция обработчик.
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 
-	// Finally, we call the `ListenAndServe` with the port
-	// and a handler. `nil` tells it to use the default
-	// router we've just set up.
+	// Накрая извикваме функцията `ListenAndServe`, като ѝ подаваме номер на
+	// порта и нулевa стойност като взаимодействие http.Handler. Чрез
+	// подаването на `nil` казваме на пакета да ползва подразбиращото се
+	// управления на пътища.
 	http.ListenAndServe(":8090", nil)
 }

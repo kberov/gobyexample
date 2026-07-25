@@ -1,20 +1,20 @@
-# Running the program shows that we pick up the value
-# for `FOO` that we set in the program, but that
-# `BAR` is empty.
+# Като пуснем програмата виждаме стойността на променливата FOO, която сме
+# задали, както и че стойността на BAR е празна.
 $ go run environment-variables.go
 FOO: 1
 BAR: 
 
-# The list of keys in the environment will depend on your
-# particular machine.
-TERM_PROGRAM
-PATH
+# Списъкът с ключове от средата може да е различен на всяка машина.
 SHELL
+SESSION_MANAGER
+PERLBREW_ROOT
+QT_ACCESSIBILITY
+COLORTERM
 ...
 FOO
 
-# If we set `BAR` in the environment first, the running
-# program picks that value up.
+# Ако пък първо зададем стойност за BAR, програмата ни ще изведе наличната
+# стойност.
 $ BAR=2 go run environment-variables.go
 FOO: 1
 BAR: 2

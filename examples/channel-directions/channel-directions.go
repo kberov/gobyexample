@@ -1,30 +1,32 @@
-// When using channels as function parameters, you can
-// specify if a channel is meant to only send or receive
-// values. This specificity increases the type-safety of
-// the program.
+// Когато използвате канали като податки за функции,
+// можете да укажете предназначението на канала – дали е
+// само за изпращане или е само за получаване на данни.
+// Тази особеност повишава сигурността на програмата по
+// отношение на видовете данни.
 
 package main
 
 import "fmt"
 
-// This `ping` function only accepts a channel for sending
-// values. It would be a compile-time error to try to
-// receive on this channel.
-func ping(pings chan<- string, msg string) {
-	pings <- msg
+// Тази функция `пинг` приема канал, предназначен само за
+// изпращане на стойности. Ако се опитаме да получим
+// стойност по него, няма да можем да компилираме
+// програмата.
+func пинг(пингове chan<- string, писмо string) {
+	пингове <- писмо
 }
 
-// The `pong` function accepts one channel for receives
-// (`pings`) and a second for sends (`pongs`).
-func pong(pings <-chan string, pongs chan<- string) {
-	msg := <-pings
-	pongs <- msg
+// Функцията `понг` приема един канал, предназначен само
+// за получаване на съобщения по него, наречен `пингове`,
+// и втори – за изпращане, наречен `понгове`.
+func понг(пингове <-chan string, понгове chan<- string) {
+	понгове <- <-пингове
 }
 
 func main() {
-	pings := make(chan string, 1)
-	pongs := make(chan string, 1)
-	ping(pings, "passed message")
-	pong(pings, pongs)
-	fmt.Println(<-pongs)
+	заполучаване := make(chan string, 1)
+	запращане := make(chan string, 1)
+	пинг(заполучаване, "пратка")
+	понг(заполучаване, запращане)
+	fmt.Println(<-запращане)
 }

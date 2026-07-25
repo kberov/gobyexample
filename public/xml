@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: XML</title>
+    <title>Go в примери: XML</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,14 @@
   </script>
   <body>
     <div class="example" id="xml">
-      <h2><a href="./">Go by Example</a>: XML</h2>
+      <h2><a href="./">Go в примери</a>: XML</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go offers built-in support for XML and XML-like
-formats with the <code>encoding/xml</code> package.</p>
+            <p>Го предлага вградена поддръжка за XML  и подобни на XML
+формати чрез пакета <code>encoding/xml</code>.</p>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +45,7 @@ formats with the <code>encoding/xml</code> package.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/vsP5mIrNJOG"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/Dj0DIDZZg9l"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -65,13 +65,17 @@ formats with the <code>encoding/xml</code> package.</p>
         
         <tr>
           <td class="docs">
-            <p>Plant will be mapped to XML. Similarly to the
-JSON examples, field tags contain directives for the
-encoder and decoder. Here we use some special features
-of the XML package: the <code>XMLName</code> field name dictates
-the name of the XML element representing this struct;
-<code>id,attr</code> means that the <code>Id</code> field is an XML
-<em>attribute</em> rather than a nested element.</p>
+            <p>Структурата <code>Plant</code> ще бъде превърната в XML низ.
+Подобно на примерите с JSON, към полетата са прикрепени
+бележки, които са указания за превръщане към и от XML.
+Тук ползваме някои особени възможности на пакета XML.
+Полето <code>XMLName</code> има бележка (таг в Го), която указва
+как ще се обозначава структурата в низовия вид XML –
+като таг (начина за отбелязване в XML), докато полето
+<code>Id</code> ще се отбелязва като <em>атрибут</em> (нещо присъщо,
+прикачено към таг, негово свойство (на тага)), а не като
+вложена част (таг), както ще се отбелязват другите
+полета.</p>
 
           </td>
           <td class="code leading">
@@ -79,7 +83,7 @@ the name of the XML element representing this struct;
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Plant</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">XMLName</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span> <span class="s">`xml:&#34;plant&#34;`</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">Id</span>      <span class="kt">int</span>      <span class="s">`xml:&#34;id,attr&#34;`</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Name</span>    <span class="kt">string</span>   <span class="s">`xml:&#34;name&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Име</span>     <span class="kt">string</span>   <span class="s">`xml:&#34;име&#34;`</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">Origin</span>  <span class="p">[]</span><span class="kt">string</span> <span class="s">`xml:&#34;origin&#34;`</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
@@ -93,7 +97,7 @@ the name of the XML element representing this struct;
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">Plant</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;Plant id=%v, name=%v, origin=%v&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">p</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Origin</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">p</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Име</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Origin</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -105,16 +109,15 @@ the name of the XML element representing this struct;
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">coffee</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Plant</span><span class="p">{</span><span class="nx">Id</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;Coffee&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">coffee</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Plant</span><span class="p">{</span><span class="nx">Id</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="nx">Име</span><span class="p">:</span> <span class="s">&#34;Coffee&#34;</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">coffee</span><span class="p">.</span><span class="nx">Origin</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;Ethiopia&#34;</span><span class="p">,</span> <span class="s">&#34;Brazil&#34;</span><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Emit XML representing our plant; using
-<code>MarshalIndent</code> to produce a more
-human-readable output.</p>
+            <p>Превръщаме в XML като ползваме <code>MarshalIndent</code>, за
+да произведем по-четим изход.</p>
 
           </td>
           <td class="code leading">
@@ -126,8 +129,8 @@ human-readable output.</p>
         
         <tr>
           <td class="docs">
-            <p>To add a generic XML header to the output, append
-it explicitly.</p>
+            <p>За да добавим по-обичайна за XML заглавка към
+изхода, трябва да я добавим изрично.</p>
 
           </td>
           <td class="code leading">
@@ -138,10 +141,10 @@ it explicitly.</p>
         
         <tr>
           <td class="docs">
-            <p>Use <code>Unmarshal</code> to parse a stream of bytes with XML
-into a data structure. If the XML is malformed or
-cannot be mapped onto Plant, a descriptive error
-will be returned.</p>
+            <p>Ползваме <code>Unmarshal</code>, за да превърнем поток от
+байтове от XML в структура от данни. Ако в потока
+има зле форматиран XML или не се вмества в <code>Plant</code>,
+функцията ще върне описателна грешка.</p>
 
           </td>
           <td class="code leading">
@@ -160,15 +163,16 @@ will be returned.</p>
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">tomato</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Plant</span><span class="p">{</span><span class="nx">Id</span><span class="p">:</span> <span class="mi">81</span><span class="p">,</span> <span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;Tomato&#34;</span><span class="p">}</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">tomato</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Plant</span><span class="p">{</span><span class="nx">Id</span><span class="p">:</span> <span class="mi">81</span><span class="p">,</span> <span class="nx">Име</span><span class="p">:</span> <span class="s">&#34;Домат&#34;</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">tomato</span><span class="p">.</span><span class="nx">Origin</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;Mexico&#34;</span><span class="p">,</span> <span class="s">&#34;California&#34;</span><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>The <code>parent&gt;child&gt;plant</code> field tag tells the encoder
-to nest all <code>plant</code>s under <code>&lt;parent&gt;&lt;child&gt;...</code></p>
+            <p>Бележката <code>parent&gt;child&gt;plant</code> за полето <code>Plants</code>
+казва на превръщача да вгнезди всички структури от
+вида <code>plant</code> в <code>&lt;parent&gt;&lt;child&gt;...</code></p>
 
           </td>
           <td class="code leading">
@@ -215,13 +219,13 @@ to nest all <code>plant</code>s under <code>&lt;parent&gt;&lt;child&gt;...</code
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run xml.go
 </span></span><span class="line"><span class="cl"><span class="go"> &lt;plant id=&#34;27&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="go">   &lt;name&gt;Coffee&lt;/name&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">   &lt;име&gt;Coffee&lt;/име&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">   &lt;origin&gt;Ethiopia&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">   &lt;origin&gt;Brazil&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go"> &lt;/plant&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go"> &lt;plant id=&#34;27&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="go">   &lt;name&gt;Coffee&lt;/name&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">   &lt;име&gt;Coffee&lt;/име&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">   &lt;origin&gt;Ethiopia&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">   &lt;origin&gt;Brazil&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go"> &lt;/plant&gt;
@@ -230,12 +234,12 @@ to nest all <code>plant</code>s under <code>&lt;parent&gt;&lt;child&gt;...</code
 </span></span></span><span class="line"><span class="cl"><span class="go">   &lt;parent&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">     &lt;child&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">       &lt;plant id=&#34;27&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="go">         &lt;name&gt;Coffee&lt;/name&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">         &lt;име&gt;Coffee&lt;/име&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">         &lt;origin&gt;Ethiopia&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">         &lt;origin&gt;Brazil&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">       &lt;/plant&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">       &lt;plant id=&#34;81&#34;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="go">         &lt;name&gt;Tomato&lt;/name&gt;
+</span></span></span><span class="line"><span class="cl"><span class="go">         &lt;име&gt;Домат&lt;/име&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">         &lt;origin&gt;Mexico&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">         &lt;origin&gt;California&lt;/origin&gt;
 </span></span></span><span class="line"><span class="cl"><span class="go">       &lt;/plant&gt;
@@ -249,18 +253,18 @@ to nest all <code>plant</code>s under <code>&lt;parent&gt;&lt;child&gt;...</code
       
       
       <p class="next">
-        Next example: <a href="time" rel="next">Time</a>.
+        Следващ пример: <a href="time" rel="next">Видът Time</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"encoding/xml\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('type Plant struct {\u000A    XMLName xml.Name `xml:\"plant\"`\u000A    Id      int      `xml:\"id,attr\"`\u000A    Name    string   `xml:\"name\"`\u000A    Origin  []string `xml:\"origin\"`\u000A}\u000A');codeLines.push('func (p Plant) String() string {\u000A    return fmt.Sprintf(\"Plant id\u003D%v, name\u003D%v, origin\u003D%v\",\u000A        p.Id, p.Name, p.Origin)\u000A}\u000A');codeLines.push('func main() {\u000A    coffee :\u003D \u0026Plant{Id: 27, Name: \"Coffee\"}\u000A    coffee.Origin \u003D []string{\"Ethiopia\", \"Brazil\"}\u000A');codeLines.push('    out, _ :\u003D xml.MarshalIndent(coffee, \" \", \"  \")\u000A    fmt.Println(string(out))\u000A');codeLines.push('    fmt.Println(xml.Header + string(out))\u000A');codeLines.push('    var p Plant\u000A    if err :\u003D xml.Unmarshal(out, \u0026p); err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(p)\u000A');codeLines.push('    tomato :\u003D \u0026Plant{Id: 81, Name: \"Tomato\"}\u000A    tomato.Origin \u003D []string{\"Mexico\", \"California\"}\u000A');codeLines.push('    type Nesting struct {\u000A        XMLName xml.Name `xml:\"nesting\"`\u000A        Plants  []*Plant `xml:\"parent\u003Echild\u003Eplant\"`\u000A    }\u000A');codeLines.push('    nesting :\u003D \u0026Nesting{}\u000A    nesting.Plants \u003D []*Plant{coffee, tomato}\u000A');codeLines.push('    out, _ \u003D xml.MarshalIndent(nesting, \" \", \"  \")\u000A    fmt.Println(string(out))\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"encoding/xml\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('type Plant struct {\u000A    XMLName xml.Name `xml:\"plant\"`\u000A    Id      int      `xml:\"id,attr\"`\u000A    Име     string   `xml:\"име\"`\u000A    Origin  []string `xml:\"origin\"`\u000A}\u000A');codeLines.push('func (p Plant) String() string {\u000A    return fmt.Sprintf(\"Plant id\u003D%v, name\u003D%v, origin\u003D%v\",\u000A        p.Id, p.Име, p.Origin)\u000A}\u000A');codeLines.push('func main() {\u000A    coffee :\u003D \u0026Plant{Id: 27, Име: \"Coffee\"}\u000A    coffee.Origin \u003D []string{\"Ethiopia\", \"Brazil\"}\u000A');codeLines.push('    out, _ :\u003D xml.MarshalIndent(coffee, \" \", \"  \")\u000A    fmt.Println(string(out))\u000A');codeLines.push('    fmt.Println(xml.Header + string(out))\u000A');codeLines.push('    var p Plant\u000A    if err :\u003D xml.Unmarshal(out, \u0026p); err !\u003D nil {\u000A        panic(err)\u000A    }\u000A    fmt.Println(p)\u000A');codeLines.push('    tomato :\u003D \u0026Plant{Id: 81, Име: \"Домат\"}\u000A    tomato.Origin \u003D []string{\"Mexico\", \"California\"}\u000A');codeLines.push('    type Nesting struct {\u000A        XMLName xml.Name `xml:\"nesting\"`\u000A        Plants  []*Plant `xml:\"parent\u003Echild\u003Eplant\"`\u000A    }\u000A');codeLines.push('    nesting :\u003D \u0026Nesting{}\u000A    nesting.Plants \u003D []*Plant{coffee, tomato}\u000A');codeLines.push('    out, _ \u003D xml.MarshalIndent(nesting, \" \", \"  \")\u000A    fmt.Println(string(out))\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

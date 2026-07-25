@@ -1,14 +1,15 @@
-# Use these commands to run the example.
-# (Note: due to limitation on go playground,
-# this example can only be run on your local machine.)
+# Използвайте следните команди за да изпълните примера. (Внимание: поради
+# ограниченията на игралната площадка на Го, този пример може да се изпълни
+# само на вашето сметало.)
 $ mkdir -p folder
-$ echo "hello go" > folder/single_file.txt
+$ echo "Здрасти, Го." > folder/single_file.txt
 $ echo "123" > folder/file1.hash
 $ echo "456" > folder/file2.hash
 
 $ go run embed-directive.go
-hello go
-hello go
+Здрасти, Го.
+Здрасти, Го.
 123
 456
+Здрасти, Го.
 

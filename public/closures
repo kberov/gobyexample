@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Closures</title>
+    <title>Go в примери: Затваряния</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,32 @@
   </script>
   <body>
     <div class="example" id="closures">
-      <h2><a href="./">Go by Example</a>: Closures</h2>
+      <h2><a href="./">Go в примери</a>: Затваряния</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go supports <a href="https://en.wikipedia.org/wiki/Anonymous_function"><em>anonymous functions</em></a>,
-which can form <a href="https://en.wikipedia.org/wiki/Closure_(computer_science)"><em>closures</em></a>.
-Anonymous functions are useful when you want to define
-a function inline without having to name it.</p>
+            <p>Go поддържа <em>безименни функции</em><sup class="footnote-ref" id="fnref:-"><a href="#fn:-">1</a></sup>, които
+могат да създават затваряния<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">2</a></sup>.</p>
+
+<p>Безименните функции са полезни, когато искате да
+създадете функция „посред“<sup class="footnote-ref" id="fnref:inline"><a href="#fn:inline">3</a></sup> написаното, без да
+е нужно да я именувате.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:-">annonimous function – безименна функция. https://bg.wikipedia.org/wiki/Анонимна_функция</li>
+
+<li id="fn:-">closure – затваряне. https://bg.wikipedia.org/wiki/Затваряне_(информатика)</li>
+
+<li id="fn:inline">inline – насред, посред, в реда на&hellip;</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +63,7 @@ a function inline without having to name it.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/NpgpzS8ZG8y"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/lakGjvwaNIk"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -64,10 +80,10 @@ a function inline without having to name it.</p>
         
         <tr>
           <td class="docs">
-            <p>This function <code>intSeq</code> returns another function, which
-we define anonymously in the body of <code>intSeq</code>. The
-returned function <em>closes over</em> the variable <code>i</code> to
-form a closure.</p>
+            <p>Функцията <code>intSeq</code> връща друга функция, която създаваме
+без име в тялото на <code>intSeq</code>. Върната функция <em>затваря
+в себе си</em> променливата <code>i</code> и така създава <em>затвор</em> за
+<code>i</code>.</p>
 
           </td>
           <td class="code leading">
@@ -94,10 +110,11 @@ form a closure.</p>
         
         <tr>
           <td class="docs">
-            <p>We call <code>intSeq</code>, assigning the result (a function)
-to <code>nextInt</code>. This function value captures its
-own <code>i</code> value, which will be updated each time
-we call <code>nextInt</code>.</p>
+            <p>Извикваме <code>intSeq</code>, като присвояваме изхода ѝ
+(функция) на променливата <code>nextInt</code>. Тази
+стойност-функция прихваща <em>своя собствена</em> стойност
+на <code>i</code>, която стойност се променя при всяко
+извикване на <code>nextInt</code>.</p>
 
           </td>
           <td class="code leading">
@@ -108,8 +125,8 @@ we call <code>nextInt</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>See the effect of the closure by calling <code>nextInt</code>
-a few times.</p>
+            <p>Вижте действието на затварянето от извикването на
+<code>nextInt</code> няколко пъти.</p>
 
           </td>
           <td class="code leading">
@@ -122,8 +139,9 @@ a few times.</p>
         
         <tr>
           <td class="docs">
-            <p>To confirm that the state is unique to that
-particular function, create and test a new one.</p>
+            <p>За да потвърдим, че състоянието на <code>i</code> е
+собственост на новопроизведената функция, създайте
+и извикайте нова.</p>
 
           </td>
           <td class="code">
@@ -154,8 +172,18 @@ particular function, create and test a new one.</p>
         
         <tr>
           <td class="docs">
-            <p>The last feature of functions we&rsquo;ll look at for now is
-recursion.</p>
+            <p>Последното свойство, което ще разгледаме засега е
+самоизвикването<sup class="footnote-ref" id="fnref:recursion"><a href="#fn:recursion">1</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:recursion">recursion – прибягване, а по-точно в случая – самоизвикване</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty">
@@ -168,12 +196,12 @@ recursion.</p>
       
       
       <p class="next">
-        Next example: <a href="recursion" rel="next">Recursion</a>.
+        Следващ пример: <a href="recursion" rel="next">Самоизвикване</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

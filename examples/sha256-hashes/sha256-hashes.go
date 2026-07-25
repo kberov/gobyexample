@@ -1,13 +1,14 @@
-// [_SHA256 hashes_](https://en.wikipedia.org/wiki/SHA-2) are
-// frequently used to compute short identities for binary
-// or text blobs. For example, TLS/SSL certificates use SHA256
-// to compute a certificate's signature. Here's how to compute
-// SHA256 hashes in Go.
+// Хешовете[^hash] от вида _SHA256_ се ползват често за изчисляване на кратки
+// обозначения за тъждество към _пред-определени[^blob] двоични или словни
+// количества от данни_. Например удостоверенията TLS/SSL използват SHA256, за
+// да изчислят (и укажат еднозначно) подпис за удостоверение (сертификат). Ето
+// как се изчисляват хешове от вида SHA256 в Го.
+// [^hash]: hash – хеш (в случая) неповторима и еднозначна смесица от знаци, обозначаваща _еднопосочно_ точно определено нещо, но скриваща самото нещо и служеща като белег и единствено съответстие на нещото според определен алгоритъм. Виж https://eurodict.com/dictionary/hash-32797 и https://en.wikipedia.org/wiki/SHA-2 (Secure Hash Algorithm 2)
+// [^blob]: blob – binary large object (https://en.wikipedia.org/wiki/Object_storage). Пред-определени - предварително определена (и позната) съхранена съвкупност от данни.
 
 package main
 
-// Go implements several hash functions in various
-// `crypto/*` packages.
+// Го осъществява няколко хеш функции в различни пакети в областта `crypto/*`.
 import (
 	"crypto/sha256"
 	"fmt"
@@ -16,18 +17,21 @@ import (
 func main() {
 	s := "sha256 this string"
 
-	// Here we start with a new hash.
+	// Тук начеваме нов хеш.
 	h := sha256.New()
 
-	// `Write` expects bytes. If you have a string `s`,
-	// use `[]byte(s)` to coerce it to bytes.
+	// Методът `Write` очаква да му бъдат подадени данни от вида []byte. Ако
+	// имате низ `s`, използвайте израза `[]byte(s)`, за да сведете низа до
+	// отрязък от байтове.
 	h.Write([]byte(s))
 
-	// This gets the finalized hash result as a byte
-	// slice. The argument to `Sum` can be used to append
-	// to an existing byte slice: it usually isn't needed.
+	// Това действие ни връща завършения хеш като отрязък от байтове.
+	// Подаденият на `Sum` допълнителен отрязък от байтове може да се постави
+	// пред вече съществуващия хеш, но това обикновено не е нужно.
+	// ТОДО: да намреря къде и за какво може да се ползва тази представка.
 	bs := h.Sum(nil)
+	prebs := h.Sum([]byte(`pre`))
 
 	fmt.Println(s)
-	fmt.Printf("%x\n", bs)
+	fmt.Printf("%70x\n%70x\n", bs, prebs)
 }

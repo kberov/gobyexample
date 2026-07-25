@@ -1,9 +1,9 @@
-# The string encodes to slightly different values with the
-# standard and URL base64 encoders (trailing `+` vs `-`)
-# but they both decode to the original string as desired.
-$ go run base64-encoding.go
-YWJjMTIzIT8kKiYoKSctPUB+
-abc123!?$*&()'-=@~
+# Произведеният вид леко се различава между обикновеното и съвместимото с
+# изто̀чници превръщане (завършващ знак + вместо -), но и в двата случая
+# обратното превръщане води до един и същи първоначален вид данни.
+$ go run base64-encoding.go 
+0LDQsdCyMTIzIT8kKiYoKSctPUB+
+абв123!?$*&()'-=@~
 
-YWJjMTIzIT8kKiYoKSctPUB-
-abc123!?$*&()'-=@~
+0LDQsdCyMTIzIT8kKiYoKSctPUB-
+абв123!?$*&()'-=@~

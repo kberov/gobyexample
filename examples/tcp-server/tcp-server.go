@@ -1,5 +1,5 @@
-// The `net` package provides the tools we need to easily build
-// TCP socket servers.
+// Пакетът `net` предоставя нужните пособия за лесно изграждане на сървъри,
+// работещи съгласно TCP протокола.
 package main
 
 import (
@@ -12,55 +12,58 @@ import (
 
 func main() {
 
-	// `net.Listen` starts the server on the given network
-	// (TCP) and address (port 8090 on all interfaces).
+	// Функцията `net.Listen` пуска сървъра в дадената мрежа (на ниво TCP) и порт за
+	// адреси (порт 8090 на всички мрежови приставки[^if]).
+	// [^if]: network interface – мрежова приставка. Устройството (логическо или физическо), което предоставя мрежа и е част от машината или закачено като външно устройство.
 	listener, err := net.Listen("tcp", ":8090")
 	if err != nil {
 		log.Fatal("Error listening:", err)
 	}
 
-	// Close the listener to free the port
-	// when the application exits.
+	// Затваряме слушателя, за да освободим порта, когато приложението
+	// приключи.
 	defer listener.Close()
 
-	// Loop indefinitely to accept new client connections.
+	// Повтаряме безкрай `listener.Accept()`, за да приемаме заявки за
+	// свързване от клиенти.
 	for {
-		// Wait for a connection.
+		// Чакаме свързване.
 		conn, err := listener.Accept()
 		if err != nil {
-			log.Println("Error accepting conn:", err)
+			log.Println("Грешка при приемане:", err)
 			continue
 		}
 
-		// We use a goroutine here to handle the connection
-		// so that the main loop can continue accepting more
-		// connections.
+		// Тук използваме гозадача, за да обработим установената връзка, така
+		// че повторението `for` да може да продължи да приема още заявки за
+		// свързване.
 		go handleConnection(conn)
 	}
 }
 
-// `handleConnection` handles a single client connection,
-// reading one line of text from the client and returning a response.
+// `handleConnection` обработва отделна заявка от клиент, като чете един ред
+// от низа, изпратен от клиента и връща отговор.
 func handleConnection(conn net.Conn) {
-	// Closing the connection releases resources when
-	// we are finished interacting with the client.
+	// Затваряме установената връзка, за да освободим заетите блага[^res], след
+	// като прикючим общуването с клиента.
+	// [^res]: resources - блага
 	defer conn.Close()
 
-	// Use `bufio.NewReader` to read one line of data
-	// from the client (terminated by a newline).
+	// Ползваме `bufio.NewReader`, за да прочетем един ред данни от клиента
+	// (редът завършва със знак за нов ред).
 	reader := bufio.NewReader(conn)
 	message, err := reader.ReadString('\n')
 	if err != nil {
-		log.Printf("Read error: %v", err)
+		log.Printf("Грешка при четенето: %v", err)
 		return
 	}
 
-	// Create and send a response back to the client,
-	// demonstrating two-way communication.
+	// Създаваме и изпращаме отговор обратно към клиента и така показваме
+	// двупосочно общуване.
 	ackMsg := strings.ToUpper(strings.TrimSpace(message))
-	response := fmt.Sprintf("ACK: %s\n", ackMsg)
+	response := fmt.Sprintf("Прието: %s\n", ackMsg)
 	_, err = conn.Write([]byte(response))
 	if err != nil {
-		log.Printf("Server write error: %v", err)
+		log.Printf("Сървърна грешка при писането: %v", err)
 	}
 }

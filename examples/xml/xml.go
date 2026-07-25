@@ -1,5 +1,5 @@
-// Go offers built-in support for XML and XML-like
-// formats with the `encoding/xml` package.
+// Го предлага вградена поддръжка за XML  и подобни на XML
+// формати чрез пакета `encoding/xml`.
 
 package main
 
@@ -8,54 +8,58 @@ import (
 	"fmt"
 )
 
-// Plant will be mapped to XML. Similarly to the
-// JSON examples, field tags contain directives for the
-// encoder and decoder. Here we use some special features
-// of the XML package: the `XMLName` field name dictates
-// the name of the XML element representing this struct;
-// `id,attr` means that the `Id` field is an XML
-// _attribute_ rather than a nested element.
+// Структурата `Plant` ще бъде превърната в XML низ.
+// Подобно на примерите с JSON, към полетата са прикрепени
+// бележки, които са указания за превръщане към и от XML.
+// Тук ползваме някои особени възможности на пакета XML.
+// Полето `XMLName` има бележка (таг в Го), която указва
+// как ще се обозначава структурата в низовия вид XML –
+// като таг (начина за отбелязване в XML), докато полето
+// `Id` ще се отбелязва като _атрибут_ (нещо присъщо,
+// прикачено към таг, негово свойство (на тага)), а не като
+// вложена част (таг), както ще се отбелязват другите
+// полета.
 type Plant struct {
 	XMLName xml.Name `xml:"plant"`
 	Id      int      `xml:"id,attr"`
-	Name    string   `xml:"name"`
+	Име     string   `xml:"име"`
 	Origin  []string `xml:"origin"`
 }
 
 func (p Plant) String() string {
 	return fmt.Sprintf("Plant id=%v, name=%v, origin=%v",
-		p.Id, p.Name, p.Origin)
+		p.Id, p.Име, p.Origin)
 }
 
 func main() {
-	coffee := &Plant{Id: 27, Name: "Coffee"}
+	coffee := &Plant{Id: 27, Име: "Coffee"}
 	coffee.Origin = []string{"Ethiopia", "Brazil"}
 
-	// Emit XML representing our plant; using
-	// `MarshalIndent` to produce a more
-	// human-readable output.
+	// Превръщаме в XML като ползваме `MarshalIndent`, за
+	// да произведем по-четим изход.
 	out, _ := xml.MarshalIndent(coffee, " ", "  ")
 	fmt.Println(string(out))
 
-	// To add a generic XML header to the output, append
-	// it explicitly.
+	// За да добавим по-обичайна за XML заглавка към
+	// изхода, трябва да я добавим изрично.
 	fmt.Println(xml.Header + string(out))
 
-	// Use `Unmarshal` to parse a stream of bytes with XML
-	// into a data structure. If the XML is malformed or
-	// cannot be mapped onto Plant, a descriptive error
-	// will be returned.
+	// Ползваме `Unmarshal`, за да превърнем поток от
+	// байтове от XML в структура от данни. Ако в потока
+	// има зле форматиран XML или не се вмества в `Plant`,
+	// функцията ще върне описателна грешка.
 	var p Plant
 	if err := xml.Unmarshal(out, &p); err != nil {
 		panic(err)
 	}
 	fmt.Println(p)
 
-	tomato := &Plant{Id: 81, Name: "Tomato"}
+	tomato := &Plant{Id: 81, Име: "Домат"}
 	tomato.Origin = []string{"Mexico", "California"}
 
-	// The `parent>child>plant` field tag tells the encoder
-	// to nest all `plant`s under `<parent><child>...`
+	// Бележката `parent>child>plant` за полето `Plants`
+	// казва на превръщача да вгнезди всички структури от
+	// вида `plant` в `<parent><child>...`
 	type Nesting struct {
 		XMLName xml.Name `xml:"nesting"`
 		Plants  []*Plant `xml:"parent>child>plant"`

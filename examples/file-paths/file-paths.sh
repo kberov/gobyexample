@@ -1,12 +1,14 @@
 $ go run file-paths.go
-p: dir1/dir2/filename
-dir1/filename
-dir1/filename
-Dir(p): dir1/dir2
-Base(p): filename
+p: папка/подпапка/именафайл.txt
+папка/именафайл
+папка/именафайл
+Dir(p): папка/подпапка
+Base(p): именафайл.txt
+Split(p): папка/подпапка/, именафайл.txt
 false
 true
-.json
-config
-t/file
+.txt
+именафайл
+ница/файл
 ../c/t/file
+

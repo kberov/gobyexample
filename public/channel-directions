@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Channel Directions</title>
+    <title>Go в примери: Посока на канал</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,16 +24,17 @@
   </script>
   <body>
     <div class="example" id="channel-directions">
-      <h2><a href="./">Go by Example</a>: Channel Directions</h2>
+      <h2><a href="./">Go в примери</a>: Посока на канал</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>When using channels as function parameters, you can
-specify if a channel is meant to only send or receive
-values. This specificity increases the type-safety of
-the program.</p>
+            <p>Когато използвате канали като податки за функции,
+можете да укажете предназначението на канала – дали е
+само за изпращане или е само за получаване на данни.
+Тази особеност повишава сигурността на програмата по
+отношение на видовете данни.</p>
 
           </td>
           <td class="code empty leading">
@@ -47,7 +48,7 @@ the program.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/mjNJDHwUH4R"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/pT-H3c2qH6w"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -64,30 +65,31 @@ the program.</p>
         
         <tr>
           <td class="docs">
-            <p>This <code>ping</code> function only accepts a channel for sending
-values. It would be a compile-time error to try to
-receive on this channel.</p>
+            <p>Тази функция <code>пинг</code> приема канал, предназначен само за
+изпращане на стойности. Ако се опитаме да получим
+стойност по него, няма да можем да компилираме
+програмата.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ping</span><span class="p">(</span><span class="nx">pings</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">msg</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pings</span> <span class="o">&lt;-</span> <span class="nx">msg</span>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nx">пинг</span><span class="p">(</span><span class="nx">пингове</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">писмо</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">пингове</span> <span class="o">&lt;-</span> <span class="nx">писмо</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>The <code>pong</code> function accepts one channel for receives
-(<code>pings</code>) and a second for sends (<code>pongs</code>).</p>
+            <p>Функцията <code>понг</code> приема един канал, предназначен само
+за получаване на съобщения по него, наречен <code>пингове</code>,
+и втори – за изпращане, наречен <code>понгове</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">pong</span><span class="p">(</span><span class="nx">pings</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">pongs</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">msg</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">pings</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pongs</span> <span class="o">&lt;-</span> <span class="nx">msg</span>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nx">понг</span><span class="p">(</span><span class="nx">пингове</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">понгове</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">понгове</span> <span class="o">&lt;-</span> <span class="o">&lt;-</span><span class="nx">пингове</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -99,11 +101,11 @@ receive on this channel.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pings</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pongs</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">ping</span><span class="p">(</span><span class="nx">pings</span><span class="p">,</span> <span class="s">&#34;passed message&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">pong</span><span class="p">(</span><span class="nx">pings</span><span class="p">,</span> <span class="nx">pongs</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">pongs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">заполучаване</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">запращане</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">пинг</span><span class="p">(</span><span class="nx">заполучаване</span><span class="p">,</span> <span class="s">&#34;пратка&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">понг</span><span class="p">(</span><span class="nx">заполучаване</span><span class="p">,</span> <span class="nx">запращане</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">запращане</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -119,7 +121,7 @@ receive on this channel.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run channel-directions.go
-</span></span><span class="line"><span class="cl"><span class="go">passed message</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">пратка</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -127,18 +129,18 @@ receive on this channel.</p>
       
       
       <p class="next">
-        Next example: <a href="select" rel="next">Select</a>.
+        Следващ пример: <a href="select" rel="next">Избор на канал (select)</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func ping(pings chan\u003C- string, msg string) {\u000A    pings \u003C- msg\u000A}\u000A');codeLines.push('func pong(pings \u003C-chan string, pongs chan\u003C- string) {\u000A    msg :\u003D \u003C-pings\u000A    pongs \u003C- msg\u000A}\u000A');codeLines.push('func main() {\u000A    pings :\u003D make(chan string, 1)\u000A    pongs :\u003D make(chan string, 1)\u000A    ping(pings, \"passed message\")\u000A    pong(pings, pongs)\u000A    fmt.Println(\u003C-pongs)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('func пинг(пингове chan\u003C- string, писмо string) {\u000A    пингове \u003C- писмо\u000A}\u000A');codeLines.push('func понг(пингове \u003C-chan string, понгове chan\u003C- string) {\u000A    понгове \u003C- \u003C-пингове\u000A}\u000A');codeLines.push('func main() {\u000A    заполучаване :\u003D make(chan string, 1)\u000A    запращане :\u003D make(chan string, 1)\u000A    пинг(заполучаване, \"пратка\")\u000A    понг(заполучаване, запращане)\u000A    fmt.Println(\u003C-запращане)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

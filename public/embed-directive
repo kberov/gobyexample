@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Embed Directive</title>
+    <title>Go в примери: Директивата Embed</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,29 +24,28 @@
   </script>
   <body>
     <div class="example" id="embed-directive">
-      <h2><a href="./">Go by Example</a>: Embed Directive</h2>
+      <h2><a href="./">Go в примери</a>: Директивата Embed</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p><code>//go:embed</code> is a <a href="https://pkg.go.dev/cmd/compile#hdr-Compiler_Directives">compiler
-directive</a> that
-allows programs to include arbitrary files and folders in the Go binary at
-build time. Read more about the embed directive
-<a href="https://pkg.go.dev/embed">here</a>.</p>
+            <p><code>//go:embed</code> (влагам) е директива (указание) за компилатора, която позволява програмите
+да включват в изпълнимия си файл произволни файлове и папки по време на
+изграждането му. Можете да прочетете повече за директивата в документацията ѝ -
+(https://pkg.go.dev/embed).</p>
 
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/6m2ll-D52BB"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/Geg9KHF_wby"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Import the <code>embed</code> package; if you don&rsquo;t use any exported
-identifiers from this package, you can do a blank import with <code>_ &quot;embed&quot;</code>.</p>
+            <p>Внесете пакета <code>embed</code>. Ако не ползвате никакви изнесени имена, можете да
+внесете пакета без името му, като напишете <code>_ &quot;embed&quot;</code>.</p>
 
           </td>
           <td class="code leading">
@@ -59,40 +58,40 @@ identifiers from this package, you can do a blank import with <code>_ &quot;embe
         
         <tr>
           <td class="docs">
-            <p><code>embed</code> directives accept paths relative to the directory containing the
-Go source file. This directive embeds the contents of the file into the
-<code>string</code> variable immediately following it.</p>
+            <p>Указанията за <code>embed</code> приемат относителни пътища спрямо папката, в която се
+намира изходния файл, в който е съответното указание. Следното указание
+влага съдържанието на файла в низовата променлива, обявена веднага под него.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single_file.txt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single.txt
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">fileString</span> <span class="kt">string</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>Or embed the contents of the file into a <code>[]byte</code>.</p>
+            <p>Съдържанието на файла може да се вложи и в променлива от вид <code>[]byte</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single_file.txt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single.txt
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">fileByte</span> <span class="p">[]</span><span class="kt">byte</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>We can also embed multiple files or even folders with wildcards. This uses
-a variable of the <a href="https://pkg.go.dev/embed#FS">embed.FS type</a>, which
-implements a simple virtual file system.</p>
+            <p>Също така можем да вложим множество файлове или цели папки чрез заместващи
+знаци (wildcards). Следнното изявление ползва променлива от вида embed.FS
+(https://pkg.go.dev/embed#FS).</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single_file.txt
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="c1">//go:embed folder/single.txt
 </span></span></span><span class="line"><span class="cl"><span class="c1">//go:embed folder/*.hash
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">folder</span> <span class="nx">embed</span><span class="p">.</span><span class="nx">FS</span></span></span></code></pre>
           </td>
@@ -110,7 +109,7 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Print out the contents of <code>single_file.txt</code>.</p>
+            <p>Извеждаме съдържанието на <code>single.txt</code>.</p>
 
           </td>
           <td class="code leading">
@@ -122,7 +121,7 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Retrieve some files from the embedded folder.</p>
+            <p>Извличаме съдържанието на файлове от вложената папка.</p>
 
           </td>
           <td class="code leading">
@@ -136,10 +135,21 @@ implements a simple virtual file system.</p>
           <td class="docs">
             
           </td>
-          <td class="code">
+          <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">content2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">folder</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;folder/file2.hash&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">content2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">content2</span><span class="p">))</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">content3</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">folder</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;folder/single.txt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">content3</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -150,15 +160,15 @@ implements a simple virtual file system.</p>
         
         <tr>
           <td class="docs">
-            <p>Use these commands to run the example.
-(Note: due to limitation on go playground,
-this example can only be run on your local machine.)</p>
+            <p>Използвайте следните команди за да изпълните примера. (Внимание: поради
+ограниченията на игралната площадка на Го, този пример може да се изпълни
+само на вашето сметало.)</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> mkdir -p folder
-</span></span><span class="line"><span class="cl"><span class="gp">$</span> echo &#34;hello go&#34; &gt; folder/single_file.txt
+</span></span><span class="line"><span class="cl"><span class="gp">$</span> echo &#34;Здрасти, Го.&#34; &gt; folder/single_file.txt
 </span></span><span class="line"><span class="cl"><span class="gp">$</span> echo &#34;123&#34; &gt; folder/file1.hash
 </span></span><span class="line"><span class="cl"><span class="gp">$</span> echo &#34;456&#34; &gt; folder/file2.hash</span></span></code></pre>
           </td>
@@ -171,10 +181,11 @@ this example can only be run on your local machine.)</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run embed-directive.go
-</span></span><span class="line"><span class="cl"><span class="go">hello go
-</span></span></span><span class="line"><span class="cl"><span class="go">hello go
+</span></span><span class="line"><span class="cl"><span class="go">Здрасти, Го.
+</span></span></span><span class="line"><span class="cl"><span class="go">Здрасти, Го.
 </span></span></span><span class="line"><span class="cl"><span class="go">123
-</span></span></span><span class="line"><span class="cl"><span class="go">456</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">456
+</span></span></span><span class="line"><span class="cl"><span class="go">Здрасти, Го.</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -182,18 +193,18 @@ this example can only be run on your local machine.)</p>
       
       
       <p class="next">
-        Next example: <a href="testing-and-benchmarking" rel="next">Testing and Benchmarking</a>.
+        Следващ пример: <a href="testing-and-benchmarking" rel="next">Изпитания и бързодействие (Тестове)</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"embed\"\u000A)\u000A');codeLines.push('//go:embed folder/single_file.txt\u000Avar fileString string\u000A');codeLines.push('//go:embed folder/single_file.txt\u000Avar fileByte []byte\u000A');codeLines.push('//go:embed folder/single_file.txt\u000A//go:embed folder/*.hash\u000Avar folder embed.FS\u000A');codeLines.push('func main() {\u000A');codeLines.push('    print(fileString)\u000A    print(string(fileByte))\u000A');codeLines.push('    content1, _ :\u003D folder.ReadFile(\"folder/file1.hash\")\u000A    print(string(content1))\u000A');codeLines.push('    content2, _ :\u003D folder.ReadFile(\"folder/file2.hash\")\u000A    print(string(content2))\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"embed\"\u000A)\u000A');codeLines.push('//go:embed folder/single.txt\u000Avar fileString string\u000A');codeLines.push('//go:embed folder/single.txt\u000Avar fileByte []byte\u000A');codeLines.push('//go:embed folder/single.txt\u000A//go:embed folder/*.hash\u000Avar folder embed.FS\u000A');codeLines.push('func main() {\u000A');codeLines.push('    print(fileString)\u000A    print(string(fileByte))\u000A');codeLines.push('    content1, _ :\u003D folder.ReadFile(\"folder/file1.hash\")\u000A    print(string(content1))\u000A');codeLines.push('    content2, _ :\u003D folder.ReadFile(\"folder/file2.hash\")\u000A    print(string(content2))\u000A');codeLines.push('    content3, _ :\u003D folder.ReadFile(\"folder/single.txt\")\u000A    print(string(content3))\u000A}\u000A');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

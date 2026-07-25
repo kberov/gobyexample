@@ -1,11 +1,17 @@
-// A Go string is a read-only slice of bytes. The language
-// and the standard library treat strings specially - as
-// containers of text encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).
-// In other languages, strings are made of "characters".
-// In Go, the concept of a character is called a `rune` - it's
-// an integer that represents a Unicode code point.
-// [This Go blog post](https://go.dev/blog/strings) is a good
-// introduction to the topic.
+// Низът в Go е непроменяем отрязък от байтове. Езикът и
+// стандартната му библиотека работят с низовете
+// по-особено – сякаш съдържат текст кодиран в
+// UTF-8[^UTF8]. В други езици низовете са направени от
+// „знаци“. В Го за понятието „знак“ се използва думата
+// руна – `rune`. Руната е цяло число, което представлява
+// кодова точка в таблицата Уникод[^Уникод]. Статията
+// „Низове, байтове, руни и знаци“
+// (https://go.dev/blog/strings) е добро въведение по
+// въпроса. TODO: Да преведа и добавя като приложение към
+// книгата статията https://go.dev/blog/strings
+//
+// [^UTF8]: UTF-8 – https://bg.wikipedia.org/wiki/UTF-8
+// [^Уникод]: Уникод – https://bg.wikipedia.org/wiki/Уникод
 
 package main
 
@@ -16,59 +22,64 @@ import (
 
 func main() {
 
-	// `s` is a `string` assigned a literal value
-	// representing the word "hello" in the Thai
-	// language. Go string literals are UTF-8
-	// encoded text.
+	// `s` е `string`, на който е присвоена буквална
+	// стойност, съдържаща думата „здравей“ на тайски.
+	// Буквалните низови стойности в Go са кодиран в
+	// UTF-8 текст. Това означава, че и изходният
+	// програмен код в Го е такъв текст.
 	const s = "สวัสดี"
 
-	// Since strings are equivalent to `[]byte`, this
-	// will produce the length of the raw bytes stored within.
-	fmt.Println("Len:", len(s))
+	// Тъй като низовете са в същността си `[]byte` –
+	// отрязък от байтове, следното изявление ще изведе
+	// броя на суровите байтове в низа.
+	fmt.Println("дължина в байтове:", len(s))
 
-	// Indexing into a string produces the raw byte values at
-	// each index. This loop generates the hex values of all
-	// the bytes that constitute the code points in `s`.
+	// Ако обходим низа байт по байт по следния начин,
+	// можем да видим шестнадесетичните стойности на
+	// байтовете, от който е съставен низът `s`.
 	for i := 0; i < len(s); i++ {
 		fmt.Printf("%x ", s[i])
 	}
 	fmt.Println()
 
-	// To count how many _runes_ are in a string, we can use
-	// the `utf8` package. Note that the run-time of
-	// `RuneCountInString` depends on the size of the string,
-	// because it has to decode each UTF-8 rune sequentially.
-	// Some Thai characters are represented by UTF-8 code points
-	// that can span multiple bytes, so the result of this count
-	// may be surprising.
-	fmt.Println("Rune count:", utf8.RuneCountInString(s))
+	// За да преброим колко _руни_ (знакове) има в низа,
+	// можем да ползваме пакета `utf8`. Забележете, че
+	// времето за изпълнение на `RuneCountInString` зависи
+	// от размера на низа, защото трябва да се разкодира
+	// от UTF-8 всяка буква (руна) последователно. Някои
+	// знаци в тайски съдържат повече от един байт, когато
+	// са представени с кодови точки в UTF-8. Така е и с
+	// български – буквите ни са съставени от двубайтови
+	// последователности. Така че изходът от следното
+	// преброяване може да ви изненада.
+	fmt.Println("Брой знаци:", utf8.RuneCountInString(s))
 
-	// A `range` loop handles strings specially and decodes
-	// each `rune` along with its offset in the string.
+	// `range` обхожда низовете по особен начин – като
+	// разкодира всеки знак заедно с отстоянието му в низа
+	// – мястото на байта, от който започва знака.
 	for idx, runeValue := range s {
-		fmt.Printf("%#U starts at %d\n", runeValue, idx)
+		fmt.Printf("%#U започва от %d\n", runeValue, idx)
 	}
 
-	// We can achieve the same iteration by using the
-	// `utf8.DecodeRuneInString` function explicitly.
-	fmt.Println("\nUsing DecodeRuneInString")
+	// Можем да постигнем същото, като използваме функцията `utf8.DecodeRuneInString` изрично.
+	fmt.Println("\nИзползваме DecodeRuneInString")
 	for i, w := 0, 0; i < len(s); i += w {
 		runeValue, width := utf8.DecodeRuneInString(s[i:])
-		fmt.Printf("%#U starts at %d\n", runeValue, i)
+		fmt.Printf("%#U започва от %d\n", runeValue, i)
 		w = width
 
-		// This demonstrates passing a `rune` value to a function.
+		// Тук показваме подаването на стойност от вид
+		// `rune` на функция.
 		examineRune(runeValue)
 	}
 }
 
 func examineRune(r rune) {
 
-	// Values enclosed in single quotes are _rune literals_. We
-	// can compare a `rune` value to a rune literal directly.
+	// Оградените в единични кавички стойности са _буквална стойност на руна_. Можем да сравним стойност от вида руна с буквална таква стойност направо.
 	if r == 't' {
-		fmt.Println("found tee")
+		fmt.Println("намерих U+0074 LATIN SMALL LETTER T")
 	} else if r == 'ส' {
-		fmt.Println("found so sua")
+		fmt.Println("намерих U+0E2A THAI CHARACTER SO SUA")
 	}
 }

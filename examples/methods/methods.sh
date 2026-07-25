@@ -1,8 +1,8 @@
-$ go run methods.go 
-area:  50
-perim: 30
+$ go run methods.go
+площ:  50
+обиколка: 30
 area:  50
 perim: 30
 
-# Next we'll look at Go's mechanism for grouping and
-# naming related sets of methods: interfaces.
+# В следващия пример ще разгледаме как в Го се групират набори от методи за да определим _взаимодействия_[^interfaces].
+# [^interfaces]: interfaces – взаимодействия, интерфейси

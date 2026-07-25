@@ -1,9 +1,10 @@
-# To try out our line filter, first make a file with a few
-# lowercase lines.
-$ echo 'hello'   > /tmp/lines
-$ echo 'filter' >> /tmp/lines
+# За да пробваме нашия редовѝ филтър, първо ще създадем файл с няколко реда с
+# малки букви.
+$ echo 'здрасти'   > /tmp/редове
+$ echo 'цедко' >> /tmp/редове
 
-# Then use the line filter to get uppercase lines.
-$ cat /tmp/lines | go run line-filters.go
-HELLO
-FILTER
+# После ползваме филтъра, за да изведем редовете, обърнати в главни букви.
+$ cat /tmp/редове | go run line-filters.go 
+ЗДРАСТИ
+ЦЕДКО
+

@@ -1,11 +1,9 @@
-# Run the server in the background.
+# Пускаме сървъра на заден план.
 $ go run context.go &
 
-# Simulate a client request to `/hello`, hitting
-# Ctrl+C shortly after starting to signal
-# cancellation.
+# Правим заявка към `/hello` и малко след това натискаме Ctrl+C, и така
+# обозначаваме отказ от заявката.
 $ curl localhost:8090/hello
-server: hello handler started
-^C
-server: context canceled
-server: hello handler ended
+сървър: пуснахме обработчика 'здрасти'.
+^Cсървър: context canceled
+сървър: спряхме обработчика 'здрасти'.

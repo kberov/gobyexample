@@ -1,60 +1,64 @@
-// _Closing_ a channel indicates that no more values
-// will be sent on it. This can be useful to communicate
-// completion to the channel's receivers.
+// Като затворим канал указваме, че няма да изпращаме
+// повече стойности по него. Така уведомяваме получателите
+// по този канал, че сме приключили.
 
 package main
 
 import "fmt"
 
-// In this example we'll use a `jobs` channel to
-// communicate work to be done from the `main()` goroutine
-// to a worker goroutine. When we have no more jobs for
-// the worker we'll `close` the `jobs` channel.
+// В този пример ще използваме канала `задачки`, за да
+// съобщим от гозадачата `main()` каква работа има за
+// вършене на друга гозадача – работник. Когато нямаме
+// повече задачки за работника, ще затворим канала
+// `задачки`, с помощта на вградената функция `close`.
 func main() {
-	jobs := make(chan int, 5)
-	done := make(chan bool)
+	задачки := make(chan int, 5)
+	готово := make(chan bool)
 
-	// Here's the worker goroutine. It repeatedly receives
-	// from `jobs` with `j, more := <-jobs`. In this
-	// special 2-value form of receive, the `more` value
-	// will be `false` if `jobs` has been `close`d and all
-	// values in the channel have already been received.
-	// We use this to notify on `done` when we've worked
-	// all our jobs.
+	// Ето я гозадачата работник. Тя получава многократно
+	// съобщения по канала `задачки` чрез изявлението `з,
+	// още := <-задачки`. При този особен вид получаване с
+	// две стойности, стойността в променливата `още` ще
+	// бъде `false`, ако каналът `задачки` е затворен и
+	// всички стойности от канала вече са получени.
+	// Използваме този прийом, за да уведомим главната
+	// гозадача по канала `готово`, че сме обработили
+	// всички задачки.
 	go func() {
 		for {
-			j, more := <-jobs
-			if more {
-				fmt.Println("received job", j)
+			з, още := <-задачки
+			if още {
+				fmt.Println("получих задачка", з)
 			} else {
-				fmt.Println("received all jobs")
-				done <- true
+				fmt.Println("получих всички задачки")
+				готово <- true
 				return
 			}
 		}
 	}()
 
-	// This sends 3 jobs to the worker over the `jobs`
-	// channel, then closes it.
-	for j := 1; j <= 3; j++ {
-		jobs <- j
-		fmt.Println("sent job", j)
+	// Чрез това повторение изпращаме три задачки по
+	// канала `задачки` и след това го затваряме.
+	for з := 1; з <= 3; з++ {
+		задачки <- з
+		fmt.Println("изпратена задачка", з)
 	}
-	close(jobs)
-	fmt.Println("sent all jobs")
+	close(задачки)
+	fmt.Println("изпратени са всичи задачки")
 
-	// We await the worker using the
-	// [synchronization](channel-synchronization) approach
-	// we saw earlier.
-	<-done
+	// Чакаме работника с помощта на канала за
+	// [съгласуване](channel-synchronization)[^synchro].
+	// Този способ за съгласуване го разгледахме вече.
+	// [^synchro]: synchronization – съгласуване
+	<-готово
 
-	// Reading from a closed channel succeeds immediately,
-	// returning the zero value of the underlying type.
-	// The optional second return value is `true` if the
-	// value received was delivered by a successful send
-	// operation to the channel, or `false` if it was a
-	// zero value generated because the channel is closed
-	// and empty.
-	_, ok := <-jobs
-	fmt.Println("received more jobs:", ok)
+	// Четенето от затворен канал успява незабавно, като
+	// връща нулевата стойност на основния вид данни за
+	// този канал. Незадължителната втора върната стойност
+	// е `true`, ако получената стойност е доставена чрез
+	// успешно действие за изпращане по канала, или
+	// `false`, ако получената нулева стойност е такава,
+	// защото каналът е вече затворен и празен.
+	оз, имаОще := <-задачки
+	fmt.Println("има още задачки:", оз, имаОще)
 }

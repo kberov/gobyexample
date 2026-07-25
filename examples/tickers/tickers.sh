@@ -1,7 +1,6 @@
-# When we run this program the ticker should tick 3 times
-# before we stop it.
+# Когато пуснем тази програма, часовника ще цъкне три пъти преди да го спрем.
 $ go run tickers.go
-Tick at 2012-09-23 11:29:56.487625 -0700 PDT
-Tick at 2012-09-23 11:29:56.988063 -0700 PDT
-Tick at 2012-09-23 11:29:57.488076 -0700 PDT
-Ticker stopped
+Цък в 13:35:01.620
+Цък в 13:35:02.120
+Цък в 13:35:02.620
+Спряхме часовника в 13:35:02.721

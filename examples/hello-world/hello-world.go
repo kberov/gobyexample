@@ -1,9 +1,11 @@
-// Our first program will print the classic "hello world"
-// message. Here's the full source code.
+// Нашата първа програма ще покаже съобщението „Здравей,
+// Свят” в терминала. С други думи, ще го отпечати. Ето
+// пълния изходен код.
+
 package main
 
 import "fmt"
 
 func main() {
-	fmt.Println("hello world")
+	fmt.Println("Здравей, Свят")
 }

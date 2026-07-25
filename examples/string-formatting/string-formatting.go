@@ -1,6 +1,7 @@
-// Go offers excellent support for string formatting in
-// the `printf` tradition. Here are some examples of
-// common string formatting tasks.
+// Го предлага превъзходна поддръжка за _задаване
+// изгледа_[^format] на низове в духа на `printf` от езика
+// C. Ето някои примери на чести такива задачи.
+// [^format]: formatting – задаване изгледа, външния вид на различни видове данни; форматиране. От др. гръцки морф ( вж. Морфей). Навлязло в употреба при сметалата около 1955 г.
 
 package main
 
@@ -15,96 +16,125 @@ type point struct {
 
 func main() {
 
-	// Go offers several printing "verbs" designed to
-	// format general Go values. For example, this prints
-	// an instance of our `point` struct.
+	// Го предлага няколко печaтащи „глагола“, изобретени
+	// за задаване на изгледа на стойности. Например
+	// следното извежда стойността на структурата `point`.
 	p := point{1, 2}
-	fmt.Printf("struct1: %v\n", p)
+	fmt.Printf("строй 1: %v\n", p)
 
-	// If the value is a struct, the `%+v` variant will
-	// include the struct's field names.
-	fmt.Printf("struct2: %+v\n", p)
+	// Ако стойността е структура, разновидността `%+v` ще
+	// включи и имената на полетата.
+	fmt.Printf("строй 2: %+v\n", p)
 
-	// The `%#v` variant prints a Go syntax representation
-	// of the value, i.e. the source code snippet that
-	// would produce that value.
-	fmt.Printf("struct3: %#v\n", p)
+	// Разновидността `%#v`  отпечатва стойността,
+	// представена с правописа на Го, сиреч, изходният
+	// код, който би произвел тази стойност.
+	fmt.Printf("строй 3: %#v\n", p)
 
-	// To print the type of a value, use `%T`.
-	fmt.Printf("type: %T\n", p)
+	// За да отпечатим вида данни на тази стойност,
+	// ползваме `%T`.
+	fmt.Printf("вид: %T\n", p)
 
-	// Formatting booleans is straight-forward.
+	// Булевите стойности се показват така.
 	fmt.Printf("bool: %t\n", true)
 
-	// There are many options for formatting integers.
-	// Use `%d` for standard, base-10 formatting.
-	fmt.Printf("int: %d\n", 123)
+	// Има много възможности за задаване изгледа на цели
+	// числа. Използвайте глагола `%d`, за да покажете
+	// числата като десетични, независимо как сте ги
+	// записали (или са) в изходния код.
+	fmt.Printf("int: %d\n", 1133)
+	fmt.Printf("int: %d\n", 02155)
+	fmt.Printf("int: %d\n", 0x046D)
+	fmt.Printf("int: %d\n", 0b10001101101)
 
-	// This prints a binary representation.
-	fmt.Printf("bin: %b\n", 14)
+	// `%b` ни дава двоично представяне.
+	fmt.Printf("bin: %b\n", 1133)
+	// `%o` ни дава осмично представяне.
+	fmt.Printf("oct: %o\n", 14)
+	fmt.Printf("oct: %o\n", 1133)
 
-	// This prints the character corresponding to the
-	// given integer.
-	fmt.Printf("char: %c\n", 33)
+	// Глаголът `%c` дава знака, съответстващ на
+	// подаденото цяло число, независимо от представянето
+	// му в изходния код.
+	fmt.Printf("знак: %c\n", 1133)          // ѭ
+	fmt.Printf("знак: %c\n", 02155)         // ѭ
+	fmt.Printf("знак: %c\n", 0x046D)        // ѭ
+	fmt.Printf("char: %c\n", 0b10001101101) // ѭ
 
-	// `%x` provides hex encoding.
-	fmt.Printf("hex: %x\n", 456)
+	// `%x` ни показва числото, кодирано като
+	// шестнадесетично, независимо от представянето му в
+	// изходния код.
+	fmt.Printf("hex: %x\n", 1133)
+	fmt.Printf("hex: %x\n", 0x046D)
+	fmt.Printf("hex: %x\n", 0b10001101101)
 
-	// There are also several formatting options for
-	// floats. For basic decimal formatting use `%f`.
+	// Има също няколко възможности за задаванае на
+	// изгледа на числа с плаваща запетая. За показване
+	// като число с основа десет, ползвайте `%f`.
 	fmt.Printf("float1: %f\n", 78.9)
 
-	// `%e` and `%E` format the float in (slightly
-	// different versions of) scientific notation.
+	// `%e` и `%E` представят десетичната дроб в леко
+	// различаващи се разновидности на научно означаване.
 	fmt.Printf("float2: %e\n", 123400000.0)
 	fmt.Printf("float3: %E\n", 123400000.0)
 
-	// For basic string printing use `%s`.
-	fmt.Printf("str1: %s\n", "\"string\"")
+	// За обикновено отпечатване на низове, ползвайте `%s`.
+	fmt.Printf("str1: %s\n", "низ")
 
-	// To double-quote strings as in Go source, use `%q`.
-	fmt.Printf("str2: %q\n", "\"string\"")
+	// За ограждане на низ с двойни кавички както в
+	// изходния код на Го, ползвайте `%q`.
+	fmt.Printf("str2: %q\n", `"низ"`)
 
-	// As with integers seen earlier, `%x` renders
-	// the string in base-16, with two output characters
-	// per byte of input.
-	fmt.Printf("str3: %x\n", "hex this")
+	// Както при целите числа по-горе, `%x` представя низа
+	// като последователност от двуцифрени шестнадесетични
+	// числа за всеки входен байт[^utf8].
+	// [^utf8]: Това е малък йотуван юс, в UTF-8 (както е кодиран изходния код на програмите на Го), като всеки байт е представен като шестнадесетично двуцифрено число.
+	fmt.Printf("str3: %x\n", "ѭ")
+	//  Същият знак, от байтове към низ.
+	fmt.Println(`d1ad:`, string([]byte{0xd1, 0xad}))
 
-	// To print a representation of a pointer, use `%p`.
+	// За да представите указател, ползвайте `%p`.
 	fmt.Printf("pointer: %p\n", &p)
 
-	// When formatting numbers you will often want to
-	// control the width and precision of the resulting
-	// figure. To specify the width of an integer, use a
-	// number after the `%` in the verb. By default the
-	// result will be right-justified and padded with
-	// spaces.
-	fmt.Printf("width1: |%6d|%6d|\n", 12, 345)
+	// Когато представяте числа, често ще искате да
+	// управлявате ширината и знаците след точката. За да
+	// укажете заеманата ширина в знаци, в глагола
+	// използвайте цяло
+	// число след `%`. По подразбиране изходът е равнѐн
+	// вдясно и предхождан от празноти.
+	fmt.Printf("width1: |%6d|%6d|\n", 12, 12345)
 
-	// You can also specify the width of printed floats,
-	// though usually you'll also want to restrict the
-	// decimal precision at the same time with the
-	// width.precision syntax.
-	fmt.Printf("width2: |%6.2f|%6.2f|\n", 1.2, 3.45)
+	// Можете да указвате заеманата ширина в знаци и за
+	// десетични дроби, но ще искате да укажете и броя
+	// знаци след десетичната запетая (точката).
+	// Правописът е _ширина_._точност_f.
+	// Забележете, че числото бива закръглено автоматично,
+	// а не просто отрязано.
+	fmt.Printf("width2: |%6.2f|%6.2f|\n", 1.2, 3.456)
+	fmt.Printf("width2: |%6.2f|%6.2f|\n", 12.21, 3.455)
+	fmt.Printf("width2: |%6.2f|%6.2f|\n", 123.233, 3.454)
 
-	// To left-justify, use the `-` flag.
+	// За да равните вляво, използвайте знамето `-`.
 	fmt.Printf("width3: |%-6.2f|%-6.2f|\n", 1.2, 3.45)
 
-	// You may also want to control width when formatting
-	// strings, especially to ensure that they align in
-	// table-like output. For basic right-justified width.
-	fmt.Printf("width4: |%6s|%6s|\n", "foo", "b")
+	// Може би искате да управлявате заеманата ширина в знаци,
+	// когато задавате изглед на низове, особено в
+	// табличен вид. Ето дясно равнен изглед с ширина шест
+	// знака.
+	fmt.Printf("width4: |%6s|%6s|\n", "пѫт", "молѭ")
 
-	// To left-justify use the `-` flag as with numbers.
+	// За да равните вляво, ползвайте знамето `-`, както с
+	// числата.
 	fmt.Printf("width5: |%-6s|%-6s|\n", "foo", "b")
 
-	// So far we've seen `Printf`, which prints the
-	// formatted string to `os.Stdout`. `Sprintf` formats
-	// and returns a string without printing it anywhere.
-	s := fmt.Sprintf("sprintf: a %s", "string")
+	// Дотук видяхме `Printf`, която задава изглед и
+	// пише в `os.Stdout`. `Sprintf` задава изгледа и
+	// връща низа, без да го пише никъде.
+	s := fmt.Sprintf("sprintf: %s", "наниз")
 	fmt.Println(s)
 
-	// You can format+print to `io.Writers` other than
-	// `os.Stdout` using `Fprintf`.
-	fmt.Fprintf(os.Stderr, "io: an %s\n", "error")
+	// Можете да задавате изглед и да пишете и в други обекти,
+	// осъществяващи взаимодействието `io.Writer`, а не
+	// само в `os.Stdout` с помощта на `Fprintf`.
+	fmt.Fprintf(os.Stderr, "изход: %s\n", "грешка")
 }

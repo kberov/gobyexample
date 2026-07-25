@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: URL Parsing</title>
+    <title>Go в примери: Разбор на URL</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,28 +24,32 @@
   </script>
   <body>
     <div class="example" id="url-parsing">
-      <h2><a href="./">Go by Example</a>: URL Parsing</h2>
+      <h2><a href="./">Go в примери</a>: Разбор на URL</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>URLs provide a <a href="https://adam.herokuapp.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/">uniform way to locate resources</a>.
-Here&rsquo;s how to parse URLs in Go.</p>
+            <p>Местонахожденията в световната мрежа, т.нар. URL<sup class="footnote-ref" id="fnref:URL"><a href="#fn:URL">1</a></sup>,
+представляват еднѡбразен начин за указване мястото на
+първоизточници за данни. Ето как да
+<em>разпределяме</em><sup class="footnote-ref" id="fnref:parse"><a href="#fn:parse">2</a></sup> в структура първоизточници в Го.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:URL">URL – Uniform Resourse Locator – Единен (уеднаквен, еднообразен) Указател за Източник (на данни) ЕУИ – https://bg.wikipedia.org/wiki/Унифициран_локатор_на_ресурси, https://adam.herokuapp.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/, за по-кратко <em>изто̀чник</em></li>
+
+<li id="fn:parse">parse – (в случая) разпределям (откритите стойности в отделни полета в структура)</li>
+</ol>
+
+</div>
 
           </td>
-          <td class="code empty leading">
-            
-          
-          </td>
-        </tr>
-        
-        <tr>
-          <td class="docs">
-            
-          </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/fHTQn9X7l1B"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/-lk6AH7NWyf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -76,9 +80,31 @@ Here&rsquo;s how to parse URLs in Go.</p>
         
         <tr>
           <td class="docs">
-            <p>We&rsquo;ll parse this example URL, which includes a
-scheme, authentication info, host, port, path,
-query params, and query fragment.</p>
+            <p>Ще разпределим този примерен <em>изто̀чник</em>.
+Частите му включват <em>схема</em>,
+<em>достоверnости</em><sup class="footnote-ref" id="fnref:auth"><a href="#fn:auth">1</a></sup>, гостоприемник (хост),
+порт<sup class="footnote-ref" id="fnref:port"><a href="#fn:port">2</a></sup>, път, податки за заявката, и <em>откъс от
+заявката</em><sup class="footnote-ref" id="fnref:frag"><a href="#fn:frag">3</a></sup>.</p>
+
+<p>Следният изто̀чник не може да бъде разпределен
+просто защото стандартът приема само знаци от
+знаковата таблица ASCII.
+<code>s :=
+&quot;схема://потребител:тайна@гостоприемник.com:5432/пѫт?ключ=стойност#откъс&quot;</code></p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:auth">authentication info – достоверности – данни за удостоверяване на потребител</li>
+
+<li id="fn:port">port – буквално порта, врата, двери, https://bg.wikipedia.org/wiki/Мрежов_порт</li>
+
+<li id="fn:frag">query fragment – откъс (на заявката) – указател към място в изто̀чника, чието име е след знака #</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -89,7 +115,7 @@ query params, and query fragment.</p>
         
         <tr>
           <td class="docs">
-            <p>Parse the URL and ensure there are no errors.</p>
+            <p>Разпределяме изто̀чника и проверяваме за грешка.</p>
 
           </td>
           <td class="code leading">
@@ -103,7 +129,7 @@ query params, and query fragment.</p>
         
         <tr>
           <td class="docs">
-            <p>Accessing the scheme is straightforward.</p>
+            <p>Достъпът до схемата е лесен.</p>
 
           </td>
           <td class="code leading">
@@ -114,9 +140,10 @@ query params, and query fragment.</p>
         
         <tr>
           <td class="docs">
-            <p><code>User</code> contains all authentication info; call
-<code>Username</code> and <code>Password</code> on this for individual
-values.</p>
+            <p>Полето <code>User</code> съдържа всички данни за
+удостоверяване. Извикайте неговите методи
+<code>Username</code> и <code>Password</code>, за да вземете отделните
+стойности.</p>
 
           </td>
           <td class="code leading">
@@ -130,8 +157,9 @@ values.</p>
         
         <tr>
           <td class="docs">
-            <p>The <code>Host</code> contains both the hostname and the port,
-if present. Use <code>SplitHostPort</code> to extract them.</p>
+            <p>Полето <code>Host</code> съдържа името на хоста и порта, ако
+има такъв. Изполвайте метода <code>SplitHostPort</code>, за да
+ги извлечете.</p>
 
           </td>
           <td class="code leading">
@@ -145,8 +173,7 @@ if present. Use <code>SplitHostPort</code> to extract them.</p>
         
         <tr>
           <td class="docs">
-            <p>Here we extract the <code>path</code> and the fragment after
-the <code>#</code>.</p>
+            <p>Тук извличаме пътя – <code>path</code> и откъса след знака <code>#</code>.</p>
 
           </td>
           <td class="code leading">
@@ -158,11 +185,14 @@ the <code>#</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>To get query params in a string of <code>k=v</code> format,
-use <code>RawQuery</code>. You can also parse query params
-into a map. The parsed query param maps are from
-strings to slices of strings, so index into <code>[0]</code>
-if you only want the first value.</p>
+            <p>За да вземете податките към заявката от низ във
+вида <code>k=v</code>, използвайте полето <code>RawQuery</code>. Можете
+също да разпределите податките към заявката
+в карта. Разпределените в карта податки се състоят
+от съответствия между ключове – низове към
+стойности – отрязъци от низове, така че, за да
+вземете само една (първата) стойност, трябва да
+укажете нулевия член.</p>
 
           </td>
           <td class="code">
@@ -181,13 +211,13 @@ if you only want the first value.</p>
         
         <tr>
           <td class="docs">
-            <p>Running our URL parsing program shows all the different
-pieces that we extracted.</p>
-
+            
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run url-parsing.go 
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">Ако пуснем програмата разпределител на изто̀чник, ще видим
+</span></span></span><span class="line"><span class="cl"><span class="go">извлечените съставни части.
+</span></span></span><span class="line"><span class="cl"><span class="go"></span><span class="gp">$</span> go run url-parsing.go 
 </span></span><span class="line"><span class="cl"><span class="go">postgres
 </span></span></span><span class="line"><span class="cl"><span class="go">user:pass
 </span></span></span><span class="line"><span class="cl"><span class="go">user
@@ -207,18 +237,18 @@ pieces that we extracted.</p>
       
       
       <p class="next">
-        Next example: <a href="sha256-hashes" rel="next">SHA256 Hashes</a>.
+        Следващ пример: <a href="sha256-hashes" rel="next">Хешове от вида SHA256</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net\"\u000A    \"net/url\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    s :\u003D \"postgres://user:pass@host.com:5432/path?k\u003Dv#f\"\u000A');codeLines.push('    u, err :\u003D url.Parse(s)\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A');codeLines.push('    fmt.Println(u.Scheme)\u000A');codeLines.push('    fmt.Println(u.User)\u000A    fmt.Println(u.User.Username())\u000A    p, _ :\u003D u.User.Password()\u000A    fmt.Println(p)\u000A');codeLines.push('    fmt.Println(u.Host)\u000A    host, port, _ :\u003D net.SplitHostPort(u.Host)\u000A    fmt.Println(host)\u000A    fmt.Println(port)\u000A');codeLines.push('    fmt.Println(u.Path)\u000A    fmt.Println(u.Fragment)\u000A');codeLines.push('    fmt.Println(u.RawQuery)\u000A    m, _ :\u003D url.ParseQuery(u.RawQuery)\u000A    fmt.Println(m)\u000A    fmt.Println(m[\"k\"][0])\u000A}\u000A');codeLines.push('');
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net\"\u000A    \"net/url\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    s :\u003D \"postgres://user:pass@host.com:5432/path?k\u003Dv#f\"\u000A');codeLines.push('    u, err :\u003D url.Parse(s)\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A');codeLines.push('    fmt.Println(u.Scheme)\u000A');codeLines.push('    fmt.Println(u.User)\u000A    fmt.Println(u.User.Username())\u000A    p, _ :\u003D u.User.Password()\u000A    fmt.Println(p)\u000A');codeLines.push('    fmt.Println(u.Host)\u000A    host, port, _ :\u003D net.SplitHostPort(u.Host)\u000A    fmt.Println(host)\u000A    fmt.Println(port)\u000A');codeLines.push('    fmt.Println(u.Path)\u000A    fmt.Println(u.Fragment)\u000A');codeLines.push('    fmt.Println(u.RawQuery)\u000A    m, _ :\u003D url.ParseQuery(u.RawQuery)\u000A    fmt.Println(m)\u000A    fmt.Println(m[\"k\"][0])\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

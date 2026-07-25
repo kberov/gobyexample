@@ -1,11 +1,10 @@
-// A _line filter_ is a common type of program that reads
-// input on stdin, processes it, and then prints some
-// derived result to stdout. `grep` and `sed` are common
-// line filters.
+// _Редовѝ филтър_ е често срещан вид програма, която чете данни от
+// стандартния вход, обработва го и после извежда произведеното на
+// стандартния изход. `grep` и `sed` са такива редовѝ филтри.
 
-// Here's an example line filter in Go that writes a
-// capitalized version of all input text. You can use this
-// pattern to write your own Go line filters.
+// Ето примерен редовѝ филтър на Го, който извежда на екрана въведения
+// словоплет, но с всички букви, превърнати в главни. Можете да ползвате този
+// подход за писане на ваши собствени редовѝ филтри.
 package main
 
 import (
@@ -17,23 +16,23 @@ import (
 
 func main() {
 
-	// Wrapping the unbuffered `os.Stdin` with a buffered
-	// scanner gives us a convenient `Scan` method that
-	// advances the scanner to the next token; which is
-	// the next line in the default scanner.
+	// Като обгърнем нескладиращия поток `os.Stdin` със складиращ скенер,
+	// придобиваме удобен метод `Scan`, който премества скенера до следващ
+	// белег (token), който по подразбиране е знакът за нов ред.
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for scanner.Scan() {
-		// `Text` returns the current token, here the next line,
-		// from the input.
+		// `Text` връща събраното до белега при последното извикване на `Scan`.
+		// В случая това е следващият ред от каквото е въвел потребителят и
+		// накрая е натиснал `Enter/Return/↵`
 		ucl := strings.ToUpper(scanner.Text())
 
-		// Write out the uppercased line.
+		// Извеждаме обърнтия в главни букви ред.
 		fmt.Println(ucl)
 	}
 
-	// Check for errors during `Scan`. End of file is
-	// expected and not reported by `Scan` as an error.
+	// Проверяваме за грешки при сканирането. Грешката „Край на файл” е
+	// очаквана и не с докладва от `Scan` като грешка.
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)

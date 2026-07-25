@@ -1,16 +1,19 @@
-# The spawned programs return output that is the same
-# as if we had run them directly from the command-line.
+# Пуснатите програми връщат изход както ако бихме ги били пуснали направо на
+# командния ред.
 $ go run spawning-processes.go 
 > date
-Thu 05 May 2022 10:10:12 PM PDT
+17.06.2026 (ср)  0:40:32 EEST
 
-# date doesn't have a `-x` flag so it will exit with
-# an error message and non-zero return code.
-command exited with rc = 1
+# `date` не приема флаг `-x`, така че ще приключи с ненулев изходен код, което
+# означава грешка.
+Код на изхода = 1
 > grep hello
 hello grep
 
 > ls -a -l -h
-drwxr-xr-x  4 mark 136B Oct 3 16:29 .
-drwxr-xr-x 91 mark 3.0K Oct 3 12:50 ..
--rw-r--r--  1 mark 1.3K Oct 3 16:28 spawning-processes.go
+общо 24K
+drwxr-xr-x  2 berov berov 4,0K 17 юни 00:37 .
+drwxr-xr-x 87 berov berov 4,0K 17 яну 14:27 ..
+-rw-rw-r--  1 berov berov 4,7K 17 юни 00:37 spawning-processes.go
+-rw-rw-r--  1 berov berov   53 15 юни 23:32 spawning-processes.hash
+-rw-rw-r--  1 berov berov  481 20 май 01:41 spawning-processes.sh

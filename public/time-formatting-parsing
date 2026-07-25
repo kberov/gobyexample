@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Time Formatting / Parsing</title>
+    <title>Go в примери: Разбор и показване на Time</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,24 @@
   </script>
   <body>
     <div class="example" id="time-formatting-parsing">
-      <h2><a href="./">Go by Example</a>: Time Formatting / Parsing</h2>
+      <h2><a href="./">Go в примери</a>: Разбор и показване на Time</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Go supports time formatting and parsing via
-pattern-based layouts.</p>
+            <p>Го поддържа задаване на изглед и разбор на време чрез
+примерни<sup class="footnote-ref" id="fnref:pattern"><a href="#fn:pattern">1</a></sup> изгледи.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:pattern">pattern – образец, пример, еталон, мостра</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -45,7 +55,7 @@ pattern-based layouts.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/BoZYtr_2j66"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/iKd1wrqDdNh"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -76,10 +86,30 @@ pattern-based layouts.</p>
         
         <tr>
           <td class="docs">
-            <p>Here&rsquo;s a basic example of formatting a time
-according to RFC3339, using the corresponding layout
-constant.</p>
+            <p>Ето основен пример за задаване формат на време
+според RFC3339<sup class="footnote-ref" id="fnref:rfc"><a href="#fn:rfc">1</a></sup> с помощта на съответната
+непроменлива примерна стойност.</p>
 
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:rfc">RFC - Request For Comment. IETF интернет стандарт RFC 3339, основан на ISO 8601 – международен стандарт за обмен на дати и данни за време.</li>
+</ol>
+
+</div>
+
+          </td>
+          <td class="code empty leading">
+            
+          
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
           </td>
           <td class="code leading">
             
@@ -90,27 +120,33 @@ constant.</p>
         
         <tr>
           <td class="docs">
-            <p>Time parsing uses the same layout values as <code>Format</code>.</p>
+            <p>При разбор на време от подаден низ, същите примерни
+стойности биват ползвани за задаване на очакван
+изглед (формат).</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">t1</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s">&#34;2012-11-01T22:08:41+00:00&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;2026-03-10T21:26:41+02:00&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">p</span><span class="p">(</span><span class="nx">t1</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p><code>Format</code> and <code>Parse</code> use example-based layouts. Usually
-you&rsquo;ll use a constant from <code>time</code> for these layouts, but
-you can also supply custom layouts. Layouts must use the
-reference time <code>Mon Jan 2 15:04:05 MST 2006</code> to show the
-pattern with which to format/parse a given time/string.
-The example time must be exactly as shown: the year 2006,
-15 for the hour, Monday for the day of the week, etc.</p>
+            <p>Методите <code>Format</code> и <code>Parse</code> използват изложения,
+основани на примери. За задаване на тези изложения
+обикновено се ползва непроменлива стойност от
+пакета <code>time</code>, но можете да подавата и ваши,
+потребителски изложения. Изложенията трябва
+задължително да са някаква разновидност на
+примерното време <code>Mon Jan 2 15:04:05 MST 2006</code>, за
+да укажат образеца, който да се ползва при разбор
+от низ или извеждане на време. Примерът трябва да е
+точно това време – 2006 за година, 15 за час,
+Monday за деня от седмицата и т.н.</p>
 
           </td>
           <td class="code leading">
@@ -126,9 +162,10 @@ The example time must be exactly as shown: the year 2006,
         
         <tr>
           <td class="docs">
-            <p>For purely numeric representations you can also
-use standard string formatting with the extracted
-components of the time value.</p>
+            <p>При чисто числово представяне можете да ползвате
+обикновено извеждане чрез задаване на изглед на
+стойностите в низ като прилагате глаголи върху
+съответните съставни части от времевата стойност.</p>
 
           </td>
           <td class="code leading">
@@ -141,8 +178,10 @@ components of the time value.</p>
         
         <tr>
           <td class="docs">
-            <p><code>Parse</code> will return an error on malformed input
-explaining the parsing problem.</p>
+            <p>Методът <code>Parse</code> ще върне грешка за развален вход и
+ще обясни каква е причината за грешката. (В този
+случай денят от седмицата няма как да бъде
+разпознат в подаденото време &ldquo;8:41PM&rdquo;)</p>
 
           </td>
           <td class="code">
@@ -165,14 +204,14 @@ explaining the parsing problem.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run time-formatting-parsing.go 
-</span></span><span class="line"><span class="cl"><span class="go">2014-04-15T18:00:15-07:00
-</span></span></span><span class="line"><span class="cl"><span class="go">2012-11-01 22:08:41 +0000 +0000
-</span></span></span><span class="line"><span class="cl"><span class="go">6:00PM
-</span></span></span><span class="line"><span class="cl"><span class="go">Tue Apr 15 18:00:15 2014
-</span></span></span><span class="line"><span class="cl"><span class="go">2014-04-15T18:00:15.161182-07:00
+</span></span><span class="line"><span class="cl"><span class="go">2026-03-10T21:46:15+02:00
+</span></span></span><span class="line"><span class="cl"><span class="go">2026-03-10 21:26:41 +0200 EET
+</span></span></span><span class="line"><span class="cl"><span class="go">9:46PM
+</span></span></span><span class="line"><span class="cl"><span class="go">Tue Mar 10 21:46:15 2026
+</span></span></span><span class="line"><span class="cl"><span class="go">2026-03-10T21:46:15.367028+02:00
 </span></span></span><span class="line"><span class="cl"><span class="go">0000-01-01 20:41:00 +0000 UTC
-</span></span></span><span class="line"><span class="cl"><span class="go">2014-04-15T18:00:15-00:00
-</span></span></span><span class="line"><span class="cl"><span class="go">parsing time &#34;8:41PM&#34; as &#34;Mon Jan _2 15:04:05 2006&#34;: ...</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="go">2026-03-10T21:46:15-00:00
+</span></span></span><span class="line"><span class="cl"><span class="go">parsing time &#34;8:41PM&#34; as &#34;Mon Jan _2 15:04:05 2006&#34;: cannot parse &#34;8:41PM&#34; as &#34;Mon&#34;</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -180,18 +219,18 @@ explaining the parsing problem.</p>
       
       
       <p class="next">
-        Next example: <a href="random-numbers" rel="next">Random Numbers</a>.
+        Следващ пример: <a href="random-numbers" rel="next">Случайни числа</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A    p :\u003D fmt.Println\u000A');codeLines.push('    t :\u003D time.Now()\u000A    p(t.Format(time.RFC3339))\u000A');codeLines.push('    t1, e :\u003D time.Parse(\u000A        time.RFC3339,\u000A        \"2012-11-01T22:08:41+00:00\")\u000A    p(t1)\u000A');codeLines.push('    p(t.Format(\"3:04PM\"))\u000A    p(t.Format(\"Mon Jan _2 15:04:05 2006\"))\u000A    p(t.Format(\"2006-01-02T15:04:05.999999-07:00\"))\u000A    form :\u003D \"3 04 PM\"\u000A    t2, e :\u003D time.Parse(form, \"8 41 PM\")\u000A    p(t2)\u000A');codeLines.push('    fmt.Printf(\"%d-%02d-%02dT%02d:%02d:%02d-00:00\\n\",\u000A        t.Year(), t.Month(), t.Day(),\u000A        t.Hour(), t.Minute(), t.Second())\u000A');codeLines.push('    ansic :\u003D \"Mon Jan _2 15:04:05 2006\"\u000A    _, e \u003D time.Parse(ansic, \"8:41PM\")\u000A    p(e)\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func main() {\u000A    p :\u003D fmt.Println\u000A');codeLines.push('');codeLines.push('    t :\u003D time.Now()\u000A    p(t.Format(time.RFC3339))\u000A');codeLines.push('    t1, e :\u003D time.Parse(\u000A        time.RFC3339,\u000A        \"2026-03-10T21:26:41+02:00\")\u000A    p(t1)\u000A');codeLines.push('    p(t.Format(\"3:04PM\"))\u000A    p(t.Format(\"Mon Jan _2 15:04:05 2006\"))\u000A    p(t.Format(\"2006-01-02T15:04:05.999999-07:00\"))\u000A    form :\u003D \"3 04 PM\"\u000A    t2, e :\u003D time.Parse(form, \"8 41 PM\")\u000A    p(t2)\u000A');codeLines.push('    fmt.Printf(\"%d-%02d-%02dT%02d:%02d:%02d-00:00\\n\",\u000A        t.Year(), t.Month(), t.Day(),\u000A        t.Hour(), t.Minute(), t.Second())\u000A');codeLines.push('    ansic :\u003D \"Mon Jan _2 15:04:05 2006\"\u000A    _, e \u003D time.Parse(ansic, \"8:41PM\")\u000A    p(e)\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

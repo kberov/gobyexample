@@ -1,3 +1,3 @@
 $ go run enums.go
-connected
-idle
+свързан
+бездеен

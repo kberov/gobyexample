@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Number Parsing</title>
+    <title>Go в примери: Разбор на числа</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,14 +24,24 @@
   </script>
   <body>
     <div class="example" id="number-parsing">
-      <h2><a href="./">Go by Example</a>: Number Parsing</h2>
+      <h2><a href="./">Go в примери</a>: Разбор на числа</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Parsing numbers from strings is a basic but common task
-in many programs; here&rsquo;s how to do it in Go.</p>
+            <p><em>Извличането на числа</em><sup class="footnote-ref" id="fnref:parse"><a href="#fn:parse">1</a></sup> от низ е проста, но честа задача
+в програмирането. Ето как се прави в Го.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:parse">parse – извличане (в този случай). В английски ползват една и съща дума както за извличане на съставни стойности като структури от низове така и за неделими стойности като числата.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -45,15 +55,15 @@ in many programs; here&rsquo;s how to do it in Go.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/ZAMEid6Fpmu"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/XCdrC7lfxdt"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>The built-in package <code>strconv</code> provides the number
-parsing.</p>
+            <p>Стандартният пакет <code>strconv</code> предоставя поддръжка за
+ивличане на числа от низ.</p>
 
           </td>
           <td class="code leading">
@@ -77,8 +87,8 @@ parsing.</p>
         
         <tr>
           <td class="docs">
-            <p>With <code>ParseFloat</code>, this <code>64</code> tells how many bits of
-precision to parse.</p>
+            <p>Податката със стойност 64, казва на метода
+<code>ParseFloat</code> колко бита да задели за точност.</p>
 
           </td>
           <td class="code leading">
@@ -90,9 +100,10 @@ precision to parse.</p>
         
         <tr>
           <td class="docs">
-            <p>For <code>ParseInt</code>, the <code>0</code> means infer the base from
-the string. <code>64</code> requires that the result fit in 64
-bits.</p>
+            <p>Податката със стойност 0 за метода <code>ParseInt</code> му
+казва „Отгатни бройната система от числото”. <code>64</code>
+задава изискване числото да може да се запише в  64
+бита.</p>
 
           </td>
           <td class="code leading">
@@ -104,7 +115,7 @@ bits.</p>
         
         <tr>
           <td class="docs">
-            <p><code>ParseInt</code> will recognize hex-formatted numbers.</p>
+            <p><code>ParseInt</code> разпознава шестнадесетични числа.</p>
 
           </td>
           <td class="code leading">
@@ -116,7 +127,7 @@ bits.</p>
         
         <tr>
           <td class="docs">
-            <p>A <code>ParseUint</code> is also available.</p>
+            <p>Има и метод <code>ParseUint</code> за числа без знак.</p>
 
           </td>
           <td class="code leading">
@@ -128,8 +139,8 @@ bits.</p>
         
         <tr>
           <td class="docs">
-            <p><code>Atoi</code> is a convenience function for basic base-10
-<code>int</code> parsing.</p>
+            <p><code>Atoi</code> е удобна функция за просто извличане на
+числа от вида <code>int</code> с основа 10.</p>
 
           </td>
           <td class="code leading">
@@ -141,7 +152,8 @@ bits.</p>
         
         <tr>
           <td class="docs">
-            <p>Parse functions return an error on bad input.</p>
+            <p>Всички функции за извличане връщат грешка при лоши
+входни данни.</p>
 
           </td>
           <td class="code">
@@ -174,7 +186,8 @@ bits.</p>
         
         <tr>
           <td class="docs">
-            <p>Next we&rsquo;ll look at another common parsing task: URLs.</p>
+            <p>Следващото. което ще разгледаме, е разлагане на
+метонахождения в уеб на съставните им части.</p>
 
           </td>
           <td class="code empty">
@@ -187,12 +200,12 @@ bits.</p>
       
       
       <p class="next">
-        Next example: <a href="url-parsing" rel="next">URL Parsing</a>.
+        Следващ пример: <a href="url-parsing" rel="next">Разбор на URL</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>

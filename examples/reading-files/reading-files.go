@@ -1,7 +1,5 @@
-// Reading and writing files are basic tasks needed for
-// many Go programs. First we'll look at some examples of
-// reading files.
-
+// Писането във файлове и четенето от тях са прости задачи, нужни в много
+// програми. Първо ще разгледаме някои примери за четене от файлове.
 package main
 
 import (
@@ -12,8 +10,8 @@ import (
 	"path/filepath"
 )
 
-// Reading files requires checking most calls for errors.
-// This helper will streamline our error checks below.
+// Четенето от файл изисква проверка за грешка почти при всяко извикване на
+// функция. Този помощник ще опрости проверките.
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -22,73 +20,74 @@ func check(e error) {
 
 func main() {
 
-	// Perhaps the most basic file reading task is
-	// slurping a file's entire contents into memory.
-	path := filepath.Join(os.TempDir(), "dat")
-	dat, err := os.ReadFile(path)
+	// Може би най-простата задача е изчитането на цялото съдържание от файла в
+	// паметта наведнъж.
+	пѫтека := filepath.Join(os.TempDir(), "dat")
+	dat, err := os.ReadFile(пѫтека)
 	check(err)
 	fmt.Print(string(dat))
 
-	// You'll often want more control over how and what
-	// parts of a file are read. For these tasks, start
-	// by `Open`ing a file to obtain an `os.File` value.
-	f, err := os.Open(path)
+	// Често ще ви се налага да управлявате начина и да избирате кои части от
+	// файла да бъдат прочетени. В тези случаи използвайте първо
+	// `os.Open(пѫтека)`. Тази функция връща стойности от видовете `(*os.File,
+	// error)`.
+	f, err := os.Open(пѫтека)
 	check(err)
 
-	// Read some bytes from the beginning of the file.
-	// Allow up to 5 to be read but also note how many
-	// actually were read.
-	b1 := make([]byte, 5)
+	// Прочитаме няколко байта[^b] от началото на файла. Разрешаваме да бъдат
+	// прочетени 6, но забележете също колко всъщност са прочетени.(бел. прев.
+	// какво иска да каже авторът с „но заб…”???)
+	// За добавяне като глава обяснение след примера: http://www.tcpipguide.com/free/t_BinaryInformationandRepresentationBitsBytesNibbles.htm
+	// [^b]: `byte` наистина означава хапка защото понятието е просто написана по различен начин думата `bite`, за да няма объркване с въведеното вече понятие за най-малката възможна единица данни `bit`. Виж https://en.wikipedia.org/wiki/Byte#cite_note-Buchholz_1977-14
+	b1 := make([]byte, 6)
 	n1, err := f.Read(b1)
 	check(err)
-	fmt.Printf("%d bytes: %s\n", n1, string(b1[:n1]))
+	fmt.Printf("%d хапки: %s\n", n1, string(b1[:n1]))
 
-	// You can also `Seek` to a known location in the file
-	// and `Read` from there.
+	// Също така можете да „скочите" със `Seek` до познато място във файла и да
+	// четете с `Read` оттам нататък.
 	o2, err := f.Seek(6, io.SeekStart)
 	check(err)
-	b2 := make([]byte, 2)
+	// Прочитаме новия ред и два байта – общо три.
+	b2 := make([]byte, 3)
 	n2, err := f.Read(b2)
 	check(err)
-	fmt.Printf("%d bytes @ %d: ", n2, o2)
+	fmt.Printf("%d хапки @ %d: ", n2, o2)
 	fmt.Printf("%v\n", string(b2[:n2]))
 
-	// Other methods of seeking are relative to the
-	// current cursor position,
+	// Други начини за търсене във файл са чрез отнасяне към текущото място на
+	// показалеца.
 	_, err = f.Seek(2, io.SeekCurrent)
 	check(err)
 
-	// and relative to the end of the file.
+	// и отнесено към края на файла
 	_, err = f.Seek(-4, io.SeekEnd)
 	check(err)
 
-	// The `io` package provides some functions that may
-	// be helpful for file reading. For example, reads
-	// like the ones above can be more robustly
-	// implemented with `ReadAtLeast`.
+	// Пакетът `io` предоставя някои полезни за четене на файлове функции.
+	// Например четения като горните могат да бъдат осъществени по-мощно с
+	// помощта на `ReadAtLeast`.
 	o3, err := f.Seek(6, io.SeekStart)
 	check(err)
-	b3 := make([]byte, 2)
-	n3, err := io.ReadAtLeast(f, b3, 2)
+	b3 := make([]byte, 3)
+	n3, err := io.ReadAtLeast(f, b3, 3)
 	check(err)
-	fmt.Printf("%d bytes @ %d: %s\n", n3, o3, string(b3))
+	fmt.Printf("%d хапки @ %d: %s\n", n3, o3, string(b3))
 
-	// There is no built-in rewind, but
-	// `Seek(0, io.SeekStart)` accomplishes this.
+	// Няма готова функция за връщане в началото но `Seek(0, io.SeekStart)`
+	// върши точно това.
 	_, err = f.Seek(0, io.SeekStart)
 	check(err)
 
-	// The `bufio` package implements a buffered
-	// reader that may be useful both for its efficiency
-	// with many small reads and because of the additional
-	// reading methods it provides.
+	// Пакетът `bufio` осъществява складиращ четец, който може да ни е от полза
+	// както заради производителността си така и за това, че предоставя
+	// допълнителни методи за четене.
 	r4 := bufio.NewReader(f)
-	b4, err := r4.Peek(5)
+	b4, err := r4.Peek(9)
 	check(err)
-	fmt.Printf("5 bytes: %s\n", string(b4))
+	fmt.Printf("9 хапки: %s\n", string(b4))
 
-	// Close the file when you're done (usually this would
-	// be scheduled immediately after `Open`ing with
-	// `defer`).
+	// Затваряме файла, като сме готови. Обикновено това действие бива насрочено
+	// веднага след извикването на `Open(…)` с помощта на `defer`.
 	f.Close()
 }

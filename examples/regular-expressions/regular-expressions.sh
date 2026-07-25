@@ -1,17 +1,18 @@
 $ go run regular-expressions.go
 true
 true
-peach
-idx: [0 5]
-[peach ea]
-[0 5 1 3]
-[peach punch pinch]
-all: [[0 5 1 3] [6 11 7 9] [12 17 13 15]]
-[peach punch]
+съвп.: пра
+показалци: [0 6]
+[пра р]
+[0 6 2 4]
+[пра пка палка]
+всички: [[0 6 2 4] [23 29 25 27] [37 47 39 45]]
+[пра пка]
 true
-regexp: p([a-z]+)ch
-a <fruit>
-a PEACH
+израз: п([а-я]+)а
+една слива
+една ПРАСКОВА
 
-# For a complete reference on Go regular expressions check
-# the [`regexp`](https://pkg.go.dev/regexp) package docs.
+# За да видите пълния справочник на редовѝте изрази,
+# погледнете документацията за пакета
+# [`regexp`](https://pkg.go.dev/regexp).

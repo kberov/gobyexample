@@ -1,9 +1,9 @@
-// Sometimes we'd like our Go programs to intelligently
-// handle [Unix signals](https://en.wikipedia.org/wiki/Unix_signal).
-// For example, we might want a server to gracefully
-// shutdown when it receives a `SIGTERM`, or a command-line
-// tool to stop processing input if it receives a `SIGINT`.
-// Here's how to handle signals in Go with channels.
+// В някои случаи ни е нужно нашите програми да обработват сигнали в
+// [юникс-подобни](https://en.wikipedia.org/wiki/Unix_signal)[^sign] уредби. Например
+// бихме искали сървърът ни да спира, когато получи сигнал `SIGTERM`, или наше
+// приложение за командния ред да спре да обработва входни данни, щом получи сигнал
+// `SIGINT`. Ето как да обработваме сигнали в Го с помощта на канали.
+// [^sign]: signal – сигнал. Стандартизирани съобщения към работещи програми за предизвикване на някакво действие от тяхна страна. Например, да приключат или да обработят някоя грешка. Сигналите са ограничен вид общуване между процеси в Юникс и други съвместими с POSIX стандарта уредби.  https://en.wikipedia.org/wiki/Unix_signal . POSIX (Portable Operating System Interface X) – Преносимо взаимодействие за работна уредба Х. Х накрая обозначава Юникс.
 
 package main
 
@@ -16,36 +16,36 @@ import (
 
 func main() {
 
-	// Go signal notification works by sending `os.Signal`
-	// values on a channel. We'll create a channel to
-	// receive these notifications. Note that this channel
-	// should be buffered.
-	sigs := make(chan os.Signal, 1)
+	// Уведомлението чрез сигнал в Го работи чрез изпращане на стойности от
+	// вида `os.Signal` по канал. Ще създадем канал, по който да получаваме
+	// тези уведомления. Забележете, че каналът трябва да е складиращ.
+	знаци := make(chan os.Signal, 1)
 
-	// `signal.Notify` registers the given channel to
-	// receive notifications of the specified signals.
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	// `signal.Notify` записва дадения канал да получава указаните сигнали като
+	// уведомления.
+	signal.Notify(знаци, syscall.SIGINT, syscall.SIGTERM)
 
-	// We could receive from `sigs` here in the main
-	// function, but let's see how this could also be
-	// done in a separate goroutine, to demonstrate
-	// a more realistic scenario of graceful shutdown.
-	done := make(chan bool, 1)
+	// Бихме могли да получаваме известия по канала `знаци` дори тук, в
+	// главната функция, но нека видим как това може да бъде направено в
+	// отделна гозадача. Така ще покажем по-близък до действителността случай,
+	// как се прави чисто приключване на програма.
+	приключване := make(chan bool, 1)
 
 	go func() {
-		// This goroutine executes a blocking receive for
-		// signals. When it gets one it'll print it out
-		// and then notify the program that it can finish.
-		sig := <-sigs
+		// Тази гозадача изпълнява спиращо получаване на сигнали. Когато получи
+		// сигнал го отпечатва на стандартния изход, а после уведомява
+		// програмата, че може да приключи изпълнението си.
+		sig := <-знаци
 		fmt.Println()
 		fmt.Println(sig)
-		done <- true
+		приключване <- true
 	}()
 
-	// The program will wait here until it gets the
-	// expected signal (as indicated by the goroutine
-	// above sending a value on `done`) and then exit.
-	fmt.Println("awaiting signal")
-	<-done
-	fmt.Println("exiting")
+	// Тук програмата чака, докато получи очаквания знак (сигнал), както бива
+	// указано от горната гозадача, която изпраща стойност `true`, щом
+	// променливата `приключване` (която е също складиращ канал) има стойност,
+	// а после приключва.
+	fmt.Println("чакам знак")
+	<-приключване
+	fmt.Println("излизам")
 }

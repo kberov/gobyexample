@@ -1,11 +1,11 @@
-// Go provides built-in support for [base64
-// encoding/decoding](https://en.wikipedia.org/wiki/Base64).
+// Го предоставя вградена поддръжка за превръщане на данни в base64 (основа 64)
+// и обратно превръщане от него в изходен вид. За приложението на този вид
+// изобразяване на данни вижте (https://en.wikipedia.org/wiki/Base64).
 
 package main
 
-// This syntax imports the `encoding/base64` package with
-// the `b64` name instead of the default `base64`. It'll
-// save us some space below.
+// Така внасяме пакета `encoding/base64` – с по-кратко име, за да пишем
+// по-малко.
 import (
 	b64 "encoding/base64"
 	"fmt"
@@ -13,26 +13,23 @@ import (
 
 func main() {
 
-	// Here's the `string` we'll encode/decode.
-	data := "abc123!?$*&()'-=@~"
+	// Ето низът, който ще превърнем и после ще върнем в изходния му вид.
+	данни := "абв123!?$*&()'-=@~"
 
-	// Go supports both standard and URL-compatible
-	// base64. Here's how to encode using the standard
-	// encoder. The encoder requires a `[]byte` so we
-	// convert our `string` to that type.
-	sEnc := b64.StdEncoding.EncodeToString([]byte(data))
+	// Го поддържа както обикновено, така и съвместимо с изто̀чници превръщане.
+	// Превръщачът очаква данни от вида `[]byte`, така че трябва да превърнем
+	// нашия низ първо в такъв вид.
+	sEnc := b64.StdEncoding.EncodeToString([]byte(данни))
 	fmt.Println(sEnc)
 
-	// Decoding may return an error, which you can check
-	// if you don't already know the input to be
-	// well-formed.
+	// Превръщането може да върне грешка. Можете да я обработите, ако не сте
+	// сигурни дали входните данни са правилни.
 	sDec, _ := b64.StdEncoding.DecodeString(sEnc)
 	fmt.Println(string(sDec))
 	fmt.Println()
 
-	// This encodes/decodes using a URL-compatible base64
-	// format.
-	uEnc := b64.URLEncoding.EncodeToString([]byte(data))
+	// Следните редове превръщат в съвместим с изто̀чници вид и обратно.
+	uEnc := b64.URLEncoding.EncodeToString([]byte(данни))
 	fmt.Println(uEnc)
 	uDec, _ := b64.URLEncoding.DecodeString(uEnc)
 	fmt.Println(string(uDec))

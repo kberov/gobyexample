@@ -5,7 +5,8 @@ $ go run interfaces.go
 {5}
 78.53981633974483
 31.41592653589793
-circle with radius 5
+кръг с радиус: 5
 
-# To understand how Go's interfaces work under the hood,
-# check out this [blog post](https://research.swtch.com/interfaces).
+# За да раберете как работят взаимодействията в Го,
+# прочетете [тази
+# статия](https://research.swtch.com/interfaces).

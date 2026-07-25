@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: Errors</title>
+    <title>Go в примери: Грешки</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,24 +24,41 @@
   </script>
   <body>
     <div class="example" id="errors">
-      <h2><a href="./">Go by Example</a>: Errors</h2>
+      <h2><a href="./">Go в примери</a>: Грешки</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>In Go it&rsquo;s idiomatic to communicate errors via an
-explicit, separate return value. This contrasts with
-the exceptions used in languages like Java, Python and
-Ruby and the overloaded single result / error value
-sometimes used in C. Go&rsquo;s approach makes it easy to
-see which functions return errors and to handle them
-using the same language constructs employed for other,
-non-error tasks.</p>
+            <p>Обичайно<sup class="footnote-ref" id="fnref:idiomatic"><a href="#fn:idiomatic">1</a></sup> в Го грешките се съобщават изрично
+чрез връщане на отделна сойност. Това е съвсем различен
+подход в сравнение с езици като Java, Python и
+Ruby и презареденият<sup class="footnote-ref" id="fnref:overload"><a href="#fn:overload">2</a></sup> единичен изход<sup class="footnote-ref" id="fnref:result"><a href="#fn:result">3</a></sup>
+ / грешка, ползван понякога в C.</p>
 
-<p>See the documentation of the <a href="https://pkg.go.dev/errors">errors package</a>
-and <a href="https://go.dev/blog/go1.13-errors">this blog post</a> for additional
-details.</p>
+<p>С този подход Го прави по-лесно да се видят функциите,
+които връщат грешки и да се обработват грешките по
+същия начин както и другите стойности, ползвани за
+други задачи.</p>
+
+<p>Вижте документацията на <a href="https://pkg.go.dev/errors">пакета
+<code>errors</code></a> и <a href="https://go.dev/blog/go1.13-errors">тази
+статия</a> за повече
+подробности.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:idiomatic">idiomatic – обичайно, като начин на изразяване и мислене в някакъв език</li>
+
+<li id="fn:overload">overload – презареждам</li>
+
+<li id="fn:result">result – изход (от действие)</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code empty leading">
@@ -55,7 +72,7 @@ details.</p>
             
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/H-SmHpaHY3v"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/dpufwCPIjFf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -75,8 +92,19 @@ details.</p>
         
         <tr>
           <td class="docs">
-            <p>By convention, errors are the last return value and
-have type <code>error</code>, a built-in interface.</p>
+            <p>Обичайно<sup class="footnote-ref" id="fnref:byconv"><a href="#fn:byconv">1</a></sup> грешките са последната върната
+стойност и са от вида <code>error</code>, който е описано и
+осъществено в пакета взаимодействие.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:byconv">by convention – обичайно, по взаимно съгласие в някаква общност</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -88,21 +116,21 @@ have type <code>error</code>, a built-in interface.</p>
         
         <tr>
           <td class="docs">
-            <p><code>errors.New</code> constructs a basic <code>error</code> value
-with the given error message.</p>
+            <p><code>errors.New</code> съставя обикновена стойност от
+вида <code>error</code> с дадено съобщение за грешка.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;can&#39;t work with 42&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;не мога да работя с 42&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
         
         <tr>
           <td class="docs">
-            <p>A <code>nil</code> value in the error position indicates that
-there was no error.</p>
+            <p>Стойност <code>nil</code> на мястото на грешката означава, че
+няма грешка.</p>
 
           </td>
           <td class="code leading">
@@ -114,14 +142,25 @@ there was no error.</p>
         
         <tr>
           <td class="docs">
-            <p>A sentinel error is a predeclared variable that is used to
-signify a specific error condition.</p>
+            <p>Предпазната грешка<sup class="footnote-ref" id="fnref:senterr"><a href="#fn:senterr">1</a></sup> представлява предварително
+обявена променлива, която се използва, за да обозначи
+грешка, случила се при определени условия.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:senterr">sentinel error – предпазна грешка (като предпазен клапан)</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ErrOutOfTea</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;no more tea available&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ErrPower</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;can&#39;t boil water&#34;</span><span class="p">)</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ErrOutOfTea</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;няма повече чай&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ErrPower</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;не мога да сваря вода&#34;</span><span class="p">)</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -140,17 +179,32 @@ signify a specific error condition.</p>
         
         <tr>
           <td class="docs">
-            <p>We can wrap errors with higher-level errors to add
-context. The simplest way to do this is with the
-<code>%w</code> verb in <code>fmt.Errorf</code>. Wrapped errors
-create a logical chain (A wraps B, which wraps C, etc.)
-that can be queried with functions like <code>errors.Is</code>
-and <code>errors.As</code>.</p>
+            <p>Можем да обгърнем<sup class="footnote-ref" id="fnref:wrap"><a href="#fn:wrap">1</a></sup> грешките в други
+грешки от по-високо равнище, за да добавим
+смисъл<sup class="footnote-ref" id="fnref:context"><a href="#fn:context">2</a></sup>. Най-простият начин да го
+направим е с помощта на глагола <code>%w</code> в
+<code>fmt.Errorf</code>. Обгърнатите грешки създават
+смислова логическа верига (А обгръща Б, която
+обгръща В, и т.н.), която може да бъде
+проследявана с функции като <code>errors.Is</code> и
+<code>errors.As</code>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:wrap">wrap – обгръщам, увивам като пакет, загръщам.</li>
+
+<li id="fn:context">context – смисъл.</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;making tea: %w&#34;</span><span class="p">,</span> <span class="nx">ErrPower</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;правя чай: %w&#34;</span><span class="p">,</span> <span class="nx">ErrPower</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
@@ -170,16 +224,16 @@ and <code>errors.As</code>.</p>
         
         <tr>
           <td class="docs">
-            <p>It&rsquo;s idiomatic to use an inline error check in the <code>if</code>
-line.</p>
+            <p>В Го обичайно се прави проверка направо в
+реда с условието – след <code>if</code></p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nf">f</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f failed:&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f не проработи:&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f worked:&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f проработи:&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre>
           </td>
@@ -198,20 +252,17 @@ line.</p>
         
         <tr>
           <td class="docs">
-            <p><code>errors.Is</code> checks that a given error (or any error in its chain)
-matches a specific error value. This is especially useful with wrapped or
-nested errors, allowing you to identify specific error types or sentinel
-errors in a chain of errors.</p>
+            <p><code>errors.Is</code> проверява дали дадена грешка (или всяка грешка по веригата ѝ) съвпада с опредлена стойсност. Това е особено полезно при обгърнати или вгнездени една в друга грешки и ви позволява да разпознаете определени видове грешки или предпазни грешки по веригата.</p>
 
           </td>
           <td class="code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">ErrOutOfTea</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;We should buy new tea!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Трябва да си купим чай!&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">ErrPower</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Now it is dark.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Сега е тъмно.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;unknown error: %s\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;непозната грешка: %s\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span></span></span></code></pre>
@@ -224,7 +275,7 @@ errors in a chain of errors.</p>
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Tea is ready!&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Чаят е готов!&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
@@ -241,13 +292,13 @@ errors in a chain of errors.</p>
           <td class="code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run errors.go
-</span></span><span class="line"><span class="cl"><span class="go">f worked: 10
-</span></span></span><span class="line"><span class="cl"><span class="go">f failed: can&#39;t work with 42
-</span></span></span><span class="line"><span class="cl"><span class="go">Tea is ready!
-</span></span></span><span class="line"><span class="cl"><span class="go">Tea is ready!
-</span></span></span><span class="line"><span class="cl"><span class="go">We should buy new tea!
-</span></span></span><span class="line"><span class="cl"><span class="go">Tea is ready!
-</span></span></span><span class="line"><span class="cl"><span class="go">Now it is dark.</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl"><span class="go">f проработи: 10
+</span></span></span><span class="line"><span class="cl"><span class="go">f не проработи: не мога да работя с 42
+</span></span></span><span class="line"><span class="cl"><span class="go">Чаят е готов!
+</span></span></span><span class="line"><span class="cl"><span class="go">Чаят е готов!
+</span></span></span><span class="line"><span class="cl"><span class="go">Трябва да си купим чай!
+</span></span></span><span class="line"><span class="cl"><span class="go">Чаят е готов!
+</span></span></span><span class="line"><span class="cl"><span class="go">Сега е тъмно.</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -255,18 +306,18 @@ errors in a chain of errors.</p>
       
       
       <p class="next">
-        Next example: <a href="custom-errors" rel="next">Custom Errors</a>.
+        Следващ пример: <a href="custom-errors" rel="next">Съставени Грешки</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"errors\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('func f(arg int) (int, error) {\u000A    if arg \u003D\u003D 42 {\u000A');codeLines.push('        return -1, errors.New(\"can\'t work with 42\")\u000A    }\u000A');codeLines.push('    return arg + 3, nil\u000A}\u000A');codeLines.push('var ErrOutOfTea \u003D errors.New(\"no more tea available\")\u000Avar ErrPower \u003D errors.New(\"can\'t boil water\")\u000A');codeLines.push('func makeTea(arg int) error {\u000A    if arg \u003D\u003D 2 {\u000A        return ErrOutOfTea\u000A    } else if arg \u003D\u003D 4 {\u000A');codeLines.push('        return fmt.Errorf(\"making tea: %w\", ErrPower)\u000A    }\u000A    return nil\u000A}\u000A');codeLines.push('func main() {\u000A    for _, i :\u003D range []int{7, 42} {\u000A');codeLines.push('        if r, e :\u003D f(i); e !\u003D nil {\u000A            fmt.Println(\"f failed:\", e)\u000A        } else {\u000A            fmt.Println(\"f worked:\", r)\u000A        }\u000A    }\u000A');codeLines.push('    for i :\u003D range 5 {\u000A        if err :\u003D makeTea(i); err !\u003D nil {\u000A');codeLines.push('            if errors.Is(err, ErrOutOfTea) {\u000A                fmt.Println(\"We should buy new tea!\")\u000A            } else if errors.Is(err, ErrPower) {\u000A                fmt.Println(\"Now it is dark.\")\u000A            } else {\u000A                fmt.Printf(\"unknown error: %s\\n\", err)\u000A            }\u000A            continue\u000A        }\u000A');codeLines.push('        fmt.Println(\"Tea is ready!\")\u000A    }\u000A}\u000A');codeLines.push('');
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"errors\"\u000A    \"fmt\"\u000A)\u000A');codeLines.push('func f(arg int) (int, error) {\u000A    if arg \u003D\u003D 42 {\u000A');codeLines.push('        return -1, errors.New(\"не мога да работя с 42\")\u000A    }\u000A');codeLines.push('    return arg + 3, nil\u000A}\u000A');codeLines.push('var ErrOutOfTea \u003D errors.New(\"няма повече чай\")\u000Avar ErrPower \u003D errors.New(\"не мога да сваря вода\")\u000A');codeLines.push('func makeTea(arg int) error {\u000A    if arg \u003D\u003D 2 {\u000A        return ErrOutOfTea\u000A    } else if arg \u003D\u003D 4 {\u000A');codeLines.push('        return fmt.Errorf(\"правя чай: %w\", ErrPower)\u000A    }\u000A    return nil\u000A}\u000A');codeLines.push('func main() {\u000A    for _, i :\u003D range []int{7, 42} {\u000A');codeLines.push('        if r, e :\u003D f(i); e !\u003D nil {\u000A            fmt.Println(\"f не проработи:\", e)\u000A        } else {\u000A            fmt.Println(\"f проработи:\", r)\u000A        }\u000A    }\u000A');codeLines.push('    for i :\u003D range 5 {\u000A        if err :\u003D makeTea(i); err !\u003D nil {\u000A');codeLines.push('            if errors.Is(err, ErrOutOfTea) {\u000A                fmt.Println(\"Трябва да си купим чай!\")\u000A            } else if errors.Is(err, ErrPower) {\u000A                fmt.Println(\"Сега е тъмно.\")\u000A            } else {\u000A                fmt.Printf(\"непозната грешка: %s\\n\", err)\u000A            }\u000A            continue\u000A        }\u000A');codeLines.push('        fmt.Println(\"Чаят е готов!\")\u000A    }\u000A}\u000A');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

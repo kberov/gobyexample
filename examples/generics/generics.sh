@@ -1,3 +1,3 @@
-$ go run generics.go
-index of zoo: 2
-list: [10 13 23]
+$ go run ./generics.go
+на кое място е "ала":  0
+списък: [10 13 23]

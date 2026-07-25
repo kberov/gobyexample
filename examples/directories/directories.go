@@ -1,5 +1,5 @@
-// Go has several useful functions for working with
-// *directories* in the file system.
+// Го предоставя няколко полезни функции за работа с *папки* във файловата
+// уредба.
 
 package main
 
@@ -18,78 +18,87 @@ func check(e error) {
 
 func main() {
 
-	// Create a new sub-directory in the current working
-	// directory.
-	err := os.Mkdir("subdir", 0755)
+	// Създаваме подпапка в текущата работна папка.
+	err := os.Mkdir("подпапка", 0755)
 	check(err)
 
-	// When creating temporary directories, it's good
-	// practice to `defer` their removal. `os.RemoveAll`
-	// will delete a whole directory tree (similarly to
-	// `rm -rf`).
-	defer os.RemoveAll("subdir")
+	// Когато създаваме временни директории, е добре да отложим премахването им
+	// с помощта на `defer`. `os.RemoveAll` изтрива цялото дърво подобно на
+	// командата `rm -rf` в Линукс.
+	defer os.RemoveAll("подпапка")
 
-	// Helper function to create a new empty file.
+	// Помощна функция за създаване на нов празен файл.
 	createEmptyFile := func(name string) {
 		d := []byte("")
 		check(os.WriteFile(name, d, 0644))
 	}
 
-	createEmptyFile("subdir/file1")
+	createEmptyFile("подпапка/фаил1")
 
-	// We can create a hierarchy of directories, including
-	// parents with `MkdirAll`. This is similar to the
-	// command-line `mkdir -p`.
-	err = os.MkdirAll("subdir/parent/child", 0755)
+	// Можем да създадем ѝерархия от папки, включително и родителската папка с
+	// `MkdirAll`. Действието е като на командата `mkdir -p`.
+	err = os.MkdirAll("подпапка/родител/дете", 0755)
 	check(err)
 
-	createEmptyFile("subdir/parent/file2")
-	createEmptyFile("subdir/parent/file3")
-	createEmptyFile("subdir/parent/child/file4")
+	createEmptyFile("подпапка/родител/фаил2")
+	createEmptyFile("подпапка/родител/фаил3")
+	createEmptyFile("подпапка/родител/дете/фаил4")
 
-	// `ReadDir` lists directory contents, returning a
-	// slice of `os.DirEntry` objects.
-	c, err := os.ReadDir("subdir/parent")
+	// `ReadDir` извежда списък със съдържанието на папката, като връща отрязък
+	// от обекти от вида `os.DirEntry`.
+	c, err := os.ReadDir("подпапка/родител")
 	check(err)
 
-	fmt.Println("Listing subdir/parent")
+	fmt.Println("Списък със съдържанието на подпапка/родител")
 	for _, entry := range c {
-		fmt.Println(" ", entry.Name(), entry.IsDir())
+		вид := ""
+		if entry.IsDir() {
+			вид = "е папка."
+		} else {
+			вид = "е файл."
+		}
+		fmt.Println(" ", entry.Name(), вид)
 	}
 
-	// `Chdir` lets us change the current working directory,
-	// similarly to `cd`.
-	err = os.Chdir("subdir/parent/child")
+	// С `Chdir` променяме текущата работна директория – същото като `cd`.
+	err = os.Chdir("подпапка/родител/дете")
 	check(err)
 
-	// Now we'll see the contents of `subdir/parent/child`
-	// when listing the *current* directory.
+	// Сега ще видим съдържанието на `подпапка/родител/дете`, като изведем
+	// съдържанието на *текущата* папка.
 	c, err = os.ReadDir(".")
 	check(err)
 
-	fmt.Println("Listing subdir/parent/child")
+	cwd, e := os.Getwd()
+	check(e)
+	fmt.Println("Съдържание на", cwd)
 	for _, entry := range c {
 		fmt.Println(" ", entry.Name(), entry.IsDir())
 	}
 
-	// `cd` back to where we started.
+	// `cd` обратно, откъдето дойдохме.
 	err = os.Chdir("../../..")
 	check(err)
 
-	// We can also visit a directory *recursively*,
-	// including all its sub-directories. `WalkDir` accepts
-	// a callback function to handle every file or
-	// directory visited.
-	fmt.Println("Visiting subdir")
-	err = filepath.WalkDir("subdir", visit)
+	// Можем също да навестим папка чрез *самоизвикване*. Това включва всички
+	// подпапки. `WalkDir` приема функция, която да извика, за да обработи
+	// всеки файл или папка по пѫтя.
+	fmt.Println("Посещаваме подпапка")
+	err = filepath.WalkDir("подпапка", посети)
 }
 
-// `visit` is called for every file or directory found
-// recursively by `filepath.WalkDir`.
-func visit(path string, d fs.DirEntry, err error) error {
+// `посети` бива извикана за всеки файл или папка, на които сме се натъкнали при
+// обхода чрез `filepath.WalkDir`.
+func посети(path string, d fs.DirEntry, err error) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(" ", path, d.IsDir())
+	вид := ""
+	if d.IsDir() {
+		вид = "е папка."
+	} else {
+		вид = "е файл."
+	}
+	fmt.Println(" ", path, вид)
 	return nil
 }

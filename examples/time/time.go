@@ -1,5 +1,5 @@
-// Go offers extensive support for times and durations;
-// here are some examples.
+// Го предлага разширена поддръжка за работа с време и
+// продължителност. Ето някои примери.
 
 package main
 
@@ -11,53 +11,56 @@ import (
 func main() {
 	p := fmt.Println
 
-	// We'll start by getting the current time.
-	now := time.Now()
-	p(now)
+	// Да видим как се взема текущото време.
+	сега := time.Now()
+	p(сега)
 
-	// You can build a `time` struct by providing the
-	// year, month, day, etc. Times are always associated
-	// with a `Location`, i.e. time zone.
-	then := time.Date(
+	// Можете да изградите структура за `time` като
+	// предоставите година, месец, ден и т.н. Времената са
+	// винаги свързнаи с място времева област `Location`.
+	тогава := time.Date(
 		2009, 11, 17, 20, 34, 58, 651387237, time.UTC)
-	p(then)
+	p(тогава)
 
-	// You can extract the various components of the time
-	// value as expected.
-	p(then.Year())
-	p(then.Month())
-	p(then.Day())
-	p(then.Hour())
-	p(then.Minute())
-	p(then.Second())
-	p(then.Nanosecond())
-	p(then.Location())
+	// Както бихте очаквали, можете да извлечете отделните
+	// части.
+	p(тогава.Year())
+	p(тогава.Month())
+	p(тогава.Day())
+	p(тогава.Hour())
+	p(тогава.Minute())
+	p(тогава.Second())
+	p(тогава.Nanosecond())
+	p(тогава.Location())
 
-	// The Monday-Sunday `Weekday` is also available.
-	p(then.Weekday())
+	// Дните от седмицата са също налични чрез метода `Weekday`.
+	p(тогава.Weekday())
 
-	// These methods compare two times, testing if the
-	// first occurs before, after, or at the same time
-	// as the second, respectively.
-	p(then.Before(now))
-	p(then.After(now))
-	p(then.Equal(now))
+	// Тези методи сравняват две точки във времето, като
+	// проверяват дали първата се намира преди, след или в
+	// същото време с втората.
+	p(тогава.Before(сега))
+	p(тогава.After(сега))
+	p(тогава.Equal(сега))
 
-	// The `Sub` methods returns a `Duration` representing
-	// the interval between two times.
-	diff := now.Sub(then)
-	p(diff)
+	// Методът `Sub` (от subtract изваждам) връща
+	// стойност от вид `Duration` (продължителност),
+	// представляваща разликата между две точки във
+	// времето.
+	разлика := сега.Sub(тогава)
+	p(разлика)
 
-	// We can compute the length of the duration in
-	// various units.
-	p(diff.Hours())
-	p(diff.Minutes())
-	p(diff.Seconds())
-	p(diff.Nanoseconds())
+	// Можем да сметнем размера на продължителността в
+	// различни мерни единици.
+	p(разлика.Hours())
+	p(разлика.Minutes())
+	p(разлика.Seconds())
+	p(разлика.Nanoseconds())
 
-	// You can use `Add` to advance a time by a given
-	// duration, or with a `-` to move backwards by a
-	// duration.
-	p(then.Add(diff))
-	p(then.Add(-diff))
+	// Можем да използваме `Add` (добавям), за да отидем
+	// напред във времето с определена продължителност,
+	// или да добавим време с отрицателен знак, за да
+	// отидем назад.
+	p(тогава.Add(разлика))
+	p(тогава.Add(-разлика))
 }

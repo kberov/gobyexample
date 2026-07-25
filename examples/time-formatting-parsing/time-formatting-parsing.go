@@ -1,5 +1,6 @@
-// Go supports time formatting and parsing via
-// pattern-based layouts.
+// Го поддържа задаване на изглед и разбор на време чрез
+// примерни[^pattern] изгледи.
+// [^pattern]: pattern – образец, пример, еталон, мостра
 
 package main
 
@@ -11,25 +12,33 @@ import (
 func main() {
 	p := fmt.Println
 
-	// Here's a basic example of formatting a time
-	// according to RFC3339, using the corresponding layout
-	// constant.
+	// Ето основен пример за задаване формат на време
+	// според RFC3339[^rfc] с помощта на съответната
+	// непроменлива примерна стойност.
+	// [^rfc]: RFC - Request For Comment. IETF интернет стандарт RFC 3339, основан на ISO 8601 – международен стандарт за обмен на дати и данни за време.
+
 	t := time.Now()
 	p(t.Format(time.RFC3339))
 
-	// Time parsing uses the same layout values as `Format`.
+	// При разбор на време от подаден низ, същите примерни
+	// стойности биват ползвани за задаване на очакван
+	// изглед (формат).
 	t1, e := time.Parse(
 		time.RFC3339,
-		"2012-11-01T22:08:41+00:00")
+		"2026-03-10T21:26:41+02:00")
 	p(t1)
 
-	// `Format` and `Parse` use example-based layouts. Usually
-	// you'll use a constant from `time` for these layouts, but
-	// you can also supply custom layouts. Layouts must use the
-	// reference time `Mon Jan 2 15:04:05 MST 2006` to show the
-	// pattern with which to format/parse a given time/string.
-	// The example time must be exactly as shown: the year 2006,
-	// 15 for the hour, Monday for the day of the week, etc.
+	// Методите `Format` и `Parse` използват изложения,
+	// основани на примери. За задаване на тези изложения
+	// обикновено се ползва непроменлива стойност от
+	// пакета `time`, но можете да подавата и ваши,
+	// потребителски изложения. Изложенията трябва
+	// задължително да са някаква разновидност на
+	// примерното време `Mon Jan 2 15:04:05 MST 2006`, за
+	// да укажат образеца, който да се ползва при разбор
+	// от низ или извеждане на време. Примерът трябва да е
+	// точно това време – 2006 за година, 15 за час,
+	// Monday за деня от седмицата и т.н.
 	p(t.Format("3:04PM"))
 	p(t.Format("Mon Jan _2 15:04:05 2006"))
 	p(t.Format("2006-01-02T15:04:05.999999-07:00"))
@@ -37,15 +46,18 @@ func main() {
 	t2, e := time.Parse(form, "8 41 PM")
 	p(t2)
 
-	// For purely numeric representations you can also
-	// use standard string formatting with the extracted
-	// components of the time value.
+	// При чисто числово представяне можете да ползвате
+	// обикновено извеждане чрез задаване на изглед на
+	// стойностите в низ като прилагате глаголи върху
+	// съответните съставни части от времевата стойност.
 	fmt.Printf("%d-%02d-%02dT%02d:%02d:%02d-00:00\n",
 		t.Year(), t.Month(), t.Day(),
 		t.Hour(), t.Minute(), t.Second())
 
-	// `Parse` will return an error on malformed input
-	// explaining the parsing problem.
+	// Методът `Parse` ще върне грешка за развален вход и
+	// ще обясни каква е причината за грешката. (В този
+	// случай денят от седмицата няма как да бъде
+	// разпознат в подаденото време "8:41PM")
 	ansic := "Mon Jan _2 15:04:05 2006"
 	_, e = time.Parse(ansic, "8:41PM")
 	p(e)

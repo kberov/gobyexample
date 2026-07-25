@@ -1,77 +1,73 @@
-// The Go standard library provides straightforward
-// tools for outputting logs from Go programs, with
-// the [log](https://pkg.go.dev/log) package for
-// free-form output and the
-// [log/slog](https://pkg.go.dev/log/slog) package for
-// structured output.
 package main
 
+// Стандартната библиотека на Го предоставя прости пособия за извеждане на
+// съобщения относно работата на програмите. Пакетът
+// [log](https://pkg.go.dev/log)[^log] ни дава възможност да извеждаме такива
+// съобщения в свободен вид, а пакетът [log/slog](https://pkg.go.dev/log/slog)
+// в структуриран вид.
+// [^log]: log file – файл дневник, файл с отчет (за дейността на програмата)
 import (
 	"bytes"
 	"fmt"
 	"log"
-	"os"
-
 	"log/slog"
+	"os"
 )
 
 func main() {
 
-	// Simply invoking functions like `Println` from the
-	// `log` package uses the _standard_ logger, which
-	// is already pre-configured for reasonable logging
-	// output to `os.Stderr`. Additional methods like
-	// `Fatal*` or `Panic*` will exit the program after
-	// logging.
-	log.Println("standard logger")
+	// Просто извикваме функции като `Println` от пакета `log`, който е
+	// предварително настроен да извежда съобщения в `os.Stderr`.
+	// Допълнителните функции като `Fatal*` или `Panic*` ще прекратят
+	// програмата след като изведат съобщения в предварително настроения
+	// дневник.
+	log.Println("стандартния отчетник")
 
-	// Loggers can be configured with _flags_ to set
-	// their output format. By default, the standard
-	// logger has the `log.Ldate` and `log.Ltime` flags
-	// set, and these are collected in `log.LstdFlags`.
-	// We can change its flags to emit time with
-	// microsecond accuracy, for example.
+	// Отчетниците[^logger] могат да бъдат настройвани чрез _флагове_,
+	// определящи изгледа на записите. На стандартния отчетник по подразбиране
+	// са му включени флаговете `log.Ldate` и `log.Ltime`. Можем да променим
+	// флаговете, така че да се извежда времето с точност до микросекунда.
+	// [^logger]: logger – буквално отчетник (който попълва отчет в дневник)
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
-	log.Println("with micro")
+	log.Println("с микросекунди")
 
-	// It also supports emitting the file name and
-	// line from which the `log` function is called.
+	// `log` също може да извежда името на файла и реда, където е извикана
+	// отчитащата функция.
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	log.Println("with file/line")
+	log.Println("с файл и ред")
 
-	// It may be useful to create a custom logger and
-	// pass it around. When creating a new logger, we
-	// can set a _prefix_ to distinguish its output
-	// from other loggers.
-	mylog := log.New(os.Stdout, "my:", log.LstdFlags)
-	mylog.Println("from mylog")
+	// Може да ви е от полза да създадете приспособен отчетник и да го подавате
+	// наоколо. Когато създаваме нов отчетник, можем да да настроим
+	// _представка_, с която да се отличават неговите записи от тези на други
+	// отчетници.
+	моят := log.New(os.Stdout, "мой:", log.LstdFlags)
+	моят.Println("от мен")
 
-	// We can set the prefix
-	// on existing loggers (including the standard one)
-	// with the `SetPrefix` method.
-	mylog.SetPrefix("ohmy:")
-	mylog.Println("from mylog")
+	// Можем да задаваме представка на вече съществуващи отчетници (включително
+	// и на стандартния) с метода `SetPrefix`.
+	моят.SetPrefix("моят:")
+	моят.Println("от моя")
 
-	// Loggers can have custom output targets;
-	// any `io.Writer` works.
+	// Отчетниците могат да бъдат създадени с целеви изход; всеки склад,
+	// осъществяващ взаимодействието `io.Writer`, е подходящ.
 	var buf bytes.Buffer
 	buflog := log.New(&buf, "buf:", log.LstdFlags)
 
-	// This call writes the log output into `buf`.
-	buflog.Println("hello")
+	// Това извиквне пише изхода си в `buf`.
+	buflog.Println("здрасти")
 
-	// This will actually show it on standard output.
-	fmt.Print("from buflog:", buf.String())
+	// А това извикване извежда складираните в `buf` записи на стандартния
+	// изход.
+	fmt.Print("от 'buflog':", buf.String())
 
-	// The `slog` package provides
-	// _structured_ log output. For example, logging
-	// in JSON format is straightforward.
+	// Пакетът `slog` предоставя _структурирано_ извеждане на записите.
+	// Например лесно извежда записите във вид на JSON.
 	jsonHandler := slog.NewJSONHandler(os.Stderr, nil)
 	myslog := slog.New(jsonHandler)
-	myslog.Info("hi there")
+	myslog.Info("хей, здравей")
 
-	// In addition to the message, `slog` output can
-	// contain an arbitrary number of key=value
-	// pairs.
-	myslog.Info("hello again", "key", "val", "age", 25)
+	// Освен самия отчетен запис, изходът от `slog` може да съдържа произволен
+	// брой двойки ключ=запис.
+	myslog.Info("здрасти пак", "ключ", "стойност",
+		"възраст", 25)
 }

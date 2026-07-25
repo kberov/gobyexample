@@ -1,9 +1,9 @@
 $ go run templates.go 
-Value: some text
-Value: 5
-Value: [Go Rust C++ C#]
-Name: Jane Doe
-Name: Mickey Mouse
-yes 
-no 
-Range: Go Rust C++ C# 
+Стойността е: нѣкакъв словен плѣт
+Стойността е: 5
+Стойността е: [Go Rust C++ C#]
+Име: Янка Готованка
+Име: Педя Човек
+да
+не
+Обход: Go Rust C++ C#

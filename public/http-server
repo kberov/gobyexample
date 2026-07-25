@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Go by Example: HTTP Server</title>
+    <title>Go в примери: Сървър за HTTP</title>
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -24,18 +24,17 @@
   </script>
   <body>
     <div class="example" id="http-server">
-      <h2><a href="./">Go by Example</a>: HTTP Server</h2>
+      <h2><a href="./">Go в примери</a>: Сървър за HTTP</h2>
       
       <table>
         
         <tr>
           <td class="docs">
-            <p>Writing a basic HTTP server is easy using the
-<code>net/http</code> package.</p>
+            <p>Лесно можем да напишем прост HTTP сървър, като ползваме пакета <code>net/http</code>.</p>
 
           </td>
           <td class="code leading">
-            <a href="https://go.dev/play/p/s3xMMt9Ytry"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/zK_pb4XfAeT"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span></span></span></code></pre>
           </td>
         </tr>
@@ -55,11 +54,23 @@
         
         <tr>
           <td class="docs">
-            <p>A fundamental concept in <code>net/http</code> servers is
-<em>handlers</em>. A handler is an object implementing the
-<code>http.Handler</code> interface. A common way to write
-a handler is by using the <code>http.HandlerFunc</code> adapter
-on functions with the appropriate signature.</p>
+            <p>Основно понятие при сървърите, създадени с <code>net/http</code> са т.нар.
+<em>обработчици</em><sup class="footnote-ref" id="fnref:handl"><a href="#fn:handl">1</a></sup>. Обработчикът представлява обект, който осъществява
+взаимодействието <code>http.Handler</code>. Обичайният начин да се напише обработчик е
+като ползваме преходникът<sup class="footnote-ref" id="fnref:adapt"><a href="#fn:adapt">2</a></sup> <code>http.HandlerFunc</code> върху функции с подходящ
+надпис.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:handl">handler – обработчик (на HTTP заявки) (функция)</li>
+
+<li id="fn:adapt">adapter – преходник</li>
+</ol>
+
+</div>
 
           </td>
           <td class="code leading">
@@ -70,16 +81,15 @@ on functions with the appropriate signature.</p>
         
         <tr>
           <td class="docs">
-            <p>Functions serving as handlers take a
-<code>http.ResponseWriter</code> and a <code>http.Request</code> as
-arguments. The response writer is used to fill in the
-HTTP response. Here our simple response is just
-&ldquo;hello\n&rdquo;.</p>
+            <p>Функциите обработчици приемат като податки два обекта – всеки обект,
+осъществяващ взимодействието <code>http.ResponseWriter</code>, и обект от вида
+<code>http.Request</code>. в <code>http.ResponseWriter</code> пишем отговора на HTTP заявката.
+Тук отговорът е просто <code>здрасти\n</code>.</p>
 
           </td>
           <td class="code leading">
             
-          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;hello\n&#34;</span><span class="p">)</span>
+          <pre class="chroma"><code><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;здрасти\n&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
           </td>
         </tr>
@@ -96,9 +106,8 @@ HTTP response. Here our simple response is just
         
         <tr>
           <td class="docs">
-            <p>This handler does something a little more
-sophisticated by reading all the HTTP request
-headers and echoing them into the response body.</p>
+            <p>Този обработчик прави нещо малко по-сложно. Чете всички заглавки на
+заявката и ги връща обратно в тялото на отговора.</p>
 
           </td>
           <td class="code leading">
@@ -124,10 +133,10 @@ headers and echoing them into the response body.</p>
         
         <tr>
           <td class="docs">
-            <p>We register our handlers on server routes using the
-<code>http.HandleFunc</code> convenience function. It sets up
-the <em>default router</em> in the <code>net/http</code> package and
-takes a function as an argument.</p>
+            <p>Записваме нашите разработчици да отговарят при заявки към различни
+пътища с помощта на функцията <code>http.HandleFunc</code>. Тя настройва
+управлението на пътищата в пакета <code>net/http</code>. Приема като податки пътя и
+съответната му функция обработчик.</p>
 
           </td>
           <td class="code leading">
@@ -139,9 +148,10 @@ takes a function as an argument.</p>
         
         <tr>
           <td class="docs">
-            <p>Finally, we call the <code>ListenAndServe</code> with the port
-and a handler. <code>nil</code> tells it to use the default
-router we&rsquo;ve just set up.</p>
+            <p>Накрая извикваме функцията <code>ListenAndServe</code>, като ѝ подаваме номер на
+порта и нулевa стойност като взаимодействие http.Handler. Чрез
+подаването на <code>nil</code> казваме на пакета да ползва подразбиращото се
+управления на пътища.</p>
 
           </td>
           <td class="code">
@@ -157,7 +167,7 @@ router we&rsquo;ve just set up.</p>
         
         <tr>
           <td class="docs">
-            <p>Run the server in the background.</p>
+            <p>Пускаме сървъра във фонов режим.</p>
 
           </td>
           <td class="code leading">
@@ -168,13 +178,26 @@ router we&rsquo;ve just set up.</p>
         
         <tr>
           <td class="docs">
-            <p>Access the <code>/hello</code> route.</p>
+            <p>Достъпваме пътя <code>/hello</code>.</p>
+
+          </td>
+          <td class="code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> curl localhost:8090/hello
+</span></span><span class="line"><span class="cl"><span class="go">здрасти</span></span></span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Достъпваме пътя <code>/headers</code>.</p>
 
           </td>
           <td class="code">
             
-          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> curl localhost:8090/hello
-</span></span><span class="line"><span class="cl"><span class="go">hello</span></span></span></code></pre>
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> curl localhost:8090/headers
+</span></span><span class="line"><span class="cl"><span class="go">User-Agent: curl/8.14.1
+</span></span></span><span class="line"><span class="cl"><span class="go">Accept: */*</span></span></span></code></pre>
           </td>
         </tr>
         
@@ -182,18 +205,18 @@ router we&rsquo;ve just set up.</p>
       
       
       <p class="next">
-        Next example: <a href="tcp-server" rel="next">TCP Server</a>.
+        Следващ пример: <a href="tcp-server" rel="next">Сървър за TCP</a>.
       </p>
       
 
     <p class="footer">
-      by <a href="https://markmcgranaghan.com">Mark McGranaghan</a> and <a href="https://eli.thegreenplace.net">Eli Bendersky</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
 
     </div>
     <script>
       var codeLines = [];
-      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net/http\"\u000A)\u000A');codeLines.push('func hello(w http.ResponseWriter, req *http.Request) {\u000A');codeLines.push('    fmt.Fprintf(w, \"hello\\n\")\u000A}\u000A');codeLines.push('func headers(w http.ResponseWriter, req *http.Request) {\u000A');codeLines.push('    for name, headers :\u003D range req.Header {\u000A        for _, h :\u003D range headers {\u000A            fmt.Fprintf(w, \"%v: %v\\n\", name, h)\u000A        }\u000A    }\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    http.HandleFunc(\"/hello\", hello)\u000A    http.HandleFunc(\"/headers\", headers)\u000A');codeLines.push('    http.ListenAndServe(\":8090\", nil)\u000A}\u000A');codeLines.push('');codeLines.push('');
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net/http\"\u000A)\u000A');codeLines.push('func hello(w http.ResponseWriter, req *http.Request) {\u000A');codeLines.push('    fmt.Fprintf(w, \"здрасти\\n\")\u000A}\u000A');codeLines.push('func headers(w http.ResponseWriter, req *http.Request) {\u000A');codeLines.push('    for name, headers :\u003D range req.Header {\u000A        for _, h :\u003D range headers {\u000A            fmt.Fprintf(w, \"%v: %v\\n\", name, h)\u000A        }\u000A    }\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    http.HandleFunc(\"/hello\", hello)\u000A    http.HandleFunc(\"/headers\", headers)\u000A');codeLines.push('    http.ListenAndServe(\":8090\", nil)\u000A}\u000A');codeLines.push('');codeLines.push('');codeLines.push('');
     </script>
     <script src="site.js" async></script>
   </body>

@@ -1,7 +1,11 @@
-# Run the TCP server in the background.
+# Пускаме сървър от вида TCP на заден план.
 $ go run tcp-server.go &
 
-# Send data and capture the response using netcat.
-$ echo "Hello from netcat" | nc localhost 8090
-ACK: HELLO FROM NETCAT
+# Изпращаме данни и прихващаме отговора с помощтта на `netcat`.
+$ printf "%s\n" "Здрасти от netcat" | nc localhost 8090
+Прието: "ЗДРАСТИ ОТ NETCAT" 
 
+#Убиваме съръвъра
+$ killall tcp-server
+signal: terminated
+[1]+  Изход 1            go run tcp-server.go

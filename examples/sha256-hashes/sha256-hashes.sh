@@ -1,15 +1,14 @@
-# Running the program computes the hash and prints it in
-# a human-readable hex format.
+# Като пуснем програмата, виждаме, че тя изчислява хеша и го показва в четим за
+# човек шестнадесетичен вид.
 $ go run sha256-hashes.go
 sha256 this string
-1af1dfa857bf1d8814fe1af8983c18080019922e557f15a8a...
+      1af1dfa857bf1d8814fe1af8983c18080019922e557f15a8a0d3d…
+7072651af1dfa857bf1d8814fe1af8983c18080019922e557f15a8a0d3d…
 
 
-# You can compute other hashes using a similar pattern to
-# the one shown above. For example, to compute
-# SHA512 hashes import `crypto/sha512` and use
-# `sha512.New()`.
+# Можете да изчислите и други видове хешове, ползващи подобен на използвания
+# по-горе подход. Например, за да използвате SHA512, внесете пакета
+# `crypto/sha512` и използвайте функцията му `sha512.New()`.
 
-# Note that if you need cryptographically secure hashes,
-# you should carefully research
-# [hash strength](https://en.wikipedia.org/wiki/Cryptographic_hash_function)!
+# Ако ви е нужен криптографски сигурен хеш, трябва да прочетете внимателно
+# (https://en.wikipedia.org/wiki/Cryptographic_hash_function)!

@@ -1,7 +1,6 @@
-// The `filepath` package provides functions to parse
-// and construct *file paths* in a way that is portable
-// between operating systems; `dir/file` on Linux vs.
-// `dir\file` on Windows, for example.
+// Пакетът `filepath` предоставя функции за разбор и построяване на *пѫтеки до
+// файлове* по начин, който е преносим между различните работни уредби[^os],
+// [^os]: operating system – работна уредба, операционна система, като например `папка/файл` на Линукс или `папка\файл` на Уиндоус.
 package main
 
 import (
@@ -12,45 +11,47 @@ import (
 
 func main() {
 
-	// `Join` should be used to construct paths in a
-	// portable way. It takes any number of arguments
-	// and constructs a hierarchical path from them.
-	p := filepath.Join("dir1", "dir2", "filename")
+	// Функцията `Join` (съединявам) е предназнаена за съставяне на пѫтеки по
+	// преносим начин. Тя приема неограничен брой податки и съставя иерархична
+	// пѫтека от тях.
+	p := filepath.Join("папка", "подпапка", "именафайл.txt")
 	fmt.Println("p:", p)
 
-	// You should always use `Join` instead of
-	// concatenating `/`s or `\`s manually. In addition
-	// to providing portability, `Join` will also
-	// normalize paths by removing superfluous separators
-	// and directory changes.
-	fmt.Println(filepath.Join("dir1//", "filename"))
-	fmt.Println(filepath.Join("dir1/../dir1", "filename"))
+	// Винаги използвайте `Join` вместо да съставяте пѫтеката „на ръка”, като
+	// ползвате `/` или `\`. Освен че предоставя преносимост, `Join`
+	// нормализира пѫтеките, като премахва излишните разделители и промените в
+	// пѫтя до папките, което води до повишена сигурност.
+	fmt.Println(filepath.Join("папка//", "именафайл"))
+	fmt.Println(filepath.Join("папка/../папка", "именафайл"))
 
-	// `Dir` and `Base` can be used to split a path to the
-	// directory and the file. Alternatively, `Split` will
-	// return both in the same call.
+	// Функциите `Dir` и `Base` могат да се ползват за разделяне на пѫтека на
+	// папка и файл. Отделно можете да ползвате `Split`, за да върнете и двете
+	// части с едно извикване.
 	fmt.Println("Dir(p):", filepath.Dir(p))
 	fmt.Println("Base(p):", filepath.Base(p))
+	d, f := filepath.Split(p)
+	fmt.Printf("Split(p): %s, %s\n", d, f)
 
-	// We can check whether a path is absolute.
+	// Можем да проверяваме, дали даден пѫт е абсолютен.
 	fmt.Println(filepath.IsAbs("dir/file"))
 	fmt.Println(filepath.IsAbs("/dir/file"))
 
-	filename := "config.json"
+	filename := filepath.Base(p)
 
-	// Some file names have extensions following a dot. We
-	// can split the extension out of such names with `Ext`.
+	// Някои имена на файлове имат разширение. Можем да вземем разширението с
+	// помощта на функцията `Ext` (от extension – разширение).
 	ext := filepath.Ext(filename)
 	fmt.Println(ext)
 
-	// To find the file's name with the extension removed,
-	// use `strings.TrimSuffix`.
+	// За да вземем само името на файла, можем да ползваме
+	// `strings.TrimSuffix`.
 	fmt.Println(strings.TrimSuffix(filename, ext))
 
-	// `Rel` finds a relative path between a *base* and a
-	// *target*. It returns an error if the target cannot
-	// be made relative to base.
-	rel, err := filepath.Rel("a/b", "a/b/t/file")
+	// `Rel` (от relative – относителен) открива относителен пѫт при подадени
+	// *основа* и *цел* и връща относителният пѫт до целта. Ако целта не може
+	// да бъде съотнесена към основата (сиреч, не може да бъде относителен път
+	// за тази основа), връща празен низ и грешка.
+	rel, err := filepath.Rel("ала/бала", "ала/бала/ница/файл")
 	if err != nil {
 		panic(err)
 	}

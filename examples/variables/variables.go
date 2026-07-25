@@ -1,6 +1,6 @@
-// In Go, _variables_ are explicitly declared and used by
-// the compiler to e.g. check type-correctness of function
-// calls.
+// В Go, _променливите_ (стойности) се обявяват изрично и
+// се ползват от компилатора, за да провери правилността
+// на вида им при извикване на функиции и т.н.
 
 package main
 
@@ -8,28 +8,31 @@ import "fmt"
 
 func main() {
 
-	// `var` declares 1 or more variables.
+	// `var` обявява една или повече променливи.
 	var a = "initial"
 	fmt.Println(a)
 
-	// You can declare multiple variables at once.
+	// Можете да обявите няколко променливи наведнъж.
 	var b, c int = 1, 2
 	fmt.Println(b, c)
 
-	// Go will infer the type of initialized variables.
+	// Go отгатва типа на наченатите (инициализирани)
+	// променливи.
 	var d = true
 	fmt.Println(d)
 
-	// Variables declared without a corresponding
-	// initialization are _zero-valued_. For example, the
-	// zero value for an `int` is `0`.
+	// Промнеливите, които са само обявени, без да са
+	// наченати (да им е присвоена начална стойност),
+	// получават съответна за вида _нулева стойност_.
+	// Например нулевата стойност за цяло число `int` е 0.
 	var e int
 	fmt.Println(e)
 
-	// The `:=` syntax is shorthand for declaring and
-	// initializing a variable, e.g. for
-	// `var f string = "apple"` in this case.
-	// This syntax is only available inside functions.
+	// В този случай например, правописът[^syntax] `:=` е
+	// кратък начин за обявяване и начеване вместо
+	// `var f string = "apple"`. Този кратък правопис може
+	// да се използва само във функции.
+	//  [^syntax]: syntax – правило за писане – правопис
 	f := "apple"
 	fmt.Println(f)
 }

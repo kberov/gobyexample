@@ -1,7 +1,7 @@
-// The Go standard library comes with excellent support
-// for HTTP clients and servers in the `net/http`
-// package. In this example we'll use it to issue simple
-// HTTP requests.
+// Стандартната библиотека на Го включва отлична поддръжка за създаване на
+// клиенти и сървъри за HTTP[^http] чрез пакета `net/http`. В този пример ще
+// ползваме пакета, за да направим прости заявки по HTTP.
+// [^http]: HTTP: Hypertext Transfer Protocol – Протокол за пренос на хипертекст (свръх-текст -> надсловен плет). HTTP е протокол на приложно ниво за предаване на хипермедийни документи, като например HTML.
 package main
 
 import (
@@ -12,21 +12,20 @@ import (
 
 func main() {
 
-	// Issue an HTTP GET request to a server. `http.Get` is a
-	// convenient shortcut around creating an `http.Client`
-	// object and calling its `Get` method; it uses the
-	// `http.DefaultClient` object which has useful default
-	// settings.
+	// Правим заявка чрез HTTP метода GET. Функцията `http.Get` е удобна
+	// обвивка за последователността от действия – създаване на обект от вида
+	// `http.Client` и извикване на метода му `Get`. Тя ползва готовия обект
+	// `http.DefaultClient`, с полезни предварителни настройки.
 	resp, err := http.Get("https://gobyexample.com")
 	if err != nil {
 		panic(err)
 	}
 	defer resp.Body.Close()
 
-	// Print the HTTP response status.
-	fmt.Println("Response status:", resp.Status)
+	// Отпечатваме кода за състоянието на отговора.
+	fmt.Println("Състояние на отговора:", resp.Status)
 
-	// Print the first 5 lines of the response body.
+	// Отпечатваме първите пет реда от тялото на отговора.
 	scanner := bufio.NewScanner(resp.Body)
 	for i := 0; scanner.Scan() && i < 5; i++ {
 		fmt.Println(scanner.Text())

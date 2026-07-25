@@ -1,12 +1,13 @@
-# Some of the generated numbers may be
-# different when you run the sample.
-$ go run random-numbers.go
-68,56
-0.8090228139659177
-5.840125017402497,6.937056298890035
+# Някои от генерираните числа може да се различават,
+# когато пуснете примера.
+$ go run random-numbers.go 
+41,2
+0.7690960495376585
+8.083026358472628,5.899998156238747
 94,49
 94,49
 
-# See the [`math/rand/v2`](https://pkg.go.dev/math/rand/v2)
-# package docs for references on other random quantities
-# that Go can provide.
+# Вижте документацията на пакета
+# [`math/rand/v2`](https://pkg.go.dev/math/rand/v2), за да
+# се запознаете с други възможности за създаване на
+# случайни количества.
