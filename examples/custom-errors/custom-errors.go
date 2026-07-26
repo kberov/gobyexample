@@ -35,17 +35,15 @@ func f(arg int) (int, error) {
 
 func main() {
 
-	// Функцията `errors.As` е по-сложна разновидност на
-	// `errors.Is`. С нея проверяваме дали дадена грешка
-	// (или всяка грешка в нейната верига) е от определен
-	// вид, като превръща текущата грешка в обявена от нас
-	// променлива от очаквания вид. Ако успее, връща
-	// `true`, иначе – `false`.
+	// Функцията `errors.AsType` е по-сложна разновидност на `errors.Is`. С нея
+	// проверяваме дали дадена грешка (или всяка грешка в нейната верига) е от
+	// определен вид, като превръща текущата грешка в очаквания вид, връща
+	// грешката и `true`. Ако не успее, втората върната стойност е `false`.
 	_, err := f(42)
-	var ae *argError
-	if errors.As(err, &ae) {
-		fmt.Println(ae.Error())
+	if ae, ok := errors.AsType[*argError](err); ok {
+		fmt.Println(ae.message, ae.arg)
 	} else {
-		fmt.Println("err не от вида argError")
+		fmt.Println("err не е от вида argError")
+		fmt.Println(ae.Error())
 	}
 }

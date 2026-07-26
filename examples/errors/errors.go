@@ -61,7 +61,7 @@ func makeTea(arg int) error {
 		// смислова логическа верига (А обгръща Б, която
 		// обгръща В, и т.н.), която може да бъде
 		// проследявана с функции като `errors.Is` и
-		// `errors.As`.
+		// `errors.AsType`.
 		// [^wrap]: wrap – обгръщам, увивам като пакет, загръщам.
 		// [^context]: context – смисъл.
 		return fmt.Errorf("правя чай: %w", ErrPower)

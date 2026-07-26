@@ -33,15 +33,13 @@ func main() {
 	// нула.
 	_, err = exec.Command("date", "-x").Output()
 	if err != nil {
-		var execErr *exec.Error
-		var exitErr *exec.ExitError
-		switch {
-		case errors.As(err, &execErr):
-			fmt.Println("Провалено изпълнение:", err)
-		case errors.As(err, &exitErr):
-			exitCode := exitErr.ExitCode()
+		if e, ok := errors.AsType[*exec.Error](err); ok {
+			fmt.Println("Провалено изпълнение:", e)
+
+		} else if e, ok := errors.AsType[*exec.ExitError](err); ok {
+			exitCode := e.ExitCode()
 			fmt.Println("Код на изхода =", exitCode)
-		default:
+		} else {
 			panic(err)
 		}
 	}
