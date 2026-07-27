@@ -12,7 +12,7 @@
           }
           
           if (e.key == "ArrowLeft") {
-              window.location.href = 'signals';
+              window.location.href = 'modern-signals-with-context';
           }
           
           

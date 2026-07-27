@@ -82,4 +82,5 @@ XML
 Пораждане на процеси|Spawning Processes
 Изпълнение на процеси|Exec'ing Processes
 Сигнали|Signals
+Съвременна обработка на сигнали с Context|Modern signals with Context
 Изход|Exit

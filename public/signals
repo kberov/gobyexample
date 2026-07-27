@@ -17,7 +17,7 @@
           
           
           if (e.key == "ArrowRight") {
-              window.location.href = 'exit';
+              window.location.href = 'modern-signals-with-context';
           }
           
       }
@@ -198,7 +198,7 @@
       
       
       <p class="next">
-        Следващ пример: <a href="exit" rel="next">Изход</a>.
+        Следващ пример: <a href="modern-signals-with-context" rel="next">Съвременна обработка на сигнали с Context</a>.
       </p>
       
 
