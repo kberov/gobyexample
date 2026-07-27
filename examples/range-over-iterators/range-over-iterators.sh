@@ -3,6 +3,9 @@ $ go run range-over-iterators.go
 13
 23
 all: [10 13 23]
+част: Го
+част: в
+част: примери
 0
 1
 1
