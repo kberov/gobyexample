@@ -136,9 +136,10 @@
         
         <tr>
           <td class="docs">
-            <p>Произведеният вид леко се различава между обикновеното и съвместимото с
-изто̀чници превръщане (завършващ знак + вместо -), но и в двата случая
-обратното превръщане води до един и същи първоначален вид данни.</p>
+            <p>Произведеният вид леко се различава между обикновеното и
+съвместимото с изто̀чници превръщане (завършващ знак + вместо -),
+но и в двата случая обратното превръщане води до един и същи
+първоначален вид данни.</p>
 
           </td>
           <td class="code leading">
@@ -170,6 +171,10 @@
 
     <p class="footer">
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: Красимир Беров | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 
     </div>
