@@ -20,7 +20,7 @@
   </script>
   <body>
     <div class="example" id="exit">
-      <h2><a href="./">Go в примери</a>: Изход</h2>
+      <h2><a href="./index.html">Go в примери</a>: Изход</h2>
       
       <table>
         

@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="multiple-return-values">
-      <h2><a href="./">Go в примери</a>: Връщане на повече стойности</h2>
+      <h2><a href="./index.html">Go в примери</a>: Връщане на повече стойности</h2>
       
       <table>
         

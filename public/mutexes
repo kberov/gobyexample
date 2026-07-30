@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="mutexes">
-      <h2><a href="./">Go в примери</a>: Взаимно изключване</h2>
+      <h2><a href="./index.html">Go в примери</a>: Взаимно изключване</h2>
       
       <table>
         

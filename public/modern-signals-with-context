@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="modern-signals-with-context">
-      <h2><a href="./">Go в примери</a>: Съвременна обработка на сигнали с Context</h2>
+      <h2><a href="./index.html">Go в примери</a>: Съвременна обработка на сигнали с Context</h2>
       
       <table>
         

@@ -24,7 +24,7 @@
   </script>
   <body>
     <div class="example" id="reading-files">
-      <h2><a href="./">Go в примери</a>: Четене от файлове</h2>
+      <h2><a href="./index.html">Go в примери</a>: Четене от файлове</h2>
       
       <table>
         

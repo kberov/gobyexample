@@ -20,7 +20,7 @@
   </script>
   <body>
     <div class="example" id="hello-world">
-      <h2><a href="./">Go в примери</a>: Здравей Свят</h2>
+      <h2><a href="./index.html">Go в примери</a>: Здравей Свят</h2>
       
       <table>
         
