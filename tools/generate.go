@@ -347,6 +347,7 @@ func main() {
 	}
 	ensureDir(siteDir)
 
+	copyFile("templates/chota.v0.9.2.min.css", siteDir+"/chota.v0.9.2.min.css")
 	copyFile("templates/site.css", siteDir+"/site.css")
 	copyFile("templates/site.js", siteDir+"/site.js")
 	copyFile("templates/favicon.ico", siteDir+"/favicon.ico")

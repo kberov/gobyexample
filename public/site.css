@@ -159,11 +159,11 @@ p.footer {
     font-size: 75%;
 }
 div#intro {
-    width: 420px;
+   /* width: 420px;
     min-width: 420px;
-    max-width: 420px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; */
+    max-width: 420px;
     margin-bottom: 120px;
 }
 div#intro p {
@@ -395,4 +395,38 @@ body sup {
     body .c1 {
         color: #868686;
     } /* Comment.Single */
+}
+
+:root {
+    /* We can override here some varibles from chota or add our owns. */
+    /* --bg-secondary-color: var(--bg-color); */
+}
+.col,
+[class*=" col-"],
+[class^=col-] {
+  margin-bottom: 0;
+}
+
+.code {
+    background-color: var(--bg-secondary-color)
+}
+
+.empty {
+    background-color: var(--bg-color)
+}
+
+p, pre.chroma{
+    margin-top: 0.5rem;
+}
+
+.row, .footnotes {
+    margin-bottom: calc(var(--grid-gutter)/2);
+}
+
+.footnotes>hr {
+    margin-bottom: calc(var(--grid-gutter)/5);
+}
+
+.footnotes ol>li {
+    list-style: number;
 }
