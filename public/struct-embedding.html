@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Вложени структури</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'enums.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'generics.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="struct-embedding">
+      <h2><a href="./index.html">Go в примери</a>: Вложени структури</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Go поддържа <em>влагане</em><sup class="footnote-ref" id="fnref:embedding"><a href="#fn:embedding">1</a></sup> на структури и
+взаимодействия, за да даде възможност за по-плавно
+<em>съставяне</em><sup class="footnote-ref" id="fnref:composition"><a href="#fn:composition">2</a></sup> на структури и
+взаимодействия. Това влагане следва да не се бърка с
+директивата <a href="embed-directive"><code>//go:embed</code></a>, въведена в
+издание 1.16 на Го, която се ползва за влагане на
+файлове и папки в изпълнимия файл на приложението.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:embedding">embedding – влагане (калка от em-в и bed-легло)</li>
+
+<li id="fn:composition">composition – съставяне</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/NHAZzYANG-v"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">base</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">num</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="nx">base</span><span class="p">)</span><span class="w"> </span><span class="nf">describe</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;запис от основния вид с поле num=%v&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">num</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Вида <code>container</code> <em>влага</em> вид <code>base</code>. Влагането изглежда като поле без име. Пише се само вида.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">base</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Когато създаваме записи чрез буквални стойности на
+съставни (структурни) видове, трябва да наченем
+вложения вид изрично – да му дадем начална
+стойност. Тук вложения вид служи за име на полето.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">co</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">container</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">base</span><span class="p">:</span><span class="w"> </span><span class="nx">base</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">num</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">str</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;някакво име&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Можем да достъпим непосредствено полетата на
+вложения вид направо от <code>co</code> така: <code>co.num</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;co={num: %v, str: %v}\n&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">co</span><span class="p">.</span><span class="nx">num</span><span class="p">,</span><span class="w"> </span><span class="nx">co</span><span class="p">.</span><span class="nx">str</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Но можем да изпишем и целия път, като упоменем и
+вложения вид структура.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;същото поле num:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">co</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">num</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Понеже <code>container</code> влага в себе си <code>base</code>, методите
+на <code>base</code> също стават методи на записите от вида
+<code>container</code>. Тук извикваме метод, вложен от
+<code>base</code>, направо върху записа <code>co</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;извикваме describe:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">co</span><span class="p">.</span><span class="nf">describe</span><span class="p">())</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">type</span><span class="w"> </span><span class="nx">describer</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nf">describe</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Чрез влагането на структури можем „автоматично“ да
+осъществяваме взаимодействия за влагащите съставни
+видове. Тук виждаме, че сега променлива от
+вида <code>container</code> осъществява <code>describer</code> понеже
+<code>base</code> е вложен в <code>container</code>.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nx">describer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">co</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;describer:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nf">describe</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run ./struct-embedding.go
+</span></span><span class="line"><span class="cl"><span class="go">co={num: 1, str: някакво име}
+</span></span></span><span class="line"><span class="cl"><span class="go">същото поле num: 1
+</span></span></span><span class="line"><span class="cl"><span class="go">извикваме describe: запис от основния вид с поле num=1
+</span></span></span><span class="line"><span class="cl"><span class="go">describer: запис от основния вид с поле num=1</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="generics.html" rel="next">Обобщения</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import \"fmt\"\u000A');codeLines.push('type base struct {\u000A    num int\u000A}\u000A');codeLines.push('func (b base) describe() string {\u000A    return fmt.Sprintf(\u000A        \"запис от основния вид с поле num\u003D%v\", b.num)\u000A}\u000A');codeLines.push('type container struct {\u000A    base\u000A    str string\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    co :\u003D container{\u000A        base: base{\u000A            num: 1,\u000A        },\u000A        str: \"някакво име\",\u000A    }\u000A');codeLines.push('    fmt.Printf(\"co\u003D{num: %v, str: %v}\\n\", co.num, co.str)\u000A');codeLines.push('    fmt.Println(\"същото поле num:\", co.base.num)\u000A');codeLines.push('    fmt.Println(\"извикваме describe:\", co.describe())\u000A');codeLines.push('    type describer interface {\u000A        describe() string\u000A    }\u000A');codeLines.push('    var d describer \u003D co\u000A    fmt.Println(\"describer:\", d.describe())\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

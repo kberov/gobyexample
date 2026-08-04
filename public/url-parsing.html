@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Разбор на URL</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'number-parsing.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'sha256-hashes.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="url-parsing">
+      <h2><a href="./index.html">Go в примери</a>: Разбор на URL</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Местонахожденията в световната мрежа, т.нар. URL<sup class="footnote-ref" id="fnref:URL"><a href="#fn:URL">1</a></sup>,
+представляват еднѡбразен начин за указване мястото на
+първоизточници за данни. Ето как да
+<em>разпределяме</em><sup class="footnote-ref" id="fnref:parse"><a href="#fn:parse">2</a></sup> в структура първоизточници в Го.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:URL">URL – Uniform Resourse Locator – Единен (уеднаквен, еднообразен) Указател за Източник (на данни) ЕУИ – https://bg.wikipedia.org/wiki/Унифициран_локатор_на_ресурси, https://adam.herokuapp.com/past/2010/3/30/urls_are_the_uniform_way_to_locate_resources/, за по-кратко <em>изто̀чник</em></li>
+
+<li id="fn:parse">parse – (в случая) разпределям (откритите стойности в отделни полета в структура)</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/-lk6AH7NWyf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;net&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;net/url&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Ще разпределим този примерен <em>изто̀чник</em>.
+Частите му включват <em>схема</em>,
+<em>достоверnости</em><sup class="footnote-ref" id="fnref:auth"><a href="#fn:auth">1</a></sup>, гостоприемник (хост),
+порт<sup class="footnote-ref" id="fnref:port"><a href="#fn:port">2</a></sup>, път, податки за заявката, и <em>откъс от
+заявката</em><sup class="footnote-ref" id="fnref:frag"><a href="#fn:frag">3</a></sup>.</p>
+
+<p>Следният изто̀чник не може да бъде разпределен
+просто защото стандартът приема само знаци от
+знаковата таблица ASCII.
+<code>s :=
+&quot;схема://потребител:тайна@гостоприемник.com:5432/пѫт?ключ=стойност#откъс&quot;</code></p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:auth">authentication info – достоверности – данни за удостоверяване на потребител</li>
+
+<li id="fn:port">port – буквално порта, врата, двери, https://bg.wikipedia.org/wiki/Мрежов_порт</li>
+
+<li id="fn:frag">query fragment – откъс (на заявката) – указател към място в изто̀чника, чието име е след знака #</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#34;postgres://user:pass@host.com:5432/path?k=v#f&#34;</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Разпределяме изто̀чника и проверяваме за грешка.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Достъпът до схемата е лесен.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">Scheme</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Полето <code>User</code> съдържа всички данни за
+удостоверяване. Извикайте неговите методи
+<code>Username</code> и <code>Password</code>, за да вземете отделните
+стойности.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">User</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nf">Username</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">p</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nf">Password</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Полето <code>Host</code> съдържа името на хоста и порта, ако
+има такъв. Изполвайте метода <code>SplitHostPort</code>, за да
+ги извлечете.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">Host</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">host</span><span class="p">,</span><span class="w"> </span><span class="nx">port</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nf">SplitHostPort</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">Host</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">host</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">port</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Тук извличаме пътя – <code>path</code> и откъса след знака <code>#</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">Path</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">Fragment</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>За да вземете податките към заявката от низ във
+вида <code>k=v</code>, използвайте полето <code>RawQuery</code>. Можете
+също да разпределите податките към заявката
+в карта. Разпределените в карта податки се състоят
+от съответствия между ключове – низове към
+стойности – отрязъци от низове, така че, за да
+вземете само една (първата) стойност, трябва да
+укажете нулевия член.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">RawQuery</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nf">ParseQuery</span><span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">RawQuery</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;k&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">Ако пуснем програмата разпределител на изто̀чник, ще видим
+</span></span></span><span class="line"><span class="cl"><span class="go">извлечените съставни части.
+</span></span></span><span class="line"><span class="cl"><span class="gp">$</span> go run url-parsing.go 
+</span></span><span class="line"><span class="cl"><span class="go">postgres
+</span></span></span><span class="line"><span class="cl"><span class="go">user:pass
+</span></span></span><span class="line"><span class="cl"><span class="go">user
+</span></span></span><span class="line"><span class="cl"><span class="go">pass
+</span></span></span><span class="line"><span class="cl"><span class="go">host.com:5432
+</span></span></span><span class="line"><span class="cl"><span class="go">host.com
+</span></span></span><span class="line"><span class="cl"><span class="go">5432
+</span></span></span><span class="line"><span class="cl"><span class="go">/path
+</span></span></span><span class="line"><span class="cl"><span class="go">f
+</span></span></span><span class="line"><span class="cl"><span class="go">k=v
+</span></span></span><span class="line"><span class="cl"><span class="go">map[k:[v]]
+</span></span></span><span class="line"><span class="cl"><span class="go">v</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="sha256-hashes.html" rel="next">Хешове от вида SHA256</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net\"\u000A    \"net/url\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    s :\u003D \"postgres://user:pass@host.com:5432/path?k\u003Dv#f\"\u000A');codeLines.push('    u, err :\u003D url.Parse(s)\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A');codeLines.push('    fmt.Println(u.Scheme)\u000A');codeLines.push('    fmt.Println(u.User)\u000A    fmt.Println(u.User.Username())\u000A    p, _ :\u003D u.User.Password()\u000A    fmt.Println(p)\u000A');codeLines.push('    fmt.Println(u.Host)\u000A    host, port, _ :\u003D net.SplitHostPort(u.Host)\u000A    fmt.Println(host)\u000A    fmt.Println(port)\u000A');codeLines.push('    fmt.Println(u.Path)\u000A    fmt.Println(u.Fragment)\u000A');codeLines.push('    fmt.Println(u.RawQuery)\u000A    m, _ :\u003D url.ParseQuery(u.RawQuery)\u000A    fmt.Println(m)\u000A    fmt.Println(m[\"k\"][0])\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

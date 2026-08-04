@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Видът Context</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'tcp-server.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'spawning-processes.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="context">
+      <h2><a href="./index.html">Go в примери</a>: Видът Context</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>В предишен пример разгледахме създаването на прост <a href="http-server">HTTP
+сървър</a>. HTTP сървърите са полезни за показване ползата от
+<code>context.Context</code> за управление на откази (от започнати действия). Един
+обект от вида <code>context.Context</code> носи в себе си крайни срокове, сигнали за
+отказване и други свойства в обхвата на една заявка през границите на
+взаимодействия (API) и гозадачи. (Сиреч може да бъде споделян между тях
+(бел. прев.)).</p>
+
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/k3Kslr3uRyM"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;net/http&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;time&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Обект от вида <code>context.Context</code> бива създаден при всяка заявка от
+<code>net/http</code> и може да бъде достъпен чрез метода <code>Context()</code> на обект от
+вида <code>*http.Request</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;сървър: пуснахме обработчика &#39;здрасти&#39;.&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;сървър: спряхме обработчика &#39;здрасти&#39;.&#34;</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Изчакваме няколко секунди преди да изпратим отговор на клиента. Така
+симулираме, че сървърът върши някаква работа. Докато работи, наглеждаме
+канала, връщан от <code>Done()</code> за знак, че работата трябва да бъде
+прекъсната и да се излезе от обработчика незабавно.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;здрасти\n&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Методът <code>Err()</code> на контекста връща грешка, която обяснява защо
+каналът, върнат от <code>Done()</code> е затворен.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;сървър:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">internalError</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(),</span><span class="w"> </span><span class="nx">internalError</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Както преди, записваме, че нашата функция ще обработва заявки към пътя
+&ldquo;/hello&rdquo;,  и започваме да обслужваме заявки.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">hello</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8090&#34;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Пускаме сървъра на заден план.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run context.go &amp;</span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Правим заявка към <code>/hello</code> и малко след това натискаме Ctrl+C, и така
+обозначаваме отказ от заявката.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> curl localhost:8090/hello
+</span></span><span class="line"><span class="cl"><span class="go">сървър: пуснахме обработчика &#39;здрасти&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="go">^Cсървър: context canceled
+</span></span></span><span class="line"><span class="cl"><span class="go">сървър: спряхме обработчика &#39;здрасти&#39;.</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="spawning-processes.html" rel="next">Пораждане на процеси</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"net/http\"\u000A    \"time\"\u000A)\u000A');codeLines.push('func hello(w http.ResponseWriter, req *http.Request) {\u000A');codeLines.push('    ctx :\u003D req.Context()\u000A    fmt.Println(\"сървър: пуснахме обработчика \'здрасти\'.\")\u000A    defer fmt.Println(\"сървър: спряхме обработчика \'здрасти\'.\")\u000A');codeLines.push('    select {\u000A    case \u003C-time.After(10 * time.Second):\u000A        fmt.Fprintf(w, \"здрасти\\n\")\u000A    case \u003C-ctx.Done():\u000A');codeLines.push('        err :\u003D ctx.Err()\u000A        fmt.Println(\"сървър:\", err)\u000A        internalError :\u003D http.StatusInternalServerError\u000A        http.Error(w, err.Error(), internalError)\u000A    }\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    http.HandleFunc(\"/hello\", hello)\u000A    http.ListenAndServe(\":8090\", nil)\u000A}\u000A');codeLines.push('');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Гозадачи, запазващи състояние</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'mutexes.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'sorting.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="stateful-goroutines">
+      <h2><a href="./index.html">Go в примери</a>: Гозадачи, запазващи състояние</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>В предишния пример използвахме изрично заключване на данните с помощта на
+<a href="mutexes">превключвачи</a>, за да съгласуваме достъпа до споделено състояние
+между множество гозадачи. Друга възможност да постигнем същото е да
+използваме вградените възможности за съгласуване в езика чрез гозадачи и
+канали. Този подход, основан на канали е в съзвучие с представата на Го да
+се споделя памет чрез предаване на съобщения между гозадачите и едно парче
+данни да се владее винаги само от една гозадача.</p>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/v375FNo80LN"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;math/rand&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;sync/atomic&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;time&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>В този пример състоянието на данните ще се владее само
+от една единствена гозадача. Така данните няма как да бъдат
+повредени при едновременен достъп, просто защото няма
+такъв. За да четат или променят това състояние, другите
+гозадачи ще изпращат съобщения на владеещата
+състоянието на данните гозадача и ще получават
+съответни отговори от нея.
+Тези стртури – <code>четене</code> и <code>писане</code> съдържат в себе си
+самите заявки и начини за владеещата състоянието
+гозадача да отговаря. Начините са каналите, именувани
+<code>отговор</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">четене</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">key</span><span class="w">     </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">отговор</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">писане</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">key</span><span class="w">     </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">val</span><span class="w">     </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">отговор</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">bool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Както преди, ще броим извършените действия.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">бройЧетения</span><span class="w"> </span><span class="kt">uint64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">бройПисания</span><span class="w"> </span><span class="kt">uint64</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Каналите <code>четения</code> и <code>писания</code> ще се използват от
+другите гозадачи, за да правят заявки за четене и
+писане.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">четения</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">четене</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">писания</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">писане</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Ето я задачата, която притежава <code>състояние</code>то.
+Състоянието е карта, както в предния пример, но
+сега е частна собственост на <em>състоятелната</em>
+гозадача. Тази гозадача непрекъснато избира чрез
+<code>select</code> пристигащи по каналите <code>четения</code> и
+<code>писания</code> стойности като веднага отговаря на
+заявките щом пристигнат. Отговорът бива изпратен по
+съответния за действието канал, веднага след като
+бъде изпълнено заявеното действие. Самото изпращане
+по съответния канал за отговор означава, че
+действието е успешно. В случай на заявка за четене
+бива изпратена заявената стойност, а в случай на
+заявка за писане – двоична стойност – „да”
+(<code>true</code>).</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">състояние</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="nx">read</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">четения</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">read</span><span class="p">.</span><span class="nx">отговор</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">състояние</span><span class="p">[</span><span class="nx">read</span><span class="p">.</span><span class="nx">key</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="nx">write</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">писания</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">състояние</span><span class="p">[</span><span class="nx">write</span><span class="p">.</span><span class="nx">key</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">write</span><span class="p">.</span><span class="nx">val</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">write</span><span class="p">.</span><span class="nx">отговор</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}()</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Това повторение пуска 100 гозадачи, да правят
+заявки за четене към владеещата състоянието
+гозадачача по канала <code>четения</code>. Всяко четене
+изисква да се напраи заявка за четене, като се
+състави ново <code>четене</code> и се изпрати по канала
+<code>четения</code>, а отговорът бива получен по канала
+<code>read.отговор</code>, като напишем <code>&lt;-read.отговор</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">read</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">четене</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nx">key</span><span class="p">:</span><span class="w">     </span><span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nx">отговор</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">четения</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">read</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="o">&lt;-</span><span class="nx">read</span><span class="p">.</span><span class="nx">отговор</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">бройЧетения</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>По подобен начин пускаме и 10 писания.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">write</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">писане</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nx">key</span><span class="p">:</span><span class="w">     </span><span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nx">val</span><span class="p">:</span><span class="w">     </span><span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nx">отговор</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">bool</span><span class="p">)}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">писания</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">write</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="o">&lt;-</span><span class="nx">write</span><span class="p">.</span><span class="nx">отговор</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">бройПисания</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Да оставим гозадачите да поработят една секунда.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Накрая извеждаме отчет за броя, извършени действия.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">краенБройЧетения</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">бройЧетения</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Общо четения:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">краенБройЧетения</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">краенБройПисания</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">бройПисания</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Общо писания:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">краенБройПисания</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Като пуснем програмата виждаме, че при основаното на
+гозадачи управление на състоянието, тя извършва (на
+моето сметало) общо 73732 действия.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run stateful-goroutines.go
+</span></span><span class="line"><span class="cl"><span class="go">Общо четения: 66790
+</span></span></span><span class="line"><span class="cl"><span class="go">Общо писания: 6942</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Точно в този случай подходът, основан на гозадачи беше
+малко по-сложен от основаващия се на превключватели. Все
+пак може да е полезно в някои случаи. Например когато
+работите с други канали или когато използването на
+превключватели, може да доведе до повече грешки.
+Използвайте подхода, който ви изглежда по-естествен,
+особено с оглед на по-лесното разбиране, дали програмата
+ви работи правилно.</p>
+
+          </div>
+          <div class="col-6 code empty">
+            
+          
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="sorting.html" rel="next">Подреждане</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"math/rand\"\u000A    \"sync/atomic\"\u000A    \"time\"\u000A)\u000A');codeLines.push('type четене struct {\u000A    key     int\u000A    отговор chan int\u000A}\u000Atype писане struct {\u000A    key     int\u000A    val     int\u000A    отговор chan bool\u000A}\u000A');codeLines.push('func main() {\u000A');codeLines.push('    var бройЧетения uint64\u000A    var бройПисания uint64\u000A');codeLines.push('    четения :\u003D make(chan четене)\u000A    писания :\u003D make(chan писане)\u000A');codeLines.push('    go func() {\u000A        var състояние \u003D make(map[int]int)\u000A        for {\u000A            select {\u000A            case read :\u003D \u003C-четения:\u000A                read.отговор \u003C- състояние[read.key]\u000A            case write :\u003D \u003C-писания:\u000A                състояние[write.key] \u003D write.val\u000A                write.отговор \u003C- true\u000A            }\u000A        }\u000A    }()\u000A');codeLines.push('    for range 100 {\u000A        go func() {\u000A            for {\u000A                read :\u003D четене{\u000A                    key:     rand.Intn(5),\u000A                    отговор: make(chan int)}\u000A                четения \u003C- read\u000A                \u003C-read.отговор\u000A                atomic.AddUint64(\u0026бройЧетения, 1)\u000A                time.Sleep(time.Millisecond)\u000A            }\u000A        }()\u000A    }\u000A');codeLines.push('    for range 10 {\u000A        go func() {\u000A            for {\u000A                write :\u003D писане{\u000A                    key:     rand.Intn(5),\u000A                    val:     rand.Intn(100),\u000A                    отговор: make(chan bool)}\u000A                писания \u003C- write\u000A                \u003C-write.отговор\u000A                atomic.AddUint64(\u0026бройПисания, 1)\u000A                time.Sleep(time.Millisecond)\u000A            }\u000A        }()\u000A    }\u000A');codeLines.push('    time.Sleep(time.Second)\u000A');codeLines.push('    краенБройЧетения :\u003D atomic.LoadUint64(\u0026бройЧетения)\u000A    fmt.Println(\"Общо четения:\", краенБройЧетения)\u000A    краенБройПисания :\u003D atomic.LoadUint64(\u0026бройПисания)\u000A    fmt.Println(\"Общо писания:\", краенБройПисания)\u000A}\u000A');codeLines.push('');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

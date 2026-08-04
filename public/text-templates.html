@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Образци за словоплет</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'string-formatting.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'regular-expressions.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="text-templates">
+      <h2><a href="./index.html">Go в примери</a>: Образци за словоплет</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Го предлага вградена поддръжка за създаване на
+променливо<sup class="footnote-ref" id="fnref:dynamic"><a href="#fn:dynamic">1</a></sup> съдържание или за показване на пригодѐн
+за потребителя изход с пакета <code>text/template</code>. Сродният
+му пакет <code>html/template</code> предоставя същото
+взаимодействие<sup class="footnote-ref" id="fnref:api"><a href="#fn:api">2</a></sup> но има добавени пособия за
+сигурност и е предназначен за извеждане на HTML<sup class="footnote-ref" id="fnref:html"><a href="#fn:html">3</a></sup>.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:dynamic">dynamic – променливо</li>
+
+<li id="fn:api">(API) application programming interface – обявено от програмиста взаимодействие за ползване на набор от обекти – в най-общ смисъл</li>
+
+<li id="fn:html">HTML – Hypertext Markup Language – език за обозначаване на свръхтекст</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/Q9s6fR-9RQr"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;os&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;text/template&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Можем да създадем нов <em>образец</em><sup class="footnote-ref" id="fnref:templ"><a href="#fn:templ">1</a></sup> и да
+<em>разберем</em><sup class="footnote-ref" id="fnref:parse"><a href="#fn:parse">2</a></sup> тялото му от низ. Образците
+са смесица от словен плет (текст) и „действия“,
+обгърнати в две двойки къдрави скоби – <code>{{...}}</code>,
+които са предназначени да вмъкнат променливо съдържание.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:templ">template – образец на документ с места за попълване, обозначени  по някакъв начин</li>
+
+<li id="fn:parse">parse – правя разбор – разбирам; разделям на по-малки парчета, за да събера наново, но произвеждайки качествено ново нещо.</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;t1&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">t1</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34;Стойността е {{.}}\n&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Можем също да използваме функцията <code>template.Must</code>,
+за да ужасим програмата, в случай че <code>Parse</code> върне
+грешка. Това е особено полезно при образци,
+<em>наченати</em><sup class="footnote-ref" id="fnref:init"><a href="#fn:init">1</a></sup> в <em>общия обхват</em><sup class="footnote-ref" id="fnref:glscope"><a href="#fn:glscope">2</a></sup> на
+програмата - общодостъпни.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:init">initialized – наченат, инициализиран</li>
+
+<li id="fn:glscope">global scope – общ обхват (на програма), там където дадена променлива може да бъде достъпена от всяка част на програмата</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nf">Must</span><span class="p">(</span><span class="nx">t1</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">&#34;Стойността е: {{.}}\n&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Като „изпълним“ образеца, пресъздаваме словоплета му
+със зададените за всяко действие стойности.
+Действието <code>{{.}}</code> – точка между двойни къдрави
+скоби – бива заместено с подадената на <code>Execute</code>
+(изпълнявам) стойност.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;нѣкакъв словен плѣт&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t1</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;Go&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;Rust&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;C++&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;C#&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Помощна функция, която ще ползваме по-долу.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Create</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">template</span><span class="p">.</span><span class="nx">Template</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nf">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">name</span><span class="p">).</span><span class="nf">Parse</span><span class="p">(</span><span class="nx">t</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Ако данната е структура, можем да ползваме
+действието <code>{{.ИмеНаПоле}}</code> за достъп до полетата
+ѝ. Полетата трябва да са <em>изнесени</em><sup class="footnote-ref" id="fnref:exported"><a href="#fn:exported">1</a></sup>, за
+да са достъпни, когато образецът бива изпълнен.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:exported">exported – изнесен (навън), видим, достъпен, общодостъпен. Всяко поле, започващо с главна буква е изнесено. В други езици, public – общодостъпно.</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;t2&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;Име: {{.Име}}\n&#34;</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t2</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Име</span><span class="w"> </span><span class="kt">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}{</span><span class="s">&#34;Янка Готованка&#34;</span><span class="p">})</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Същото се отнася за карти. При картите имената на
+ключовете могат да започват и с малки букви.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t2</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;Име&#34;</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;Педя Човек&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Изявленията <code>if/else</code>, предоставят условно
+изпълнение в образците. Една стойност се смята за
+<code>false</code> ако е нулева стойност за съответния вид
+данни. Например 0, празен низ, нулев указател и
+т.н. Това парче показва друга способност на
+образците: употребата на действия <code>-</code> за окастряне
+на бели пространства.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;t3&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;{{if . -}} да {{- else -}} не {{- end}}\n&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t3</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;непразно&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t3</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Блоковете <code>range</code> ни дават възможност за
+повторителни действия върху всеки член от отрязъци,
+поредици, карти или канали. Вътре в блока <code>{{.}}</code>
+съдържа текущата стойност в повторението.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">Create</span><span class="p">(</span><span class="s">&#34;t4&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="s">&#34;Обход: {{range .}}{{.}} {{end}}\n&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">t4</span><span class="p">.</span><span class="nf">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;Go&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;Rust&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;C++&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;C#&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run templates.go 
+</span></span><span class="line"><span class="cl"><span class="go">Стойността е: нѣкакъв словен плѣт
+</span></span></span><span class="line"><span class="cl"><span class="go">Стойността е: 5
+</span></span></span><span class="line"><span class="cl"><span class="go">Стойността е: [Go Rust C++ C#]
+</span></span></span><span class="line"><span class="cl"><span class="go">Име: Янка Готованка
+</span></span></span><span class="line"><span class="cl"><span class="go">Име: Педя Човек
+</span></span></span><span class="line"><span class="cl"><span class="go">да
+</span></span></span><span class="line"><span class="cl"><span class="go">не
+</span></span></span><span class="line"><span class="cl"><span class="go">Обход: Go Rust C++ C#</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="regular-expressions.html" rel="next">Редовѝ изрази</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"os\"\u000A    \"text/template\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    t1 :\u003D template.New(\"t1\")\u000A    t1, err :\u003D t1.Parse(\"Стойността е {{.}}\\n\")\u000A    if err !\u003D nil {\u000A        panic(err)\u000A    }\u000A');codeLines.push('    t1 \u003D template.Must(t1.Parse(\"Стойността е: {{.}}\\n\"))\u000A');codeLines.push('    t1.Execute(os.Stdout, \"нѣкакъв словен плѣт\")\u000A    t1.Execute(os.Stdout, 5)\u000A    t1.Execute(os.Stdout, []string{\u000A        \"Go\",\u000A        \"Rust\",\u000A        \"C++\",\u000A        \"C#\",\u000A    })\u000A');codeLines.push('    Create :\u003D func(name, t string) *template.Template {\u000A        return template.Must(template.New(name).Parse(t))\u000A    }\u000A');codeLines.push('    t2 :\u003D Create(\"t2\", \"Име: {{.Име}}\\n\")\u000A');codeLines.push('    t2.Execute(os.Stdout, struct {\u000A        Име string\u000A    }{\"Янка Готованка\"})\u000A');codeLines.push('    t2.Execute(os.Stdout, map[string]string{\u000A        \"Име\": \"Педя Човек\",\u000A    })\u000A');codeLines.push('    t3 :\u003D Create(\"t3\",\u000A        \"{{if . -}} да {{- else -}} не {{- end}}\\n\")\u000A    t3.Execute(os.Stdout, \"непразно\")\u000A    t3.Execute(os.Stdout, \"\")\u000A');codeLines.push('    t4 :\u003D Create(\"t4\",\u000A        \"Обход: {{range .}}{{.}} {{end}}\\n\")\u000A    t4.Execute(os.Stdout,\u000A        []string{\u000A            \"Go\",\u000A            \"Rust\",\u000A            \"C++\",\u000A            \"C#\",\u000A        })\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

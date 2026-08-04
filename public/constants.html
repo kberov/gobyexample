@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Непроменливи</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'variables.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'for.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="constants">
+      <h2><a href="./index.html">Go в примери</a>: Непроменливи</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Go поддържа <em>непроменливи</em><sup class="footnote-ref" id="fnref:const"><a href="#fn:const">1</a></sup> стойности от
+видовете за знак, низ, булева и числова стойности.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:const">constant – непроменлива стойност, константна величина, константа</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/DiYLXGBJkvc"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;math&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p><code>const</code> обявява непроменлива стойност.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;constant&#34;</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Изявлението<sup class="footnote-ref" id="fnref:statement"><a href="#fn:statement">1</a></sup> <code>const</code> може да се появява
+също в тяло на функция.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:statement">statement – изявление</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">500000000</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>В изрази за създаване на непроменливи може да се
+извършват аритметични действия с променлива точност.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">3e20</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">n</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Числовата непроменлива няма тип, докато не ѝ се
+даде такъв. Например чрез изрично превръщане.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>На число може да му се придаде вид при използването
+му в определен смисъл, който изисква такъв вид
+стойност. Например при присвояване на стойност на
+променлива или извикване на функция. Тук <code>math.Sin</code>
+очаква число от вида <code>float64</code>.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nf">Sin</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run constant.go 
+</span></span><span class="line"><span class="cl"><span class="go">constant
+</span></span></span><span class="line"><span class="cl"><span class="go">6e+11
+</span></span></span><span class="line"><span class="cl"><span class="go">600000000000
+</span></span></span><span class="line"><span class="cl"><span class="go">-0.28470407323754404</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="for.html" rel="next">За (For)</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"math\"\u000A)\u000A');codeLines.push('const s string \u003D \"constant\"\u000A');codeLines.push('func main() {\u000A    fmt.Println(s)\u000A');codeLines.push('    const n \u003D 500000000\u000A');codeLines.push('    const d \u003D 3e20 / n\u000A    fmt.Println(d)\u000A');codeLines.push('    fmt.Println(int64(d))\u000A');codeLines.push('    fmt.Println(math.Sin(n))\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

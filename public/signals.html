@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Сигнали</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'execing-processes.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'modern-signals-with-context.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="signals">
+      <h2><a href="./index.html">Go в примери</a>: Сигнали</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>В някои случаи ни е нужно нашите програми да обработват сигнали в
+<a href="https://en.wikipedia.org/wiki/Unix_signal">юникс-подобни</a><sup class="footnote-ref" id="fnref:sign"><a href="#fn:sign">1</a></sup> уредби. Например
+бихме искали сървърът ни да спира, когато получи сигнал <code>SIGTERM</code>, или наше
+приложение за командния ред да спре да обработва входни данни, щом получи сигнал
+<code>SIGINT</code>. Ето как да обработваме сигнали в Го с помощта на канали.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:sign">signal – сигнал. Стандартизирани съобщения към работещи програми за предизвикване на някакво действие от тяхна страна. Например, да приключат или да обработят някоя грешка. Сигналите са ограничен вид общуване между процеси в Юникс и други съвместими с POSIX стандарта уредби.  https://en.wikipedia.org/wiki/Unix_signal . POSIX (Portable Operating System Interface X) – Преносимо взаимодействие за работна уредба Х. Х накрая обозначава Юникс.</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/xiLtMG1Gyz0"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;os&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;os/signal&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;syscall&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Уведомлението чрез сигнал в Го работи чрез изпращане на стойности от
+вида <code>os.Signal</code> по канал. Ще създадем канал, по който да получаваме
+тези уведомления. Забележете, че каналът трябва да е складиращ.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">знаци</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p><code>signal.Notify</code> записва дадения канал да получава указаните сигнали като
+уведомления.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">знаци</span><span class="p">,</span><span class="w"> </span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGTERM</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Бихме могли да получаваме известия по канала <code>знаци</code> дори тук, в
+главната функция, но нека видим как това може да бъде направено в
+отделна гозадача. Така ще покажем по-близък до действителността случай,
+как се прави чисто приключване на програма.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">приключване</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Тази гозадача изпълнява спиращо получаване на сигнали. Когато получи
+сигнал го отпечатва на стандартния изход, а после уведомява
+програмата, че може да приключи изпълнението си.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="nx">sig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">знаци</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">sig</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">приключване</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}()</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Тук програмата чака, докато получи очаквания знак (сигнал), както бива
+указано от горната гозадача, която изпраща стойност <code>true</code>, щом
+променливата <code>приключване</code> (която е също складиращ канал) има стойност,
+а после приключва.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;чакам знак&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&lt;-</span><span class="nx">приключване</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;излизам&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Когато пуснем тази програма, тя спира и чака знак. Като натиснем <code>ctrl-C</code> (в
+терминала се вижда като <code>^C</code>) изпращаме сигнал <code>SIGINT</code>, който кара
+програмата да изведе &ldquo;излизам&rdquo; и да излезе. &ldquo;interrupt&rdquo; е представения като
+низ отпечатания от гозадачата <code>SIGINT</code>.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run signals.go
+</span></span><span class="line"><span class="cl"><span class="go">чакам знак
+</span></span></span><span class="line"><span class="cl"><span class="go">^C
+</span></span></span><span class="line"><span class="cl"><span class="go">interrupt
+</span></span></span><span class="line"><span class="cl"><span class="go">излизам
+</span></span></span><span class="line"><span class="cl"><span class="go">exiting</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="modern-signals-with-context.html" rel="next">Съвременна обработка на сигнали с Context</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"fmt\"\u000A    \"os\"\u000A    \"os/signal\"\u000A    \"syscall\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    знаци :\u003D make(chan os.Signal, 1)\u000A');codeLines.push('    signal.Notify(знаци, syscall.SIGINT, syscall.SIGTERM)\u000A');codeLines.push('    приключване :\u003D make(chan bool, 1)\u000A');codeLines.push('    go func() {\u000A');codeLines.push('        sig :\u003D \u003C-знаци\u000A        fmt.Println()\u000A        fmt.Println(sig)\u000A        приключване \u003C- true\u000A    }()\u000A');codeLines.push('    fmt.Println(\"чакам знак\")\u000A    \u003C-приключване\u000A    fmt.Println(\"излизам\")\u000A}\u000A');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>

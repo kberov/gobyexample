@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go в примери: Редовѝ изрази</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
+    <link rel=stylesheet href="site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          
+          if (e.key == "ArrowLeft") {
+              window.location.href = 'text-templates.html';
+          }
+          
+          
+          if (e.key == "ArrowRight") {
+              window.location.href = 'json.html';
+          }
+          
+      }
+  </script>
+  <body>
+    <div class="container" id="regular-expressions">
+      <h2><a href="./index.html">Go в примери</a>: Редовѝ изрази</h2>
+      
+        <div class="row">
+        
+            <div class="col-6">
+            <p>Го предлага вградена поддръжка за редовѝ
+изрази<sup class="footnote-ref" id="fnref:regex"><a href="#fn:regex">1</a></sup>. Ето няколко примера с често срещани
+задачи, налагащи използването на поредови изрази.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:regex">regular expressions – редовѝ изрази – изрази, съставени от поредици от знаци за търсене на подобия в словен плет и вероятно заместване, регулярни изрази. https://bg.wikipedia.org/wiki/Регулярен_израз</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code empty leading">
+            
+          
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            <a href="https://go.dev/play/p/OLF0tUGXRp6"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;bytes&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;regexp&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Този израз проверява за съответствие<sup class="footnote-ref" id="fnref:match"><a href="#fn:match">1</a></sup> в низ.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:match">match – (намирам) съответствие, съвпадение, подобие</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">match</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nf">MatchString</span><span class="p">(</span><span class="s">&#34;п([а-я]+)а&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;праскова&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">match</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Горе приложихме израза за търсене направо върху
+низа, но в други случаи ще ви е нужно да
+компилирате с <code>Compile</code> оптимизирана структура от
+вида <code>Regexp</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nf">Compile</span><span class="p">(</span><span class="s">&#34;п([а-я]+)а&#34;</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Тази структура има много методи. Ето я същата
+проверка за съвпадение като горе, но вече не като
+функция, а като метод на <code>Regexp</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">MatchString</span><span class="p">(</span><span class="s">&#34;праскова&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Това извикване намира съответствие в подадения низ и
+връща съответстващото.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">`съвп.:`</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindString</span><span class="p">(</span><span class="s">&#34;прасковa с дупка&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Това също намира първото съвпадение, но връща
+местата на началото и края на съвпаденията в словния
+плет.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;показалци:&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindStringIndex</span><span class="p">(</span><span class="s">&#34;прасковa с дупка&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Разновидностите на метода <code>Submatch</code> включват
+сведения, както за цялото съвпадение, така и за
+подсъответствията – частите му. Така например
+следното извикване връща сведения за <code>п([а-я]+)а</code>
+и <code>([а-я]+)</code>.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">FindStringSubmatch</span><span class="p">(</span><span class="s">&#34;прасковa с дупка&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Подобно, следното извикване ще върне сведения за
+местонахожденията на съвпаденията и частите.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindStringSubmatchIndex</span><span class="p">(</span><span class="s">&#34;прасковa с дупка&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Разновидностите, съдържащи в името си <code>All</code>,
+се прилагат върху целия низ и връщат <em>всички</em>
+съвпадения, не само първото. Например, ето как
+намираме всички подобия за един редовѝ израз.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindAllString</span><span class="p">(</span><span class="s">&#34;прасковa с дупка и щипалка&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Тези разновидности с <code>All</code> (всички), ги има и за
+другите методи, които видяхме по-горе.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;всички:&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindAllStringSubmatchIndex</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;прасковa с дупка и щипалка&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Ако подадем на тези методи положително цяло число
+след низа, ограничаваме броя на търсените подобия.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="p">.</span><span class="nf">FindAllString</span><span class="p">(</span><span class="s">&#34;прасковa с дупка и щипалка&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Примерите по-горе ползваха низове като податки и
+използваха методи с имена като <code>MatchString</code>
+(намеривниз). Но можем да подадем и данни от вида
+<code>[]byte</code> и да махнем <code>String</code> от името на
+извиквания метод.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">Match</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;праскова&#34;</span><span class="p">)))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Когато създавате <em>общи</em><sup class="footnote-ref" id="fnref:global"><a href="#fn:global">1</a></sup> променливи,
+съдържащи редовѝ изрази, можете да използвате
+разновидността <code>MustCompile</code> вместо <code>Compile</code>.
+<code>MustCompile</code> хвърля в ужас програмата вместо да
+хвърли грешка, което я прави по-сигурна за употреба
+с общи променливи. Програмата ще „гръмне” в началото
+на изпълнението, а не по средата, а вие да се
+чудите какво не е наред.</p>
+
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:global">global – общи, общодостъпни, достъпни, видими отвсякъде, глобални променливи</li>
+</ol>
+
+</div>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nf">MustCompile</span><span class="p">(</span><span class="s">&#34;п([а-я]+)а&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;израз:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Пакетът <code>regexp</code> може да се използва за заместване
+на подмножества от даден низ с други стойности.</p>
+
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">ReplaceAllString</span><span class="p">(</span><span class="s">&#34;една праскова&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;слива&#34;</span><span class="p">))</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>Разновидността, съдържаща <code>Func</code> в името на метода
+ви позволява да промените намерения откъс с
+произведението на подадена от вас функция.</p>
+
+          </div>
+          <div class="col-6 code">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">in</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;една праскова&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nf">ReplaceAllFunc</span><span class="p">(</span><span class="nx">in</span><span class="p">,</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">ToUpper</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">out</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+        <div class="row">
+        
+            <div class="col-6">
+            
+          </div>
+          <div class="col-6 code leading">
+            
+          <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run regular-expressions.go
+</span></span><span class="line"><span class="cl"><span class="go">true
+</span></span></span><span class="line"><span class="cl"><span class="go">true
+</span></span></span><span class="line"><span class="cl"><span class="go">съвп.: пра
+</span></span></span><span class="line"><span class="cl"><span class="go">показалци: [0 6]
+</span></span></span><span class="line"><span class="cl"><span class="go">[пра р]
+</span></span></span><span class="line"><span class="cl"><span class="go">[0 6 2 4]
+</span></span></span><span class="line"><span class="cl"><span class="go">[пра пка палка]
+</span></span></span><span class="line"><span class="cl"><span class="go">всички: [[0 6 2 4] [23 29 25 27] [37 47 39 45]]
+</span></span></span><span class="line"><span class="cl"><span class="go">[пра пка]
+</span></span></span><span class="line"><span class="cl"><span class="go">true
+</span></span></span><span class="line"><span class="cl"><span class="go">израз: п([а-я]+)а
+</span></span></span><span class="line"><span class="cl"><span class="go">една слива
+</span></span></span><span class="line"><span class="cl"><span class="go">една ПРАСКОВА</span></span></span></code></pre>
+          </div>
+        
+            <div class="col-6">
+            <p>За да видите пълния справочник на редовѝте изрази,
+погледнете документацията за пакета
+<a href="https://pkg.go.dev/regexp"><code>regexp</code></a>.</p>
+
+          </div>
+          <div class="col-6 code empty">
+            
+          
+          </div>
+        
+          </div><!-- end class="row" -->
+      
+      
+      <p class="next">
+        Следващ пример: <a href="json.html" rel="next">JSON</a>.
+      </p>
+      
+
+    <p class="footer">
+      от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
+    </p>
+    <p class="footer">
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
+            href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
+    </p>
+
+    </div>
+    <script>
+      var codeLines = [];
+      codeLines.push('');codeLines.push('package main\u000A');codeLines.push('import (\u000A    \"bytes\"\u000A    \"fmt\"\u000A    \"regexp\"\u000A)\u000A');codeLines.push('func main() {\u000A');codeLines.push('    match, _ :\u003D regexp.MatchString(\"п([а-я]+)а\", \"праскова\")\u000A    fmt.Println(match)\u000A');codeLines.push('    r, _ :\u003D regexp.Compile(\"п([а-я]+)а\")\u000A');codeLines.push('    fmt.Println(r.MatchString(\"праскова\"))\u000A');codeLines.push('    fmt.Println(`съвп.:`,\u000A        r.FindString(\"прасковa с дупка\"))\u000A');codeLines.push('    fmt.Println(\"показалци:\",\u000A        r.FindStringIndex(\"прасковa с дупка\"))\u000A');codeLines.push('    fmt.Println(r.FindStringSubmatch(\"прасковa с дупка\"))\u000A');codeLines.push('    fmt.Println(\u000A        r.FindStringSubmatchIndex(\"прасковa с дупка\"))\u000A');codeLines.push('    fmt.Println(\u000A        r.FindAllString(\"прасковa с дупка и щипалка\", -1))\u000A');codeLines.push('    fmt.Println(\"всички:\",\u000A        r.FindAllStringSubmatchIndex(\u000A            \"прасковa с дупка и щипалка\", -1))\u000A');codeLines.push('    fmt.Println(\u000A        r.FindAllString(\"прасковa с дупка и щипалка\", 2))\u000A');codeLines.push('    fmt.Println(r.Match([]byte(\"праскова\")))\u000A');codeLines.push('    r \u003D regexp.MustCompile(\"п([а-я]+)а\")\u000A    fmt.Println(\"израз:\", r)\u000A');codeLines.push('    fmt.Println(r.ReplaceAllString(\"една праскова\", \"слива\"))\u000A');codeLines.push('    in :\u003D []byte(\"една праскова\")\u000A    out :\u003D r.ReplaceAllFunc(in, bytes.ToUpper)\u000A    fmt.Println(string(out))\u000A}\u000A');codeLines.push('');codeLines.push('');
+    </script>
+    <script src="site.js" async></script>
+  </body>
+</html>
