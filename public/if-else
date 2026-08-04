@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Ако ли/Иначе (If/Else)</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -23,13 +25,12 @@
       }
   </script>
   <body>
-    <div class="example" id="if-else">
+    <div class="container" id="if-else">
       <h2><a href="./index.html">Go в примери</a>: Ако ли/Иначе (If/Else)</h2>
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Разклоняване<sup class="footnote-ref" id="fnref:branching"><a href="#fn:branching">1</a></sup> на програмата с <code>if</code> и <code>else</code>
 в Go е лесно.</p>
 
@@ -43,93 +44,79 @@
 
 </div>
 
-          </td>
-          <td class="code empty leading">
+          </div>
+          <div class="col-6 code empty leading">
             
           
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             <a href="https://go.dev/play/p/FpZviBlPe5L"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ето един прост пример.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="mi">7</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 е четно&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;7 е нечетно&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Може да имате изявление <code>if</code> без <code>else</code>.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="mi">8</span><span class="o">%</span><span class="mi">4</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;8 се дели на 4&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Логически действия като <code>&amp;&amp;</code> и <code>||</code> често се срещат
 в условия.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="mi">8</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mi">7</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;или 8, или 7 е четно&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Условията могат да бъдад предшествани от изявление.
 Всички променливи, обявени в изявлението, могат да се
 ползват в текущото и всички последващи разклонения.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">num</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w"> </span><span class="nx">num</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;е отрицателно&#34;</span><span class="p">)</span><span class="w">
@@ -139,54 +126,47 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;е многоцифрено&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Обърнете внимание, че не се нуждаете от кръгли скоби
 около условията, както е в повечето други езици за
 програмиране.</p>
 
-          </td>
-          <td class="code empty">
+          </div>
+          <div class="col-6 code empty">
             
           
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run if-else.go
 </span></span><span class="line"><span class="cl"><span class="go">7 is odd
 </span></span></span><span class="line"><span class="cl"><span class="go">8 is divisible by 4
 </span></span></span><span class="line"><span class="cl"><span class="go">either 8 or 7 are even
 </span></span></span><span class="line"><span class="cl"><span class="go">9 has 1 digit</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>В Го няма троично &ldquo;ако&rdquo; (<a href="https://en.wikipedia.org/wiki/%3F:">ternary if</a>).
 Така че трябва винаги да се ползва пълното изявление
 <code>if</code> дори за съвсем прости условия.</p>
 
-          </td>
-          <td class="code empty">
+          </div>
+          <div class="col-6 code empty">
             
           
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
       
       <p class="next">
@@ -198,7 +178,8 @@
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
     <p class="footer">
-        Превод: Красимир Беров | <a target="_blank"
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
             href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 

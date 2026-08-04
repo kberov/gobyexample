@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Грешки</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -23,13 +25,12 @@
       }
   </script>
   <body>
-    <div class="example" id="errors">
+    <div class="container" id="errors">
       <h2><a href="./index.html">Go в примери</a>: Грешки</h2>
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Обичайно<sup class="footnote-ref" id="fnref:idiomatic"><a href="#fn:idiomatic">1</a></sup> в Го грешките се съобщават изрично
 чрез връщане на отделна сойност. Това е съвсем различен
 подход в сравнение с езици като Java, Python и
@@ -60,38 +61,32 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 
 </div>
 
-          </td>
-          <td class="code empty leading">
+          </div>
+          <div class="col-6 code empty leading">
             
           
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             <a href="https://go.dev/play/p/6aVVk_puVQY"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;errors&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Обичайно<sup class="footnote-ref" id="fnref:byconv"><a href="#fn:byconv">1</a></sup> грешките са последната върната
 стойност и са от вида <code>error</code>, който е описано и
 осъществено в пакета взаимодействие.</p>
@@ -106,42 +101,36 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="nx">arg</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p><code>errors.New</code> съставя обикновена стойност от
 вида <code>error</code> с дадено съобщение за грешка.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;не мога да работя с 42&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Стойност <code>nil</code> на мястото на грешката означава, че
 няма грешка.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Предпазната грешка<sup class="footnote-ref" id="fnref:senterr"><a href="#fn:senterr">1</a></sup> представлява предварително
 обявена променлива, която се използва, за да обозначи
 грешка, случила се при определени условия.</p>
@@ -156,29 +145,25 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">ErrOutOfTea</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;няма повече чай&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">ErrPower</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;не мога да сваря вода&#34;</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">makeTea</span><span class="p">(</span><span class="nx">arg</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">ErrOutOfTea</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Можем да обгърнем<sup class="footnote-ref" id="fnref:wrap"><a href="#fn:wrap">1</a></sup> грешките в други грешки от по-високо
 равнище, за да добавим <em>смисъл</em><sup class="footnote-ref" id="fnref:context"><a href="#fn:context">2</a></sup>. Най-простият начин да го
 направим е с помощта на глагола <code>%w</code> в <code>fmt.Errorf</code>. Обгърнатите
@@ -198,34 +183,30 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;правя чай: %w&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">ErrPower</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">}</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>В Го обичайно се прави проверка направо в
 реда с условието – след <code>if</code></p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f не проработи:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="p">)</span><span class="w">
@@ -233,26 +214,22 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f проработи:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">makeTea</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p><code>errors.Is</code> проверява дали дадена грешка (или всяка грешка по веригата ѝ) съвпада с опредлена стойсност. Това е особено полезно при обгърнати или вгнездени една в друга грешки и ви позволява да разпознаете определени видове грешки или предпазни грешки по веригата.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nf">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">ErrOutOfTea</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Трябва да си купим чай!&#34;</span><span class="p">)</span><span class="w">
@@ -263,30 +240,26 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">continue</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Чаят е готов!&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run errors.go
 </span></span><span class="line"><span class="cl"><span class="go">f проработи: 10
@@ -296,10 +269,9 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
 </span></span></span><span class="line"><span class="cl"><span class="go">Трябва да си купим чай!
 </span></span></span><span class="line"><span class="cl"><span class="go">Чаят е готов!
 </span></span></span><span class="line"><span class="cl"><span class="go">Сега е тъмно.</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
       
       <p class="next">
@@ -311,7 +283,8 @@ Ruby и презареденият<sup class="footnote-ref" id="fnref:overload">
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
     <p class="footer">
-        Превод: Красимир Беров | <a target="_blank"
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
             href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 

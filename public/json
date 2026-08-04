@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: JSON</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -23,13 +25,12 @@
       }
   </script>
   <body>
-    <div class="example" id="json">
+    <div class="container" id="json">
       <h2><a href="./index.html">Go в примери</a>: JSON</h2>
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Го предлага вградена поддръжка за превръщане към и от
 JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> както за вградени така и за потребителски
 видове данни.</p>
@@ -44,28 +45,24 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 
 </div>
 
-          </td>
-          <td class="code empty leading">
+          </div>
+          <div class="col-6 code empty leading">
             
           
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             <a href="https://go.dev/play/p/UiY6pk-di33"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;encoding/json&#34;</span><span class="w">
@@ -73,170 +70,144 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;os&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;strings&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ще използваме тези две структури по-долу, за да покажем
 превръщане към и от потребителски видове.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">response1</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Страница</span><span class="w"> </span><span class="kt">int</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Fruits</span><span class="w">   </span><span class="p">[]</span><span class="kt">string</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Само изнесените полета ще бъдат превърнати от и в JSON.
 За да са <em>изнесени</em>, полетата трябва да започват с
 главна буква.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">response2</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Страница</span><span class="w"> </span><span class="kt">int</span><span class="w">      </span><span class="s">`json:&#34;страница&#34;`</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Fruits</span><span class="w">   </span><span class="p">[]</span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&#34;fruits&#34;`</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Първо ще видим как се превръщат първични видове данни в JSON низове. Ето
 някои примери с неразложими стойности (първични данни).</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">bolB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">bolB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">intB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">intB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fltB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="mf">2.34</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">fltB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">strB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="s">&#34;gopher&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">strB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>А ето и такива с отрязъци и карти, които биват превърнати в поредици и
 обекти в JSON, както се предполага.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">slcD</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;праскова&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;круша&#34;</span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">slcB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">slcD</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">slcB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">mapD</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;маруля&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">mapB</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">mapD</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">mapB</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Пакетът JSON може да превръща автоматично потребителски видове данни.
 Само изнесените полета ще бъдат включени в изхода и имената им ще бъдат
 ключове в JSON.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res1D</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">response1</span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Страница</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Fruits</span><span class="p">:</span><span class="w">   </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;ябълка&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;праскова&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;круша&#34;</span><span class="p">}}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res1B</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res1D</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res1B</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Можете да отбелязвате с какво име да бъдат превръщани полетата, като
 използвате бележки, познати като тагове (tags). Вижте обявлението на
 структурата <code>response2</code> горе. Там са използвани тагове.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res2D</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">response2</span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Страница</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Fruits</span><span class="p">:</span><span class="w">   </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;peach&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;pear&#34;</span><span class="p">}}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res2B</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">res2D</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">res2B</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Сега да видим как се превръщат данни от JSON в Го. Ето пример с
 призволна структура в JSON.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">byt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&#34;num&#34;:6.13,&#34;strs&#34;:[&#34;a&#34;,&#34;b&#34;]}`</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Трябва да предоставим променлива, в която да запишем
 <em>разбраните</em><sup class="footnote-ref" id="fnref:parsed"><a href="#fn:parsed">1</a></sup> данни. Тази карта от вида <code>map[string]any</code> ще бъде
 карта с ключове низове и стойности в произволен вид.</p>
@@ -251,32 +222,28 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">dat</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">any</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ето превръщането в действие. При превръщането проверяваме за грешки. За
 краткост пренебрегваме грешките, но знайте, че някои действия може да не
 успеят. В истински програми винаги трябва да проверявате за грешки и да
 действате в съответствие с тях.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">byt</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">dat</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">dat</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>За да използваме данните, трябва да ги превръщаме (всяко поотделно) в
 подходящ вид. Например тук превръщаме стойността, прикрепена към <code>num</code> в
 очаквания вид <code>float64</code><sup class="footnote-ref" id="fnref:assertion"><a href="#fn:assertion">1</a></sup>.</p>
@@ -291,47 +258,41 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">num</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dat</span><span class="p">[</span><span class="s">&#34;num&#34;</span><span class="p">].(</span><span class="kt">float64</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>За да достъпим вгнездени данни, трябва да правим ново потвърждение на
 всяко ниво.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">strs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dat</span><span class="p">[</span><span class="s">&#34;strs&#34;</span><span class="p">].([]</span><span class="kt">any</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">str1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strs</span><span class="p">[</span><span class="mi">0</span><span class="p">].(</span><span class="kt">string</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str1</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Можем също да превръщаме JSON в потребителски видове данни. Така
 добавяме сигурност за вида данни, който очакваме и няма нужда да
 потвърждаваме вида им при достъп до тях.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`{&#34;страница&#34;: 1, &#34;fruits&#34;: [&#34;ябълка&#34;, &#34;peach&#34;]}`</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">response2</span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">res</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">Fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>В примерите горе винаги използвахме байтове и низове, като посредници за
 данните между JSON и стандартния изход. Можем също да точим данните в
 двете посоки към и от всеки обект осъществяващ <code>os.Writer</code>, например
@@ -347,40 +308,36 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 
 </div>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">enc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">NewEncoder</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;apple&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;lettuce&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">enc</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Четене на поток от данни (точене) чрез взаимодействия <code>os.Reader</code> като <code>os.Stdin</code>
 или от тялото на отговори в HTTP, се прави с <code>json.Decoder</code>.</p>
 
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nf">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">res1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">response2</span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">res1</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">res1</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run json.go
 </span></span><span class="line"><span class="cl"><span class="go">true
@@ -398,25 +355,22 @@ JSON<sup class="footnote-ref" id="fnref:json"><a href="#fn:json">1</a></sup> к�
 </span></span></span><span class="line"><span class="cl"><span class="go">ябълка
 </span></span></span><span class="line"><span class="cl"><span class="go">{&#34;apple&#34;:5,&#34;lettuce&#34;:7}
 </span></span></span><span class="line"><span class="cl"><span class="go">{1 [ябълка peach]}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Тук разгледахме само основните положения при работа с
 JSON в Го, но прочетете статията <a href="https://go.dev/blog/json">JSON and
 Go</a> и докумнетацията на пакета
 <a href="https://pkg.go.dev/encoding/json">JSON</a>, за да узнаете
 повече.</p>
 
-          </td>
-          <td class="code empty">
+          </div>
+          <div class="col-6 code empty">
             
           
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
       
       <p class="next">
@@ -428,7 +382,8 @@ Go</a> и докумнетацията на пакета
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
     <p class="footer">
-        Превод: Красимир Беров | <a target="_blank"
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
             href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 

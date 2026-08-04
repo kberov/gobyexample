@@ -400,6 +400,7 @@ body sup {
 :root {
     /* We can override here some varibles from chota or add our owns. */
     /* --bg-secondary-color: var(--bg-color); */
+    --grid-maxWidth: 80rem;
 }
 .col,
 [class*=" col-"],

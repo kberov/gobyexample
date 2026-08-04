@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Низове и Руни</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -23,13 +25,12 @@
       }
   </script>
   <body>
-    <div class="example" id="strings-and-runes">
+    <div class="container" id="strings-and-runes">
       <h2><a href="./index.html">Go в примери</a>: Низове и Руни</h2>
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Низът в Go е непроменяем отрязък от байтове. Езикът и
 стандартната му библиотека работят с низовете
 по-особено – сякаш съдържат текст кодиран в
@@ -54,92 +55,78 @@ UTF-8<sup class="footnote-ref" id="fnref:UTF8"><a href="#fn:UTF8">1</a></sup>. �
 
 </div>
 
-          </td>
-          <td class="code empty leading">
+          </div>
+          <div class="col-6 code empty leading">
             
           
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             <a href="https://go.dev/play/p/Pm_l0jxx0z8"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;unicode/utf8&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p><code>s</code> е <code>string</code>, на който е присвоена буквална
 стойност, съдържаща думата „здравей“ на тайски.
 Буквалните низови стойности в Go са кодиран в
 UTF-8 текст. Това означава, че и изходният
 програмен код в Го е такъв текст.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;สวัสดี&#34;</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Тъй като низовете са в същността си <code>[]byte</code> –
 отрязък от байтове, следното изявление ще изведе
 броя на суровите байтове в низа.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;дължина в байтове:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ако обходим низа байт по байт по следния начин,
 можем да видим шестнадесетичните стойности на
 байтовете, от който е съставен низът <code>s</code>.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%x &#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">()</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>За да преброим колко <em>руни</em> (знакове) има в низа,
 можем да ползваме пакета <code>utf8</code>. Забележете, че
 времето за изпълнение на <code>RuneCountInString</code> зависи
@@ -151,73 +138,63 @@ UTF-8 текст. Това означава, че и изходният
 последователности. Така че изходът от следното
 преброяване може да ви изненада.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Брой знаци:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">utf8</span><span class="p">.</span><span class="nf">RuneCountInString</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p><code>range</code> обхожда низовете по особен начин – като
 разкодира всеки знак заедно с отстоянието му в низа
 – мястото на байта, от който започва знака.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">idx</span><span class="p">,</span><span class="w"> </span><span class="nx">runeValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%#U започва от %d\n&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">runeValue</span><span class="p">,</span><span class="w"> </span><span class="nx">idx</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Можем да постигнем същото, като използваме функцията <code>utf8.DecodeRuneInString</code> изрично.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;\nИзползваме DecodeRuneInString&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">runeValue</span><span class="p">,</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">utf8</span><span class="p">.</span><span class="nf">DecodeRuneInString</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">:])</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%#U започва от %d\n&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">runeValue</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">w</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">width</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Тук показваме подаването на стойност от вид
 <code>rune</code> на функция.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">        </span><span class="nf">examineRune</span><span class="p">(</span><span class="nx">runeValue</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">examineRune</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="kt">rune</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Оградените в единични кавички стойности са <em>буквална стойност на руна</em>. Можем да сравним стойност от вида руна с буквална таква стойност направо.</p>
 
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;t&#39;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;намерих U+0074 LATIN SMALL LETTER T&#34;</span><span class="p">)</span><span class="w">
@@ -225,18 +202,16 @@ UTF-8 текст. Това означава, че и изходният
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;намерих U+0E2A THAI CHARACTER SO SUA&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run strings-and-runes.go
 </span></span><span class="line"><span class="cl"><span class="go">дължина в байтове: 18
@@ -248,14 +223,12 @@ UTF-8 текст. Това означава, че и изходният
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E2A &#39;ส&#39; започва от 9
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E14 &#39;ด&#39; започва от 12
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E35 &#39;ี&#39; започва от 15</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="go">Използваме DecodeRuneInString
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E2A &#39;ส&#39; започва от 0
@@ -266,10 +239,9 @@ UTF-8 текст. Това означава, че и изходният
 </span></span></span><span class="line"><span class="cl"><span class="go">намерих U+0E2A THAI CHARACTER SO SUA
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E14 &#39;ด&#39; започва от 12
 </span></span></span><span class="line"><span class="cl"><span class="go">U+0E35 &#39;ี&#39; започва от 15</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
       
       <p class="next">
@@ -281,7 +253,8 @@ UTF-8 текст. Това означава, че и изходният
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
     <p class="footer">
-        Превод: Красимир Беров | <a target="_blank"
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
             href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 

@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Неделими броячи</title>
+    <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
   </head>
   <script>
@@ -23,13 +25,12 @@
       }
   </script>
   <body>
-    <div class="example" id="atomic-counters">
+    <div class="container" id="atomic-counters">
       <h2><a href="./index.html">Go в примери</a>: Неделими броячи</h2>
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Главният начин за управление на състояние на данни в Го
 е чрез предаване на данни по канали. Видяхме как става
 това като разгледахме <a href="worker-pools">работилниците</a>.
@@ -49,130 +50,110 @@
 
 </div>
 
-          </td>
-          <td class="code empty leading">
+          </div>
+          <div class="col-6 code empty leading">
             
           
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             <a href="https://go.dev/play/p/JbfZfHx9bl3"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;sync&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;sync/atomic&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ще използваме променлива стойност от вид неделимо
 цяло положително число, за нашия (винаги
 положителен) брояч.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">действия</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nx">Uint64</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ще си направим чакалня с <code>WaitGroup</code>, за да
 изчакаме всички задачи да приключат.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Ще пуснем 50 гозадачи, всяка от които ще увеличи стойността на брояча точно 1000 пъти.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nf">Go</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="p">{</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>За да увеличим стойността на брояча
 чрез неделимо действие, ползваме метода
 <code>Add</code>.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">                </span><span class="nx">действия</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">})</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Чакаме всички гозадачки да приключат.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Тук вече никоя гозадаче не пише в <code>действия</code>, но благодарения на метода <code>Load</code> знаем, че действието зареждане (load) е неделимо, дори ако други задачи обновяваха стойността в <code>действия</code>.</p>
 
-          </td>
-          <td class="code">
+          </div>
+          <div class="col-6 code">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;действия:&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">действия</span><span class="p">.</span><span class="nf">Load</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
-      <table>
+        <div class="row">
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>Очакваме програмата ни да изведе на екрана точно 50000 –
 броят извършени действия – увеличаване с единица. Ако
 бяхме използвали обикновено – не неделимо число, щяхме
@@ -183,27 +164,24 @@
 и предупреждения за „съревнование“ (race), ако пуснехме
 програмата с флаг <code>-race</code>.</p>
 
-          </td>
-          <td class="code leading">
+          </div>
+          <div class="col-6 code leading">
             
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="gp">$</span> go run atomic-counters.go
 </span></span><span class="line"><span class="cl"><span class="go">действия: 50000</span></span></span></code></pre>
-          </td>
-        </tr>
+          </div>
         
-        <tr>
-          <td class="docs">
+            <div class="col-6">
             <p>В следващия пример ще разгледаме <em>взаимното изключване</em>
 – друг способ за управление на състояние.</p>
 
-          </td>
-          <td class="code empty">
+          </div>
+          <div class="col-6 code empty">
             
           
-          </td>
-        </tr>
+          </div>
         
-      </table>
+          </div><!-- end class="row" -->
       
       
       <p class="next">
@@ -215,7 +193,8 @@
       от <a href="https://markmcgranaghan.com">Марк Макгранахан</a> и <a href="https://eli.thegreenplace.net">Ели Бендерски</a> | <a href="https://github.com/mmcgrana/gobyexample">изходен код</a> | <a href="https://github.com/mmcgrana/gobyexample#license">разрешително</a>
     </p>
     <p class="footer">
-        Превод: Красимир Беров | <a target="_blank"
+        Превод: <a target="_blank"
+            href="https://слово.бг/кънигꙑ/го-в-примери.bg.html">Красимир Беров</a> | <a target="_blank"
             href="https://github.com/kberov/gobyexample/tree/bg">изходен код на превода</a>
     </p>
 
