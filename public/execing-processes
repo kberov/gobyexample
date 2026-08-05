@@ -58,7 +58,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/bfRxTHMyFgz"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/U3b6zu7DCZ3"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -97,9 +97,9 @@
           </div>
         
             <div class="col-6">
-            <p><code>Exec</code> изисква податките да са във вид на отрязък (а не един голям низ).
+            <p><code>Exec</code> изисква податките да са във вид на резен (а не един голям низ).
 Ще подадем на <code>ls</code> някои обичайни. Забележете че първият член на
-отрязъка е името на програмата.</p>
+резена е името на програмата.</p>
 
           </div>
           <div class="col-6 code leading">

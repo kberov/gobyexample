@@ -48,7 +48,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/Q--zYTBfZOf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/2Z2XA_LVF9J"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -89,7 +89,7 @@
             <div class="col-6">
             <p>Сега можем да извикаме <code>slices.SortFunc</code> с нашата
 потребителска функция за сравнение, за да подредим
-отрязъка <code>плодове</code> по дължина на името.</p>
+резена <code>плодове</code> по дължина на името.</p>
 
           </div>
           <div class="col-6 code leading">
@@ -128,7 +128,7 @@
 <code>slices.SortFunc</code>.</p>
 
 <p>Забележка: ако структурата <code>Личност</code> е голяма може
-би ще предпочетете отрязъка да съдържа <code>*Личност</code>и
+би ще предпочетете резена да съдържа <code>*Личност</code>и
 и да преправите подреждащата си функция. Ако се
 колебаете, прочетете
 <a href="testing-and-benchmarking">benchmark</a>!</p>

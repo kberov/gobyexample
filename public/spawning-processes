@@ -53,7 +53,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/rfuQhOyGFFl"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/P8n9p_1h1Lm"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -91,7 +91,7 @@
         
             <div class="col-6">
             <p>Методът <code>Output</code> изпълнява командата, чака я да приключи и събира нейния
-стандартени изход. Ако няма грешки, <code>dateOut</code> ще съдържа отрязък от
+стандартени изход. Ако няма грешки, <code>dateOut</code> ще съдържа резен от
 байтове – изходът на <code>date</code>.</p>
 
           </div>

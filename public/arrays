@@ -34,8 +34,8 @@
             <p>В Go, <em>поредица</em><sup class="footnote-ref" id="fnref:array"><a href="#fn:array">1</a></sup> се нарича подредена
 последователност от членове<sup class="footnote-ref" id="fnref:elements"><a href="#fn:elements">2</a></sup> с определена
 дължина. Обикновено в програмен код на Go
-<a href="slices">отрязъците</a><sup class="footnote-ref" id="fnref:slices"><a href="#fn:slices">3</a></sup> се срещат много по-често;
-поредиците са полезни в няои определени случаи, когато
+<a href="slices">резените</a><sup class="footnote-ref" id="fnref:slices"><a href="#fn:slices">3</a></sup> се срещат много по-често;
+поредиците са полезни в някои определени случаи, когато
 предварително (още по време на компилиране) знаем
 дължината им.</p>
 
@@ -48,7 +48,7 @@
 
 <li id="fn:elements">elements – елементи, членове</li>
 
-<li id="fn:slices">slice – отрязък (от поредица): поредица с променлива по време на изпълнение дължина</li>
+<li id="fn:slices">slice – резен (от поредица): поредица с променлива по време на изпълнение дължина</li>
 </ol>
 
 </div>
@@ -63,7 +63,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/H54nVjRt_qb"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/nhPt3OjaCVf"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         

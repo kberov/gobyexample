@@ -57,7 +57,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/7UnehNEH0J_U"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/i19H-kN5s9z"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -95,10 +95,10 @@
           </div>
         
             <div class="col-6">
-            <p>Функцията <code>os.Environ</code> връща отрязък от низове, предствляващи двойки
+            <p>Функцията <code>os.Environ</code> връща резен от низове, предствляващи двойки
 <code>КЛЮЧ=стойност</code>. Можете да ползвате <code>strings.SplitN</code> за да ги разделите.
 Тук извеждаме списък с всички ключове (имена) на променливи от текущото
-обкръжение – средата, в която се изпълнява нашата програма.</p>
+<code>Exec</code> изисква податките да са във вид на резен (а не един голям низ).</p>
 
           </div>
           <div class="col-6 code">

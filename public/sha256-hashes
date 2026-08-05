@@ -59,7 +59,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/lBen9x5J5i7"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/TZWbCxgIt2h"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -96,7 +96,7 @@
             <div class="col-6">
             <p>Методът <code>Write</code> очаква да му бъдат подадени данни от вида []byte. Ако
 имате низ <code>s</code>, използвайте израза <code>[]byte(s)</code>, за да сведете низа до
-отрязък от байтове.</p>
+резен от байтове.</p>
 
           </div>
           <div class="col-6 code leading">
@@ -105,8 +105,8 @@
           </div>
         
             <div class="col-6">
-            <p>Това действие ни връща завършения хеш като отрязък от байтове.
-Подаденият на <code>Sum</code> допълнителен отрязък от байтове може да се постави
+            <p>Това действие ни връща завършения хеш като резен от байтове.
+Подаденият на <code>Sum</code> допълнителен резен от байтове може да се постави
 пред вече съществуващия хеш, но това обикновено не е нужно.
 ТОДО: да намреря къде и за какво може да се ползва тази представка.</p>
 

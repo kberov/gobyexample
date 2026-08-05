@@ -35,7 +35,7 @@
 
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/zK_pb4XfAeT"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/yZf2zMayFAm"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         
@@ -120,7 +120,7 @@
           </div>
         
             <div class="col-6">
-            <p>Записваме нашите разработчици да отговарят при заявки към различни
+            <p>Записваме нашите обработчици да отговарят при заявки към различни
 пътища с помощта на функцията <code>http.HandleFunc</code>. Тя настройва
 управлението на пътищата в пакета <code>net/http</code>. Приема като податки пътя и
 съответната му функция обработчик.</p>
