@@ -1,4 +1,4 @@
-Здравей Свят|Hello World
+Здравей, свѣте!|Hello World
 Стойности|Values
 Променливи|Variables
 Непроменливи|Constants

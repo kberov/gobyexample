@@ -420,7 +420,7 @@ p, pre.chroma{
     margin-top: 0.5rem;
 }
 
-.row, .footnotes {
+.row, .footnotes, .container {
     margin-bottom: calc(var(--grid-gutter)/2);
 }
 
@@ -430,4 +430,8 @@ p, pre.chroma{
 
 .footnotes ol>li {
     list-style: number;
+}
+
+a, a:visited {
+    text-decoration: underline;
 }
