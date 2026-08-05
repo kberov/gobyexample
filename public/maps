@@ -31,7 +31,7 @@
         <div class="row">
         
             <div class="col-6">
-            <p><em>Картите</em> са вградения в Go вид за съединени съответствия<sup class="footnote-ref" id="fnref:maps"><a href="#fn:maps">1</a></sup> – <code>&quot;име&quot;:
+            <p><em>Картите</em> са вградения в Go вид за съединени множества от съответствия<sup class="footnote-ref" id="fnref:maps"><a href="#fn:maps">1</a></sup> – <code>&quot;име&quot;:
 &quot;стойност&quot;</code>, понякога наричани <em>хешове</em> или <em>речници</em> в други езици.</p>
 
 <div class="footnotes">
@@ -54,7 +54,7 @@
             
           </div>
           <div class="col-6 code leading">
-            <a href="https://go.dev/play/p/VobWBSIG2j6"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
+            <a href="https://go.dev/play/p/H7M-0Rrm0xs"><img title="Run code" src="play.png" class="run" /></a><img title="Copy code" src="clipboard.png" class="copy" />
           <pre class="chroma"><code><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span></span></span></code></pre>
           </div>
         

@@ -6,7 +6,7 @@
 Ако ли/Иначе (If/Else)|If/Else
 Превключване (Switch)|Switch
 Поредици|Arrays
-Отрязъци|Slices
+Резени|Slices
 Карти|Maps
 Функции|Functions
 Връщане на повече стойности|Multiple Return Values
