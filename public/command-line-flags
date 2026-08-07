@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Флагове на командния ред</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Флагове на командния ред, command-line-flags, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="Флаговете на командния ред са обичаен начин за указване на възможности за избор (на податки със и без стойности) за изпълнение на програми." />
   </head>
   <script>
       window.onkeydown = (e) => {

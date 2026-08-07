@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Отлагане</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Отлагане, defer, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="Изявлението _defer_ (отлагане (на изпълнение))[^defer] се използва за осигуряване извикването на някоя функция..." />
   </head>
   <script>
       window.onkeydown = (e) => {

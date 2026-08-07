@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Неделими броячи</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Неделими броячи, atomic-counters, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="Главният начин за управление на състояние на данни в Го е чрез предаване на данни по канали." />
   </head>
   <script>
       window.onkeydown = (e) => {

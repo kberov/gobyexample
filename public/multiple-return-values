@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Връщане на повече стойности</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Връщане на повече стойности, multiple-return-values, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="Go има вградена поддръжка за _връщане на множество стойности_ от функция." />
   </head>
   <script>
       window.onkeydown = (e) => {

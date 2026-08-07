@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Редовѝ филтри</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Редовѝ филтри, line-filters, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="_Редовѝ филтър_ е често срещан вид програма, която чете данни от стандартния вход, обработва го и после извежда произведеното на..." />
   </head>
   <script>
       window.onkeydown = (e) => {

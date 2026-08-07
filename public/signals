@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Сигнали</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Сигнали, signals, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="В някои случаи ни е нужно нашите програми да обработват сигнали в [юникс-подобни](https://en." />
   </head>
   <script>
       window.onkeydown = (e) => {

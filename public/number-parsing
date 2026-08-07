@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Разбор на числа</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Разбор на числа, number-parsing, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="_Извличането на числа_[^parse] от низ е проста, но честа задача в програмирането." />
   </head>
   <script>
       window.onkeydown = (e) => {

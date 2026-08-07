@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="bg">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go в примери: Ограничителни ставки</title>
     <link rel=stylesheet href="chota.v0.9.2.min.css">
     <link rel=stylesheet href="site.css">
+     <meta name="keywords"
+     content="Ограничителни ставки, rate-limiting, Български, програмиране, Го, Go, golang, programming, Bulgarian" />
+
+     <meta name="description" content="[_Ограничаването на скоростта на обработка на входящите данни_](https://en." />
   </head>
   <script>
       window.onkeydown = (e) => {
